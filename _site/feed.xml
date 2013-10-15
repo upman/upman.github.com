@@ -1,24 +1,90 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
-    <description>Blog of Ravi Kumar.</description>
-    <link></link>
-    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    <title>Ravi Kumar</title>
+    <description>Blog of Ravi Kumar</description>
+    <link>http://upman.github.com</link>
+    <atom:link href="http://upman.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Blog Like A Hacker</title>
-      <description>&lt;p&gt;layout:post
-comments:true
-description: Why Jekyll?
-image:
-   feature:
-—&lt;/p&gt;
+      <title>Blogging Like A Hacker</title>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;What’s a Jekyll powered blog without a ‘Blogging like a hacker’ post?
+It’s almost like a ritual. Every Jekyll powered blog in one way or
+another, is inspired from &lt;a href=&quot;http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html&quot;&gt;this post&lt;/a&gt;
+by &lt;a href=&quot;http://en.wikipedia.org/wiki/Tom_Preston-Werner&quot;&gt;Tom Preston-Werner&lt;/a&gt;(Co-founder of Github).
+So why did &lt;em&gt;I&lt;/em&gt; choose &lt;a href=&quot;&quot;&gt;Jekyll&lt;/a&gt; and &lt;a href=&quot;&quot;&gt;Github-Pages&lt;/a&gt; for my blog?&lt;/p&gt;
+
+&lt;p&gt;I warmed up to the Idea of &lt;a href=&quot;http://en.wikipedia.org/wiki/Free_and_open-source_software&quot;&gt;FOSS&lt;/a&gt;
+and developed a liking for the open-source world a few months ago
+after I got a Linux installation going on my computer.
+(Why exactly did I get onto linux? I dunno, it seemed interesting)
+I liked the fact that I could (not that I did) now
+tweak anything and everything to my tastes. I started trying out lots of
+open-source tools and languages for my recreational coding and I fell in love with a few.
+While all this was happening, It looked like I might be doing a few projects
+and I thought it would be a good idea to document my learning curve and also share stuff as I move
+forward.&lt;/p&gt;
+
+&lt;p&gt;So I started looking for options. I had registered on blogspot a few years ago,
+but never really knew what I wanted to
+post, so it died out after a few mindless posts. So I had an idea of the
+environment there and wasn’t sure if that’s
+how I wanted to blog. Then there was the option of self-hosted Wordpress.
+This was surely my territory as I had made
+a &lt;a href=&quot;http://www.sjpu.com&quot;&gt;site&lt;/a&gt; for my school with a friend and was familiar with it.
+But the backups, the pesky update reminders, managing plugins and most of all, editing your posts in the
+browser based rich-text editor were a pain on Wordpress. For something as simple
+as a personal blog, Wordpress didn’t seem like the right choice
+and Wordpress.com was pretty much the same, minus the hosting head-aches.
+I considered tumblr and ended up with this.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Blogspot = Tumblr = Wordpress.com = Self-hosted Wordpress - hosting hassles&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;None of them seemed to suit my needs.
+Then, I came across Jekyll, ‘a blog-aware, static site generator
+written in Ruby’. It could take a bunch of &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;
+files (basically text, with a few markups) with
+&lt;a href=&quot;http://www.yaml.org/&quot;&gt;YAML&lt;/a&gt; headers,
+CSS, a little &lt;a href=&quot;http://liquidmarkup.org/&quot;&gt;liquid&lt;/a&gt;  here and there,
+and spit out a static site into a directory you specified (the default
+being the &lt;em&gt;_site&lt;/em&gt; directory) and you can host it on any
+damn web-server. Most people host Jekyll sites  on Github-Pages or
+Amazon S3. But I was already using Github and Github runs Jekyll on it’s Github-Pages, so I
+could just upload the files I would give to Jekyll and the site would
+be generated automatically. So that seemed like the only logical
+choice for me. I could now write up posts in plain text and spell-check it within
+emacs,  version control the posts and the site with Git, push it to
+Github and my post would be published!  In other words, Christmas!
+All I had to do now was write a bunch of CSS and come up
+with a basic html structure for the site. It seemed like a little too much
+of effort for me, so I flicked the
+&lt;a href=&quot;https://github.com/ColeTownsend/Balzac-for-Jekyll&quot;&gt;Balzac&lt;/a&gt; theme,
+tweaked it a bit, a little tippy-tappy and here’s my blog.&lt;/p&gt;
+
+&lt;p&gt;I won’t be writing about the specifics of how Jekyll works and how you can make your own Jekyll powered blog.
+It’s been written about just too many times. &lt;a href=&quot;http://erjjones.github.io/blog/How-I-built-my-blog-in-one-day/&quot;&gt;Here&lt;/a&gt;,
+&lt;a href=&quot;http://matthodan.com/2012/10/27/how-to-create-a-blog-with-jekyll.html‎&quot;&gt;here&lt;/a&gt;,
+&lt;a href=&quot;http://www.andrewmunsell.com/tutorials/jekyll-by-example/index.html&quot;&gt;here&lt;/a&gt;
+and a bunch of other places. But I would recommend reading the
+official  &lt;a href=&quot;http://jekyllrb.com/docs/home/&quot;&gt;Jekyll documentation&lt;/a&gt; to get a feel
+of what actually the deal is with Jekyll. If you decide on pulling a framework rather than building
+your own structure like me, take a look at
+&lt;a href=&quot;http://octopress.org&quot;&gt;Octopress&lt;/a&gt;,  &lt;a href=&quot;http://jekyllbootstrap.com/&quot;&gt;Jekyllbootstrap&lt;/a&gt; and the
+&lt;a href=&quot;http://getbootstrap.com/‎&quot;&gt;Twitter bootstrap&lt;/a&gt;. They give you a whole
+load of features and add more power to your site. But If you’re
+looking for something simpler, you can use any of the themes listed
+&lt;a href=&quot;http://jekyllthemes.org/themes/balzac&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Also take a look at &lt;a href=&quot;http://ruhoh.com/‎&quot;&gt;Ruhoh&lt;/a&gt; before you decide on anything.
+You can contact me or leave a comment if you want any help with setting up any of this stuff and I’d
+be happy to help.&lt;/p&gt;
 
 </description>
       <pubDate>Tue, 15 Oct 2013 00:00:00 +0000</pubDate>
-      <link>/Blog-like-a-hacker</link>
-      <guid isPermaLink="true">/Blog-like-a-hacker</guid>
+      <link>http://upman.github.com/Blogging-like-a-hacker</link>
+      <guid isPermaLink="true">http://upman.github.com/Blogging-like-a-hacker</guid>
     </item>
     
     <item>
@@ -113,7 +179,7 @@ With the help of an &lt;a href=&quot;http://www.asciichart.com/&quot;&gt;ASCII t
 &lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;        	|100 108 119 32 &lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
-&lt;p&gt;Okay, so you just learned the whole of the language!
+&lt;p&gt;Okay, so that about wraps up the whole language.
 How often does that happen? Somebody tricking you into learning a programming language?
 So why is it so interesting? Well, the language is &lt;a href=&quot;http://en.wikipedia.org/wiki/Turing-complete&quot;&gt;turing complete&lt;/a&gt; which means that any
 computation that can be simulated on a &lt;a href=&quot;http://en.wikipedia.org/wiki/Turing_machine&quot;&gt;turing machine&lt;/a&gt;, (which is almost every algorithm) can be
@@ -124,8 +190,8 @@ as an article of amusement for programmers. It’s &lt;a href=&quot;http://code.
 
 </description>
       <pubDate>Sun, 13 Oct 2013 00:00:00 +0000</pubDate>
-      <link>/Hello-World</link>
-      <guid isPermaLink="true">/Hello-World</guid>
+      <link>http://upman.github.com/Hello-World</link>
+      <guid isPermaLink="true">http://upman.github.com/Hello-World</guid>
     </item>
     
   </channel>
