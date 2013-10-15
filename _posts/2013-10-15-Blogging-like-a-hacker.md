@@ -82,6 +82,7 @@ looking for something simpler, you can use any of the themes listed
 [here.](http://jekyllthemes.org/themes/balzac)
 
 Also take a look at [Ruhoh](http://ruhoh.com/‎) before you decide on anything.
+The source to this blog can be found in this Github [repository.](http://github.com/upman/upman.github.com/)
 You can contact me or leave a comment if you want any help with setting up any of this stuff and I'd
 be happy to help.
 
