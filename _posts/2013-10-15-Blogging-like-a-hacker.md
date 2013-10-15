@@ -55,10 +55,10 @@ and spit out a static site into a directory you specified (the default
 being the *_site* directory) and you can host it on any
 damn web-server. Most people host Jekyll sites  on Github-Pages or
 Amazon S3. But I was already using Github and Github runs Jekyll on it's Github-Pages, so I
-could just upload the files I would give to Jekyll and the site would
+could just upload the the Jekyll files and the site would
 be generated automatically. So that seemed like the only logical
-choice for me. I could now write up posts in plain text and spell-check it within
-emacs,  version control the posts and the site with Git, push it to
+choice for me. I could now use emacs to write up posts in plain text and spell-check, use Git to version control
+the posts and the site, push it to
 Github and my post would be published!  In other words, Christmas!
 All I had to do now was write a bunch of CSS and come up
 with a basic html structure for the site. It seemed like a little too much
