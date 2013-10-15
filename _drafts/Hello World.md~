@@ -1,0 +1,10 @@
+---
+---
+
+{% highlight ruby %}
+<figure>
+print 'Hello World!'
+</figure>
+
+{% endhighlight %}
+

@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title></title>
+    <description>Blog of Ravi Kumar.</description>
+    <link></link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Blog Like A Hacker</title>
+      <description>&lt;p&gt;layout:post
+comments:true
+description: Why Jekyll?
+image:
+   feature:
+—&lt;/p&gt;
+
+</description>
+      <pubDate>Tue, 15 Oct 2013 00:00:00 +0000</pubDate>
+      <link>/Blog-like-a-hacker</link>
+      <guid isPermaLink="true">/Blog-like-a-hacker</guid>
+    </item>
+    
+    <item>
+      <title>Hello World</title>
+      <description>&lt;p&gt;A personal ‘tech/whatever I want to post’ blog has been on my mind for quite a while now.
+A Place where I can share my random adventures with code, the web and anything interesting
+under the sun and hopefully learn more from random strangers who might stumble upon my posts. Checkout the &lt;a href=&quot;/about&quot;&gt;about&lt;/a&gt; page for more about me and the blog.&lt;/p&gt;
+
+&lt;p&gt;So let me start off with a ‘Hello world’ as is customary, you know, to please the programming gods.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;brainfuck&quot;&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;c&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt; &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;  &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;  &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;    &lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;     &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;------&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;No, I’m not a troll. It’s a proper program written in ‘brainfuck’. I happened to stumble upon this
+extremely minimalistic language a few days ago. I have to say it has a befitting name. So let’s look at how exactly the program works (I’ll try not to get into too much detail)&lt;/p&gt;
+
+&lt;p&gt;The basic Idea is, a character array of however long(Interpreter specific) is allocated and a pointer points to the first character at the start of execution of any brainfuck program.
+Then, there are 8 operators in brainfuck.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Operator&lt;/th&gt;
+      &lt;th style=&quot;text-align: left&quot;&gt;Description&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;+&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Increment the value &lt;strong&gt;at&lt;/strong&gt; the pointer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;-&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Decrement the value &lt;strong&gt;at&lt;/strong&gt; the pointer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;&amp;lt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Decrement pointer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;&amp;gt;&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Increment pointer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;.&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Display the character at pointer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;,&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Read a value and store it as the value at the pointer&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;[&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;Start loop. Control enters into the segment that follows only if the value at pointer is non-zero. (Aha! if statement.)&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;]&lt;/strong&gt;&lt;/td&gt;
+      &lt;td style=&quot;text-align: left&quot;&gt;End loop. Control goes back to the corresponding ‘[’ only if the value at the pointer is non-zero.&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Now it’s hopefully clear how it works.
+With the help of an &lt;a href=&quot;http://www.asciichart.com/&quot;&gt;ASCII table&lt;/a&gt; of course.&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;brainfuck&quot;&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   	       &lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;	|A table of the ASCII values &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;+++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;	|in the array&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;++++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   |(at every line)&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;c&quot;&gt;		|100 110 120 30&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt; 	   	|104 110 120 30 &lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;       	|101 110 120 30&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;      	|101 108 120 30&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;       	|101 111 120 30&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;      	|101 111 120 32&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;        	|101 111 119 32&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;         	|101 111 119 32&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;       	|101 114 119 32&lt;/span&gt;
+&lt;span class=&quot;nb&quot;&gt;------&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;    	|101 108 119 32&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;        	|100 108 119 32 &lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;Okay, so you just learned the whole of the language!
+How often does that happen? Somebody tricking you into learning a programming language?
+So why is it so interesting? Well, the language is &lt;a href=&quot;http://en.wikipedia.org/wiki/Turing-complete&quot;&gt;turing complete&lt;/a&gt; which means that any
+computation that can be simulated on a &lt;a href=&quot;http://en.wikipedia.org/wiki/Turing_machine&quot;&gt;turing machine&lt;/a&gt;, (which is almost every algorithm) can be
+programmed with brainfuck! &lt;a href=&quot;http://esolangs.org/wiki/Esoteric_programming_language&quot;&gt;It’s an esoteric language&lt;/a&gt; largely implemented for shits and giggles, and
+as an article of amusement for programmers. It’s &lt;a href=&quot;http://code.google.com/p/awib/&quot;&gt;almost&lt;/a&gt; never used to write anything more than small code snippets. &lt;/p&gt;
+
+&lt;p&gt;Here’s an &lt;a href=&quot;http://esoteric.sange.fi/brainfuck/impl/interp/i.html&quot;&gt;online interpreter&lt;/a&gt; for you to try out brainfuck and here’s a load of &lt;a href=&quot;http://esolangs.org/wiki/Brainfuck_algorithms&quot;&gt;brainfuck algorithms&lt;/a&gt; to get your head spinning.&lt;/p&gt;
+
+</description>
+      <pubDate>Sun, 13 Oct 2013 00:00:00 +0000</pubDate>
+      <link>/Hello-World</link>
+      <guid isPermaLink="true">/Hello-World</guid>
+    </item>
+    
+  </channel>
+</rss>
