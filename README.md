@@ -1,3 +1,6 @@
+# Run locally
+
+bundle exec jekyll serve --watch
 
 A [jekyll](http://jekyllrb.com/) Powered blog  which uses the [Balzac](https://github.com/ColeTownsend/Balzac-for-Jekyll) theme.
 Hosted on [github-pages](http://pages.github.com/)

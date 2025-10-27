@@ -1,13 +1,15 @@
+---
+---
 /* ==========================================================================
    Imports
    ========================================================================== */
 
-@import "normalize";
-@import "mixins";
-@import "variables";
-@import "grid";
-@import "type";
-@import "styles";
+@import "../sass/normalize";
+@import "../sass/mixins";
+@import "../sass/variables";
+@import "../sass/grid";
+@import "../sass/type";
+@import "../sass/styles";
 
 // Remove the definition below for a pixel-based layout
 $total-width: 100%;

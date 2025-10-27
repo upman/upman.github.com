@@ -1,197 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ravi Kumar</title>
-    <description>Blog of Ravi Kumar</description>
+    <title>Ravi Lazar</title>
+    <description>Blog of Ravi Kumar.</description>
     <link>http://upman.github.com</link>
     <atom:link href="http://upman.github.com/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Blogging Like A Hacker</title>
+      <title>Edit Survival</title>
       <description>&lt;hr /&gt;
 
-&lt;p&gt;What’s a Jekyll powered blog without a ‘Blogging like a hacker’ post?
-It’s almost like a ritual. Every Jekyll powered blog in one way or
-another, is inspired from &lt;a href=&quot;http://tom.preston-werner.com/2008/11/17/blogging-like-a-hacker.html&quot;&gt;this post&lt;/a&gt;
-by &lt;a href=&quot;http://en.wikipedia.org/wiki/Tom_Preston-Werner&quot;&gt;Tom Preston-Werner&lt;/a&gt;(Co-founder of Github).
-So why did &lt;em&gt;I&lt;/em&gt; choose &lt;a href=&quot;&quot;&gt;Jekyll&lt;/a&gt; and &lt;a href=&quot;&quot;&gt;Github-Pages&lt;/a&gt; for my blog?&lt;/p&gt;
+&lt;p&gt;The &lt;a href=&quot;https://github.com/microsoft/vscode-copilot-chat&quot;&gt;VSCode Copilot Chat Extension&lt;/a&gt; was recently open sourced, offering a fantastic opportunity to look under the hood. With AI Evals being a hot topic, I was particularly interested in how the system tracks metrics. My curiosity led me down a rabbit hole into a clever system called “Edit Survival”, and I am sharing what I learned here.&lt;/p&gt;
 
-&lt;p&gt;I warmed up to the Idea of &lt;a href=&quot;http://en.wikipedia.org/wiki/Free_and_open-source_software&quot;&gt;FOSS&lt;/a&gt;
-and developed a liking for the open-source world a few months ago
-after I got a Linux installation going on my computer.
-(Why exactly did I get onto linux? I dunno, it seemed interesting)
-I liked the fact that I could (not that I did) now
-tweak anything and everything to my tastes. I started trying out lots of
-open-source tools and languages for my recreational coding and I fell in love with a few.
-While all this was happening, It looked like I might be doing a few projects
-and I thought it would be a good idea to document my learning curve and also share stuff as I move
-forward.&lt;/p&gt;
+&lt;p&gt;Edit Survival is a quality metric system that tracks how much of AI generated code change survives over time after a user accepts it. The core question it answers is: “Did the AI suggest good code that the user kept, or did the user quickly undo or rewrite it?”&lt;/p&gt;
 
-&lt;p&gt;So I started looking for options. I had registered on blogspot a few years ago,
-but never really knew what I wanted to
-post, so it died out after a few mindless posts. So I had an idea of the
-environment there and wasn’t sure if that’s
-how I wanted to blog. Then there was the option of self-hosted Wordpress.
-This was surely my territory as I had made
-a &lt;a href=&quot;http://www.sjpu.com&quot;&gt;site&lt;/a&gt; for my school with a friend and was familiar with it.
-But the backups, the pesky update reminders, managing plugins and most of all, editing your posts in the
-browser based rich-text editor were a pain on Wordpress. For something as simple
-as a personal blog, Wordpress didn’t seem like the right choice
-and Wordpress.com was pretty much the same, minus the hosting head-aches.
-I considered tumblr and ended up with this.&lt;/p&gt;
+&lt;h2 id=&quot;the-core-concept-of-edit-survival&quot;&gt;The Core Concept of Edit Survival&lt;/h2&gt;
+&lt;p&gt;When Copilot applies code edits to a file, the system begins to track several key pieces of information. It records the original code before the AI edits, the specific changes the AI generated, and all subsequent user edits to that same file. The goal is to measure how much of the AI’s code is still present at specific time intervals.&lt;/p&gt;
 
-&lt;p&gt;&lt;em&gt;Blogspot = Tumblr = Wordpress.com = Self-hosted Wordpress - hosting hassles&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;The tracking process, &lt;a href=&quot;https://github.com/microsoft/vscode-copilot-chat/blob/cba52770f582212fc166b8e6abf29958871475c3/src/platform/editSurvivalTracking/common/editSurvivalReporter.ts#L32&quot;&gt;managed by the EditSurvivalReporter&lt;/a&gt;, starts the moment AI edits are applied and it measures the following metrics.&lt;/p&gt;
 
-&lt;p&gt;None of them seemed to suit my needs.
-Then, I came across Jekyll, ‘a blog-aware, static site generator
-written in Ruby’. It could take a bunch of &lt;a href=&quot;http://daringfireball.net/projects/markdown/&quot;&gt;Markdown&lt;/a&gt;
-files (basically text, with a few markups) with
-&lt;a href=&quot;http://www.yaml.org/&quot;&gt;YAML&lt;/a&gt; headers,
-CSS, a little &lt;a href=&quot;http://liquidmarkup.org/&quot;&gt;liquid&lt;/a&gt;  here and there,
-and spit out a static site into a directory you specified (the default
-being the &lt;em&gt;_site&lt;/em&gt; directory) and you can host it on any
-damn web-server. Most people host Jekyll sites  on Github-Pages or
-Amazon S3. But I was already using Github and Github runs Jekyll on it’s Github-Pages, so I
-could just upload the files I would give to Jekyll and the site would
-be generated automatically. So that seemed like the only logical
-choice for me. I could now write up posts in plain text and spell-check it within
-emacs,  version control the posts and the site with Git, push it to
-Github and my post would be published!  In other words, Christmas!
-All I had to do now was write a bunch of CSS and come up
-with a basic html structure for the site. It seemed like a little too much
-of effort for me, so I flicked the
-&lt;a href=&quot;https://github.com/ColeTownsend/Balzac-for-Jekyll&quot;&gt;Balzac&lt;/a&gt; theme,
-tweaked it a bit, a little tippy-tappy and here’s my blog.&lt;/p&gt;
+&lt;h3 id=&quot;1-no-revert-score&quot;&gt;1. No-Revert Score&lt;/h3&gt;
+&lt;p&gt;When Copilot makes edits to the code, they are optimistically applied to the underlying files so that other operations like running tests etc. can pickup those changes. But the changes are shown as diffs in the UI that the user can either accept or revert.&lt;/p&gt;
 
-&lt;p&gt;I won’t be writing about the specifics of how Jekyll works and how you can make your own Jekyll powered blog.
-It’s been written about just too many times. &lt;a href=&quot;http://erjjones.github.io/blog/How-I-built-my-blog-in-one-day/&quot;&gt;Here&lt;/a&gt;,
-&lt;a href=&quot;http://matthodan.com/2012/10/27/how-to-create-a-blog-with-jekyll.html‎&quot;&gt;here&lt;/a&gt;,
-&lt;a href=&quot;http://www.andrewmunsell.com/tutorials/jekyll-by-example/index.html&quot;&gt;here&lt;/a&gt;
-and a bunch of other places. But I would recommend reading the
-official  &lt;a href=&quot;http://jekyllrb.com/docs/home/&quot;&gt;Jekyll documentation&lt;/a&gt; to get a feel
-of what actually the deal is with Jekyll. If you decide on pulling a framework rather than building
-your own structure like me, take a look at
-&lt;a href=&quot;http://octopress.org&quot;&gt;Octopress&lt;/a&gt;,  &lt;a href=&quot;http://jekyllbootstrap.com/&quot;&gt;Jekyllbootstrap&lt;/a&gt; and the
-&lt;a href=&quot;http://getbootstrap.com/‎&quot;&gt;Twitter bootstrap&lt;/a&gt;. They give you a whole
-load of features and add more power to your site. But If you’re
-looking for something simpler, you can use any of the themes listed
-&lt;a href=&quot;http://jekyllthemes.org/themes/balzac&quot;&gt;here.&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The noRevert score specifically measures whether a user reverted the code back to its original state before the AI’s intervention. A score of 1.0 indicates the user did not revert any of the changed regions. Conversely, a score of 0.0 means the user completely reverted the code to its pre-AI edit state.&lt;/p&gt;
 
-&lt;p&gt;Also take a look at &lt;a href=&quot;http://ruhoh.com/‎&quot;&gt;Ruhoh&lt;/a&gt; before you decide on anything.
-You can contact me or leave a comment if you want any help with setting up any of this stuff and I’d
-be happy to help.&lt;/p&gt;
+&lt;h3 id=&quot;2-four-gram-similarity&quot;&gt;2. Four-Gram Similarity&lt;/h3&gt;
+&lt;p&gt;This metric measures how much of the AI generated text is still present in the document. It works by using sequences of four characters, known as 4-grams, to compare the similarity between the AI’s suggestion and the current code. A score of 1.0 means all the AI edits survived perfectly, while a score of 0.0 means none of the edits remain. (&lt;a href=&quot;https://github.com/microsoft/vscode-copilot-chat/blob/e02c3296ae8c6ad1c7b5e9983fc4f4ce05d064fc/src/platform/editSurvivalTracking/common/editSurvivalTracker.ts#L86&quot;&gt;compute4GramTextSimilarity&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;3-accepted-and-retained-characters&quot;&gt;3. Accepted and Retained Characters&lt;/h3&gt;
+&lt;p&gt;This metric is about volume. How much sheer code is the coding agent generating and how much of it is the user keeping. More, the better. (&lt;a href=&quot;https://github.com/microsoft/vscode-copilot-chat/blob/e02c3296ae8c6ad1c7b5e9983fc4f4ce05d064fc/src/platform/editSurvivalTracking/common/arcTracker.ts#L13&quot;&gt;ArcTracker&lt;/a&gt;)&lt;/p&gt;
+
+&lt;h3 id=&quot;4-screenshot-worthiness-index&quot;&gt;4. Screenshot Worthiness Index&lt;/h3&gt;
+&lt;p&gt;This vital metric measures how often an AI’s suggestion is so profoundly weird that the developer is compelled to screenshot it and share it with colleagues on Slack. (This is not a real metric. But I would track it just for the giggles!)&lt;/p&gt;
+
+&lt;h3 id=&quot;additional-considerations&quot;&gt;Additional Considerations&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/microsoft/vscode-copilot-chat/blob/e02c3296ae8c6ad1c7b5e9983fc4f4ce05d064fc/src/platform/editSurvivalTracking/common/editSurvivalReporter.ts#L106-L107&quot;&gt;It also flags when a user switches git branches&lt;/a&gt;, as the survival metric might not be meaningful in that context.&lt;/p&gt;
+
+&lt;p&gt;The EditSurvivalReporter starts tracking when AI edits are applied and measures survival &lt;a href=&quot;https://github.com/microsoft/vscode-copilot-chat/blob/e02c3296ae8c6ad1c7b5e9983fc4f4ce05d064fc/src/platform/editSurvivalTracking/common/editSurvivalReporter.ts#L77&quot;&gt;at 30 secs, 2 mins, 5 mins, 10 mins and 15 mins&lt;/a&gt; after the code is accepted.&lt;/p&gt;
+
+&lt;p&gt;How could these metrics be used?&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Quality of AI suggestions&lt;/strong&gt; - Are they good enough that users keep them? Do users immediately edit AI code, or does it work as-is?&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Model performance&lt;/strong&gt; - Which models/approaches produce more durable edits?&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;UI effectiveness&lt;/strong&gt; - Different contexts (panel chat vs inline chat) may have different survival patterns&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Feature improvements&lt;/strong&gt; - Compare “fast edit” vs “full rewrite” vs “patch” approaches&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;These are some pretty interesting metrics for probably any human in the loop agent, not just for coding agents.&lt;/p&gt;
 
 </description>
-      <pubDate>Tue, 15 Oct 2013 00:00:00 +0000</pubDate>
-      <link>http://upman.github.com/Blogging-like-a-hacker</link>
-      <guid isPermaLink="true">http://upman.github.com/Blogging-like-a-hacker</guid>
-    </item>
-    
-    <item>
-      <title>Hello World</title>
-      <description>&lt;p&gt;A personal ‘tech/whatever I want to post’ blog has been on my mind for quite a while now.
-A Place where I can share my random adventures with code, the web and anything interesting
-under the sun and hopefully learn more from random strangers who might stumble upon my posts. Checkout the &lt;a href=&quot;/about&quot;&gt;about&lt;/a&gt; page for more about me and the blog.&lt;/p&gt;
-
-&lt;p&gt;So let me start off with a ‘Hello world’ as is customary, you know, to please the programming gods.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;brainfuck&quot;&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;c&quot;&gt; &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt; &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;  &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;  &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;    &lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;     &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;------&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;No, I’m not a troll. It’s a proper program written in ‘brainfuck’. I happened to stumble upon this
-extremely minimalistic language a few days ago. I have to say it has a befitting name. So let’s look at how exactly the program works (I’ll try not to get into too much detail)&lt;/p&gt;
-
-&lt;p&gt;The basic Idea is, a character array of however long(Interpreter specific) is allocated and a pointer points to the first character at the start of execution of any brainfuck program.
-Then, there are 8 operators in brainfuck.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;Operator&lt;/th&gt;
-      &lt;th style=&quot;text-align: left&quot;&gt;Description&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;+&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Increment the value &lt;strong&gt;at&lt;/strong&gt; the pointer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;-&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Decrement the value &lt;strong&gt;at&lt;/strong&gt; the pointer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;&amp;lt;&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Decrement pointer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;&amp;gt;&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Increment pointer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;.&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Display the character at pointer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;,&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Read a value and store it as the value at the pointer&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;[&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;Start loop. Control enters into the segment that follows only if the value at pointer is non-zero. (Aha! if statement.)&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;&lt;strong&gt;]&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: left&quot;&gt;End loop. Control goes back to the corresponding ‘[’ only if the value at the pointer is non-zero.&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;Now it’s hopefully clear how it works.
-With the help of an &lt;a href=&quot;http://www.asciichart.com/&quot;&gt;ASCII table&lt;/a&gt; of course.&lt;/p&gt;
-
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;brainfuck&quot;&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   	       &lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;	|A table of the ASCII values &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;+++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;	|in the array&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;++++++++++++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;   |(at every line)&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;&amp;lt;&amp;lt;&amp;lt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;]&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;&lt;/span&gt;
-&lt;span class=&quot;c&quot;&gt;		|100 110 120 30&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt; 	   	|104 110 120 30 &lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;---&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;       	|101 110 120 30&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;..&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;      	|101 108 120 30&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;       	|101 111 120 30&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;      	|101 111 120 32&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;        	|101 111 119 32&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;         	|101 111 119 32&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;+++&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;       	|101 114 119 32&lt;/span&gt;
-&lt;span class=&quot;nb&quot;&gt;------&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;    	|101 108 119 32&lt;/span&gt;
-&lt;span class=&quot;nv&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;c&quot;&gt;        	|100 108 119 32 &lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
-
-&lt;p&gt;Okay, so that about wraps up the whole language.
-How often does that happen? Somebody tricking you into learning a programming language?
-So why is it so interesting? Well, the language is &lt;a href=&quot;http://en.wikipedia.org/wiki/Turing-complete&quot;&gt;turing complete&lt;/a&gt; which means that any
-computation that can be simulated on a &lt;a href=&quot;http://en.wikipedia.org/wiki/Turing_machine&quot;&gt;turing machine&lt;/a&gt;, (which is almost every algorithm) can be
-programmed with brainfuck! &lt;a href=&quot;http://esolangs.org/wiki/Esoteric_programming_language&quot;&gt;It’s an esoteric language&lt;/a&gt; largely implemented for shits and giggles, and
-as an article of amusement for programmers. It’s &lt;a href=&quot;http://code.google.com/p/awib/&quot;&gt;almost&lt;/a&gt; never used to write anything more than small code snippets. &lt;/p&gt;
-
-&lt;p&gt;Here’s an &lt;a href=&quot;http://esoteric.sange.fi/brainfuck/impl/interp/i.html&quot;&gt;online interpreter&lt;/a&gt; for you to try out brainfuck and here’s a load of &lt;a href=&quot;http://esolangs.org/wiki/Brainfuck_algorithms&quot;&gt;brainfuck algorithms&lt;/a&gt; to get your head spinning.&lt;/p&gt;
-
-</description>
-      <pubDate>Sun, 13 Oct 2013 00:00:00 +0000</pubDate>
-      <link>http://upman.github.com/Hello-World</link>
-      <guid isPermaLink="true">http://upman.github.com/Hello-World</guid>
+      <pubDate>Sun, 26 Oct 2025 00:00:00 +0530</pubDate>
+      <link>http://upman.github.com/edit-survival</link>
+      <guid isPermaLink="true">http://upman.github.com/edit-survival</guid>
     </item>
     
   </channel>

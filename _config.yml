@@ -1,12 +1,11 @@
-title:            Ravi Kumar
-tagline:          Adeventures of a newbie web developer
+title:            Ravi Lazar
+tagline:          How many r's in strawberry?
 description:      Blog of Ravi Kumar.
 #Comment out url when working locally to resolve base urls correctly
 url:
 #Variables for the feed
-name: Ravi Kumar
-description: Blog of Ravi Kumar
-furl: http://upman.github.com
+name: Ravi Lazar
+furl: https://blog.ravilazar.com
 
 
 #A dirty bug-fix https://github.com/mojombo/jekyll/issues/1401
@@ -14,36 +13,30 @@ excerpt_separator: ""
 
 
 # Owner/author information
-owner: 
+owner:
   name:           Ravi Kumar
   avatar:         avatar.png
   bio:            "A newbie Web-developer and Programmer"
-  email:          upman16@gmail.com
-  twitter:        upman16        
-  github:         upman       
-  instagram:           
-  dribbble:
-  facebook:       ravi.kumar1607
+  twitter:        ravikml
+  github:         upman
   disqus:         upman
   # Plug in your disqus shortname!
-  
+
 
 # Links to include in top navigation
 # For external links add external: true
 links:
-  - title: About
-    url: /about/index.html
   - title: Github
     url: https://github.com/upman
     external: true
-  - title: Ravi Who?
-    url: https://www.facebook.com/ravi.kumar1607/about
+  - title: Linkedin
+    url: https://www.linkedin.com/in/ravikml/
     external: true
 
 # http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
-timezone:    Asia/Calcutta#America/New_York
+timezone:    Asia/Calcutta
 future:      true
-pygments:    true
+highlighter: rouge
 markdown:    kramdown
 
 kramdown:
@@ -51,14 +44,13 @@ kramdown:
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
-  use_coderay: false
-
-  coderay:
-    coderay_line_numbers: 
-    coderay_line_numbers_start: 1
-    coderay_tab_width: 4
-    coderay_bold_every: 10
-    coderay_css: class
+  syntax_highlighter: coderay
+  syntax_highlighter_opts:
+    line_numbers:
+    line_numbers_start: 1
+    tab_width: 4
+    bold_every: 10
+    css: class
 
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:categories/:title
