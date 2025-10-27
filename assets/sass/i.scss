@@ -4,12 +4,12 @@
    Imports
    ========================================================================== */
 
-@use "variables" as *;
-@use "mixins" as *;
-@use "normalize";
-@use "grid";
-@use "type";
-@use "styles";
+@import "variables";
+@import "mixins";
+@import "normalize";
+@import "grid";
+@import "type";
+@import "styles";
 
 // Remove the definition below for a pixel-based layout
 $total-width: 100%;

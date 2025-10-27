@@ -1,5 +1,4 @@
-@use "sass:math";
-@use "variables" as *;
+@import "variables";
 
 /* ==========================================================================
    TYPE
@@ -24,7 +23,7 @@ p {
 .post ul li {
     font-size: $fsp;
     line-height: $lh;
-    margin-bottom: math.div($lh, 3);
+    margin-bottom: ($lh /  3);
 }
 
 
@@ -67,7 +66,7 @@ p {
 .post ul li {
     font-size: $fs5;
     line-height: $lhsmall;
-    margin-bottom: math.div($lhsmall, 2);
+    margin-bottom: ($lhsmall /  2);
 }
 
 h1,.h1 {      font-size: $fs2; }

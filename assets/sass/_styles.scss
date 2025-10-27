@@ -1,8 +1,6 @@
-@use "sass:color";
-@use "sass:math";
-@use "variables" as *;
-@use "mixins" as *;
-@use "grid" as *;
+@import "variables";
+@import "mixins";
+@import "grid";
 
 /************ Basic *************/
 
@@ -60,7 +58,7 @@ blockquote, blockquote p {
     font-style: italic;
     line-height: 1.3em;
     text-align: center;
-    color: color.adjust($black, $lightness: 0.2%);
+    color: adjust-color($black, $lightness: 0.2%);
     margin-bottom: $lh;
 }
 
@@ -86,7 +84,7 @@ code {
         font-family: "Monaco", "Courier New", "Courier";
         font-size: .9em;
         .lineno {
-            margin-right: math.div($lh, 2);
+            margin-right: ($lh /  2);
             color: $grey-light;
             line-height: 2em;
         }
@@ -329,7 +327,7 @@ header.site-header nav {
                 font-weight: bold;
                 color: $grey-light;
                 text-transform: uppercase;
-                margin-top: math.div($lh * 2, 3);
+                margin-top: ($lh * 2 /  3);
             }
         }
 
@@ -456,7 +454,7 @@ header.site-header nav {
             top: 10px;
             left: 6px;
             color: $grey-medium;
-            margin-bottom: math.div($lh, 2);
+            margin-bottom: ($lh /  2);
         }
     }
 
@@ -465,8 +463,8 @@ header.site-header nav {
     }
 
     h1, h2, h3, h4, h5 {
-        padding-top: math.div($lh, 2);
-        margin-bottom: math.div($lh, 2);
+        padding-top: ($lh /  2);
+        margin-bottom: ($lh /  2);
         line-height: 1.25em
 
     }
@@ -475,7 +473,7 @@ header.site-header nav {
         margin: $lh 0;
 
         img {
-            margin-bottom: math.div($lh, 2);
+            margin-bottom: ($lh /  2);
         }
 
         figcaption {
@@ -483,7 +481,7 @@ header.site-header nav {
             font-family: $sans;
             font-weight: bold;
             text-transform: uppercase;
-            color: color.adjust($black, $lightness: 50%);
+            color: adjust-color($black, $lightness: 50%);
             text-align: center;
         }
     }
@@ -508,7 +506,7 @@ header.site-header nav {
             list-style: disc;
             list-style-type: disc;
             margin-left: $lh*2;
-            padding-left: math.div($lh, 3);
+            padding-left: ($lh /  3);
         &:last-child {
             margin-bottom: 0;
             }
@@ -523,8 +521,8 @@ header.site-header nav {
         }
         li {
             margin-left: $lh*2;
-            padding-left: math.div($lh, 3);
-            margin-bottom: math.div($lh, 3);
+            padding-left: ($lh /  3);
+            margin-bottom: ($lh /  3);
             line-height: $lh;
             font-size: $fsp;
         &:last-child {
@@ -545,11 +543,11 @@ header.site-header nav {
         letter-spacing: 1px;
         padding: 4px 6px 4px 6px;
         color: $grey-light;
-        border: 2px solid color.scale($grey-light, $alpha: -30%);
+        border: 2px solid rgba($grey-light, -30%);
         @include br(4px);
         &:hover {
             color: $link;
-            border-color: color.scale($link, $alpha: -30%);
+            border-color: rgba($link, -30%);
             @include transit(all,.2s,ease)
         }
     }
@@ -557,7 +555,7 @@ header.site-header nav {
 
 /* Footer Stuff */
 .push {
-    height: math.div($footerHeight, 4) !important;
+    height: ($footerHeight /  4) !important;
 }
 
 footer {
@@ -585,14 +583,14 @@ footer {
         bottom: 8px;
         font-family: $sans;
         text-transform: uppercase;
-        color: color.scale($white, $alpha: -90%);
+        color: rgba($white, -90%);
         a {
-            color: color.scale($white, $alpha: -70%);
+            color: rgba($white, -70%);
         }
     }
 
     .list-title {
-        margin-bottom: math.div($lh, 2);
+        margin-bottom: ($lh /  2);
         border-bottom: 2px solid $link;
         font-style: italic;
         font-size: $fs4;
@@ -607,7 +605,7 @@ footer {
         }
         li {
             @include row(12);
-            margin-top: math.div($lh, 2);
+            margin-top: ($lh /  2);
             .recent-title {
                 @include column(8,12);
                 font-style: italic;
@@ -619,7 +617,7 @@ footer {
             }
             span.date {
                 float: none;
-                color: color.scale($grey-light, $alpha: -40%);
+                color: rgba($grey-light, -40%);
                 @include column(4,12);
                 position: relative;
                 font-size: $fs5;
@@ -643,7 +641,7 @@ footer {
         }
         ul {
             li {
-                margin-bottom: math.div($lh, 2);
+                margin-bottom: ($lh /  2);
                 &:last-child {
                     margin-bottom: 0;
                 }
@@ -718,7 +716,7 @@ footer {
         margin: 0 auto;
         display: block;
         li {
-            margin-top: math.div($lh, 2);
+            margin-top: ($lh /  2);
         }
     }
 
