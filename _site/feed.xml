@@ -3,8 +3,8 @@
   <channel>
     <title>Ravi Lazar</title>
     <description>Blog of Ravi Kumar.</description>
-    <link>http://upman.github.com</link>
-    <atom:link href="http://upman.github.com/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://blog.ravilazar.com</link>
+    <atom:link href="https://blog.ravilazar.com/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Edit Survival</title>
@@ -50,8 +50,8 @@
 
 </description>
       <pubDate>Sun, 26 Oct 2025 00:00:00 +0530</pubDate>
-      <link>http://upman.github.com/edit-survival</link>
-      <guid isPermaLink="true">http://upman.github.com/edit-survival</guid>
+      <link>https://blog.ravilazar.com/edit-survival</link>
+      <guid isPermaLink="true">https://blog.ravilazar.com/edit-survival</guid>
     </item>
     
   </channel>

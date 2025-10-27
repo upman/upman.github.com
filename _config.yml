@@ -55,5 +55,10 @@ kramdown:
 # https://github.com/mojombo/jekyll/wiki/Permalinks
 permalink:   /:categories/:title
 
+# Sass configuration
+sass:
+  sass_dir: assets/sass
+  style: compressed
+
 include: [".htaccess"]
 exclude: ["lib", "config.rb", "Capfile", "config", "log", "Rakefile", "Rakefile.rb", "tmp"]
