@@ -9,4 +9,8 @@
         <loc>http://localhost:4000/edit-survival</loc>
     </url>
     
+    <url>
+        <loc>http://localhost:4000/How-to-write-a-coding-agent-in-169-lines-of-python</loc>
+    </url>
+    
 </urlset>

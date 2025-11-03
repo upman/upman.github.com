@@ -16,7 +16,7 @@ excerpt_separator: ""
 owner:
   name:           Ravi Kumar
   avatar:         avatar.png
-  bio:            "A newbie Web-developer and Programmer"
+  bio:            "A generalist software engineer with 10+ years of experience building great products on the web"
   twitter:        ravikml
   github:         upman
   disqus:         upman
@@ -44,6 +44,8 @@ kramdown:
   footnote_nr: 1
   entity_output: as_char
   toc_levels: 1..6
+  enable_coderay: true
+  coderay_css: class
   syntax_highlighter: coderay
   syntax_highlighter_opts:
     line_numbers:
