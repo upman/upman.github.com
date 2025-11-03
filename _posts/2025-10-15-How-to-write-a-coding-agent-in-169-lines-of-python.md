@@ -6,8 +6,6 @@ image:
     feature: coding-agent.png
 ---
 
----
-
 Large Language Models (LLMs) have fundamentally reshaped my coding workflow, marking a significant positive shift. My journey began with tools like GitHub Copilot, which offered helpful line and function suggestions, code explanations, refactoring assistance, and test case generation. While valuable, its effectiveness often felt inconsistent—sometimes helpful, sometimes not quite right.
 
 Then came the shift to AI agents – tools designed to tackle high-level tasks by breaking them down, implementing solutions across files, writing tests, running commands (pending approval), and iterating on feedback. Adapting to this felt strange at first; the agent often had its own way of doing things, occasionally adding features I hadn't specified or missing crucial conventions. It's like pair programming with a super-fast intern who excels at typing and comprehension but needs constant direction on the bigger picture. Mastering how to provide clear examples, define conventions, and scope tasks appropriately was key (perhaps a topic for another day).
@@ -17,7 +15,7 @@ Then came the shift to AI agents – tools designed to tackle high-level tasks b
 
 Gradually, these tools have fundamentally altered my development approach. Previously, a significant portion of my cognitive load during coding was dedicated to lower-level details: refactoring for readability, consulting documentation for function calls, ensuring proper naming, and adhering to conventions. Now, leveraging AI agents allows me to delegate many of these tasks and focus my attention on higher-level strategic concerns: system architecture, performance optimization, security implications, and aligning with product requirements. My role shifts towards providing clear specifications and examples, letting the agent handle the initial implementation, and then focusing on review and refinement. The productivity boost is undeniable, and frankly, I can't imagine returning to my old workflow.
 
-This shift sparked my curiosity. How do these agents actually work under the hood? To find out, I decided to build a very basic one myself using Python and the OpenAI API (you can switch to any LLM API you like). It's a simple experiment, but i learned the core concepts and the challenges involved.
+This shift sparked my curiosity. How do these agents actually work under the hood? To find out, I decided to build a very basic one myself using Python and the OpenAI API (you can switch to any LLM API you like). It's a simple experiment, but I learned the core concepts and the challenges involved.
 
 ## Giving the LLM Hands: Actions via XML
 At its core, a coding agent often relies on an LLM for both generating the code and figuring out what to do next. But an LLM itself can only process and generate text. To interact with a real codebase (or any external system), it needs a way to perform actions – like reading files, writing code, or listing directories.
@@ -29,10 +27,11 @@ Here's a view of that loop:
 ![Image](images/coding-agent-excalidraw.png)
 
 Agentic loop with XML tags being passed from LLM to agent code
-Building the Agent: Step-by-Step
+
+## Building the Agent: Step-by-Step
 Let's look at how we can implement this using Python. The [full final code is here](https://gist.github.com/upman/d22520ff788ab80f8adefaf96c6d0a4a).
 
-## 1. Setting the Stage and Listing Files
+### 1. Setting the Stage and Listing Files
 
 First, we need a class to manage the agent's state, including the conversation history with the LLM and the path to the code repository it's working on. We also need to configure the connection to the LLM API (like OpenAI's).
 
@@ -92,7 +91,7 @@ def execute_action(self, action_text):
     # ... (Handle other actions) ...
 ```
 
-## 2. The Agent Loop: Autonomous Operation
+### 2. The Agent Loop: Autonomous Operation
 
 How does the agent decide what to do next? We create a loop in a run method. This loop repeatedly asks the LLM for the next action based on the conversation history (which includes the initial task, previous actions, and their results).
 
@@ -117,8 +116,6 @@ def run(self, prompt):
         # (This happens implicitly inside get_llm_response or needs explicit adding)
         self.conversation_history.append({"role": "assistant", "content": result}) # Or similar
 
-        feedback
-
         # Check for the termination condition
         if "<task_complete>" in action_response:
             print(f"✅ Task completed!")
@@ -142,10 +139,10 @@ def get_llm_response(self, prompt):
 ```
 
 
-The get_llm_response helper function handles the API call. Crucially, within the main loop (not shown in get_llm_response itself), the result obtained from execute_action must be formatted and included in the next prompt sent via get_llm_response. This tells the LLM what happened as a result of its requested action. Both the prompt to the LLM and the LLM's response are appended to conversation_history to maintain context. The loop continues until the LLM outputs the task_complete tag
+The get_llm_response helper function handles the API call. Crucially, within the main loop (not shown in get_llm_response itself), the result obtained from execute_action must be formatted and included in the next prompt sent via get_llm_response. This tells the LLM what happened as a result of its requested action. Both the prompt to the LLM and the LLM's response are appended to conversation_history to maintain context. The loop continues until the LLM outputs the task_complete tag.
 
 
-## 3. Reading and editing Files
+### 3. Reading and editing Files
 
 To make the agent useful, it needs to read and write files. We add read_file and edit_file methods, similar to list_files.
 
@@ -193,7 +190,7 @@ def execute_action(self, action_text):
     if task_complete_match:
         return task_complete_match.group(1) # Return the summary
 
-    return "Action not recognized.."
+    return "Action not recognized."
 ```
 
 
@@ -201,7 +198,7 @@ The execute_action method is updated to parse the read_file and edit_file tags, 
 
 That's it! We now have a coding agent!
 
-I ran it to refactor it's own code to be more readable. Here's the logs and tools it used.
+I ran it to refactor its own code to be more readable. Here's the logs and tools it used.
 
 <pre style="background: #002b36; padding: 12px;color: #839496;">
 🤖 Received task: edit agent.py to make it more readable
@@ -398,13 +395,13 @@ Building this simple agent was illuminating, but it immediately highlights the c
 
 5. **Inefficient File Handling**: Reading entire files into the context window is often inefficient and unnecessary. An improvement would be to read only top-level definitions (classes, functions) first, allowing the LLM to request specific code blocks as needed. We also lack checks to prevent reading huge data files (like large JSON dumps) that would pollute the context.
 
-6. **Lack of tools**: The coding agent can benefit from having more tools at it's disposal. Ex: Run shell commands and inspect output to run linters, tests etc. , find/replace content in files(So LLM doesn't need to output the entire content of a file that needs to be edited), run a browser to fetch documentation or debug frontend by accessing the console. But this is tricky, the more tools you give your agent access to, the more stuff ends up in the context window. Also, this needs a lot more work in adding security and sanity checks. This might look like giving access to only sandbox environments to run commands or read only access to certain resources.
+6. **Lack of tools**: The coding agent can benefit from having more tools at its disposal. Ex: Run shell commands and inspect output to run linters, tests etc. , find/replace content in files(So LLM doesn't need to output the entire content of a file that needs to be edited), run a browser to fetch documentation or debug frontend by accessing the console. But this is tricky, the more tools you give your agent access to, the more stuff ends up in the context window. Also, this needs a lot more work in adding security and sanity checks. This might look like giving access to only sandbox environments to run commands or read only access to certain resources.
 
 ### Where to Go From Here?
 
 While building a basic agent is a fun exercise, the complexities and risks mean that for real-world use, relying on well-developed tools is generally the way to go.
 
-[GitHub Copilot](https://github.com/features/copilot): Copilot has evolved from it's early days of only being an autocomplete feature. It has an agent mode that works pretty well now.
+[GitHub Copilot](https://github.com/features/copilot): Copilot has evolved from its early days of only being an autocomplete feature. It has an agent mode that works pretty well now.
 
 [Cline](https://docs.cline.bot/getting-started/what-is-cline): Open source VS Code extension with powerful agent capabilities. It can integrate with most popular LLMs. But works best with Gemini 2.5 Pro and Claude 3.7 in my experience.
 

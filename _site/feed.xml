@@ -87,9 +87,7 @@
     
     <item>
       <title>How To Write A Coding Agent In 169 Lines Of Python</title>
-      <description>&lt;hr /&gt;
-
-&lt;p&gt;Large Language Models (LLMs) have fundamentally reshaped my coding workflow, marking a significant positive shift. My journey began with tools like GitHub Copilot, which offered helpful line and function suggestions, code explanations, refactoring assistance, and test case generation. While valuable, its effectiveness often felt inconsistent—sometimes helpful, sometimes not quite right.&lt;/p&gt;
+      <description>&lt;p&gt;Large Language Models (LLMs) have fundamentally reshaped my coding workflow, marking a significant positive shift. My journey began with tools like GitHub Copilot, which offered helpful line and function suggestions, code explanations, refactoring assistance, and test case generation. While valuable, its effectiveness often felt inconsistent—sometimes helpful, sometimes not quite right.&lt;/p&gt;
 
 &lt;p&gt;Then came the shift to AI agents – tools designed to tackle high-level tasks by breaking them down, implementing solutions across files, writing tests, running commands (pending approval), and iterating on feedback. Adapting to this felt strange at first; the agent often had its own way of doing things, occasionally adding features I hadn’t specified or missing crucial conventions. It’s like pair programming with a super-fast intern who excels at typing and comprehension but needs constant direction on the bigger picture. Mastering how to provide clear examples, define conventions, and scope tasks appropriately was key (perhaps a topic for another day).&lt;/p&gt;
 
@@ -97,7 +95,7 @@
 
 &lt;p&gt;Gradually, these tools have fundamentally altered my development approach. Previously, a significant portion of my cognitive load during coding was dedicated to lower-level details: refactoring for readability, consulting documentation for function calls, ensuring proper naming, and adhering to conventions. Now, leveraging AI agents allows me to delegate many of these tasks and focus my attention on higher-level strategic concerns: system architecture, performance optimization, security implications, and aligning with product requirements. My role shifts towards providing clear specifications and examples, letting the agent handle the initial implementation, and then focusing on review and refinement. The productivity boost is undeniable, and frankly, I can’t imagine returning to my old workflow.&lt;/p&gt;
 
-&lt;p&gt;This shift sparked my curiosity. How do these agents actually work under the hood? To find out, I decided to build a very basic one myself using Python and the OpenAI API (you can switch to any LLM API you like). It’s a simple experiment, but i learned the core concepts and the challenges involved.&lt;/p&gt;
+&lt;p&gt;This shift sparked my curiosity. How do these agents actually work under the hood? To find out, I decided to build a very basic one myself using Python and the OpenAI API (you can switch to any LLM API you like). It’s a simple experiment, but I learned the core concepts and the challenges involved.&lt;/p&gt;
 
 &lt;h2 id=&quot;giving-the-llm-hands-actions-via-xml&quot;&gt;Giving the LLM Hands: Actions via XML&lt;/h2&gt;
 &lt;p&gt;At its core, a coding agent often relies on an LLM for both generating the code and figuring out what to do next. But an LLM itself can only process and generate text. To interact with a real codebase (or any external system), it needs a way to perform actions – like reading files, writing code, or listing directories.&lt;/p&gt;
@@ -108,11 +106,12 @@
 
 &lt;p&gt;&lt;img src=&quot;images/coding-agent-excalidraw.png&quot; alt=&quot;Image&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;Agentic loop with XML tags being passed from LLM to agent code
-Building the Agent: Step-by-Step
-Let’s look at how we can implement this using Python. The &lt;a href=&quot;https://gist.github.com/upman/d22520ff788ab80f8adefaf96c6d0a4a&quot;&gt;full final code is here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Agentic loop with XML tags being passed from LLM to agent code&lt;/p&gt;
 
-&lt;h2 id=&quot;1-setting-the-stage-and-listing-files&quot;&gt;1. Setting the Stage and Listing Files&lt;/h2&gt;
+&lt;h2 id=&quot;building-the-agent-step-by-step&quot;&gt;Building the Agent: Step-by-Step&lt;/h2&gt;
+&lt;p&gt;Let’s look at how we can implement this using Python. The &lt;a href=&quot;https://gist.github.com/upman/d22520ff788ab80f8adefaf96c6d0a4a&quot;&gt;full final code is here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;1-setting-the-stage-and-listing-files&quot;&gt;1. Setting the Stage and Listing Files&lt;/h3&gt;
 
 &lt;p&gt;First, we need a class to manage the agent’s state, including the conversation history with the LLM and the path to the code repository it’s working on. We also need to configure the connection to the LLM API (like OpenAI’s).&lt;/p&gt;
 
@@ -176,7 +175,7 @@ Let’s look at how we can implement this using Python. The &lt;a href=&quot;htt
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;2-the-agent-loop-autonomous-operation&quot;&gt;2. The Agent Loop: Autonomous Operation&lt;/h2&gt;
+&lt;h3 id=&quot;2-the-agent-loop-autonomous-operation&quot;&gt;2. The Agent Loop: Autonomous Operation&lt;/h3&gt;
 
 &lt;p&gt;How does the agent decide what to do next? We create a loop in a run method. This loop repeatedly asks the LLM for the next action based on the conversation history (which includes the initial task, previous actions, and their results).&lt;/p&gt;
 
@@ -200,8 +199,6 @@ Let’s look at how we can implement this using Python. The &lt;a href=&quot;htt
         &lt;span class=&quot;comment&quot;&gt;# Add the result back to the conversation for the LLM&apos;s context&lt;/span&gt;
         &lt;span class=&quot;comment&quot;&gt;# (This happens implicitly inside get_llm_response or needs explicit adding)&lt;/span&gt;
         &lt;span class=&quot;predefined-constant&quot;&gt;self&lt;/span&gt;.conversation_history.append({&lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;role&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;assistant&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;, &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;content&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: result}) &lt;span class=&quot;comment&quot;&gt;# Or similar&lt;/span&gt;
-
-        feedback
 
         &lt;span class=&quot;comment&quot;&gt;# Check for the termination condition&lt;/span&gt;
         &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;&amp;lt;task_complete&amp;gt;&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;in&lt;/span&gt; action_response:
@@ -227,9 +224,9 @@ Let’s look at how we can implement this using Python. The &lt;a href=&quot;htt
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The get_llm_response helper function handles the API call. Crucially, within the main loop (not shown in get_llm_response itself), the result obtained from execute_action must be formatted and included in the next prompt sent via get_llm_response. This tells the LLM what happened as a result of its requested action. Both the prompt to the LLM and the LLM’s response are appended to conversation_history to maintain context. The loop continues until the LLM outputs the task_complete tag&lt;/p&gt;
+&lt;p&gt;The get_llm_response helper function handles the API call. Crucially, within the main loop (not shown in get_llm_response itself), the result obtained from execute_action must be formatted and included in the next prompt sent via get_llm_response. This tells the LLM what happened as a result of its requested action. Both the prompt to the LLM and the LLM’s response are appended to conversation_history to maintain context. The loop continues until the LLM outputs the task_complete tag.&lt;/p&gt;
 
-&lt;h2 id=&quot;3-reading-and-editing-files&quot;&gt;3. Reading and editing Files&lt;/h2&gt;
+&lt;h3 id=&quot;3-reading-and-editing-files&quot;&gt;3. Reading and editing Files&lt;/h3&gt;
 
 &lt;p&gt;To make the agent useful, it needs to read and write files. We add read_file and edit_file methods, similar to list_files.&lt;/p&gt;
 
@@ -277,7 +274,7 @@ Let’s look at how we can implement this using Python. The &lt;a href=&quot;htt
     &lt;span class=&quot;keyword&quot;&gt;if&lt;/span&gt; task_complete_match:
         &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; task_complete_match.group(&lt;span class=&quot;integer&quot;&gt;1&lt;/span&gt;) &lt;span class=&quot;comment&quot;&gt;# Return the summary&lt;/span&gt;
 
-    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;Action not recognized..&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
+    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;Action not recognized.&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;
 &lt;/pre&gt;&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -286,7 +283,7 @@ Let’s look at how we can implement this using Python. The &lt;a href=&quot;htt
 
 &lt;p&gt;That’s it! We now have a coding agent!&lt;/p&gt;
 
-&lt;p&gt;I ran it to refactor it’s own code to be more readable. Here’s the logs and tools it used.&lt;/p&gt;
+&lt;p&gt;I ran it to refactor its own code to be more readable. Here’s the logs and tools it used.&lt;/p&gt;
 
 &lt;pre style=&quot;background: #002b36; padding: 12px;color: #839496;&quot;&gt;
 🤖 Received task: edit agent.py to make it more readable
@@ -488,7 +485,7 @@ These changes maintain all the original functionality while making the code easi
     &lt;p&gt;&lt;strong&gt;Inefficient File Handling&lt;/strong&gt;: Reading entire files into the context window is often inefficient and unnecessary. An improvement would be to read only top-level definitions (classes, functions) first, allowing the LLM to request specific code blocks as needed. We also lack checks to prevent reading huge data files (like large JSON dumps) that would pollute the context.&lt;/p&gt;
   &lt;/li&gt;
   &lt;li&gt;
-    &lt;p&gt;&lt;strong&gt;Lack of tools&lt;/strong&gt;: The coding agent can benefit from having more tools at it’s disposal. Ex: Run shell commands and inspect output to run linters, tests etc. , find/replace content in files(So LLM doesn’t need to output the entire content of a file that needs to be edited), run a browser to fetch documentation or debug frontend by accessing the console. But this is tricky, the more tools you give your agent access to, the more stuff ends up in the context window. Also, this needs a lot more work in adding security and sanity checks. This might look like giving access to only sandbox environments to run commands or read only access to certain resources.&lt;/p&gt;
+    &lt;p&gt;&lt;strong&gt;Lack of tools&lt;/strong&gt;: The coding agent can benefit from having more tools at its disposal. Ex: Run shell commands and inspect output to run linters, tests etc. , find/replace content in files(So LLM doesn’t need to output the entire content of a file that needs to be edited), run a browser to fetch documentation or debug frontend by accessing the console. But this is tricky, the more tools you give your agent access to, the more stuff ends up in the context window. Also, this needs a lot more work in adding security and sanity checks. This might look like giving access to only sandbox environments to run commands or read only access to certain resources.&lt;/p&gt;
   &lt;/li&gt;
 &lt;/ol&gt;
 
@@ -496,7 +493,7 @@ These changes maintain all the original functionality while making the code easi
 
 &lt;p&gt;While building a basic agent is a fun exercise, the complexities and risks mean that for real-world use, relying on well-developed tools is generally the way to go.&lt;/p&gt;
 
-&lt;p&gt;&lt;a href=&quot;https://github.com/features/copilot&quot;&gt;GitHub Copilot&lt;/a&gt;: Copilot has evolved from it’s early days of only being an autocomplete feature. It has an agent mode that works pretty well now.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/features/copilot&quot;&gt;GitHub Copilot&lt;/a&gt;: Copilot has evolved from its early days of only being an autocomplete feature. It has an agent mode that works pretty well now.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&quot;https://docs.cline.bot/getting-started/what-is-cline&quot;&gt;Cline&lt;/a&gt;: Open source VS Code extension with powerful agent capabilities. It can integrate with most popular LLMs. But works best with Gemini 2.5 Pro and Claude 3.7 in my experience.&lt;/p&gt;
 
