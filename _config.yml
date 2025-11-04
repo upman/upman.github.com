@@ -1,10 +1,10 @@
-title:            Ravi Lazar
+title:            Ravi's Blog
 tagline:          How many r's in strawberry?
-description:      Blog of Ravi Kumar.
+description:      Blog of Ravi Kumar Lazar
 #Comment out url when working locally to resolve base urls correctly
 url:
 #Variables for the feed
-name: Ravi Lazar
+name: Ravi's Blog
 furl: https://blog.ravilazar.com
 
 
@@ -22,6 +22,9 @@ owner:
   disqus:         upman
   # Plug in your disqus shortname!
 
+
+plugins:
+  - jekyll-seo-tag
 
 # Links to include in top navigation
 # For external links add external: true
