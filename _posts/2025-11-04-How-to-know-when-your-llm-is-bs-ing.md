@@ -1,8 +1,8 @@
 ---
 layout: post
-title: "Spotting AI Lies: How to Know When Your LLM is BS-ing"
+title: "AI B*llsh*tting"
+description: "Spotting AI Lies: How to Know When Your LLM is BS-ing"
 date: 2025-11-04
-categories: ai machine-learning uncertainty quantification
 image:
     feature: llm-polygraph.jpg
 ---

@@ -7,7 +7,7 @@
     <atom:link href="https://blog.ravilazar.com/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Spotting AI Lies: How to Know When Your LLM is BS-ing</title>
+      <title>AI B*llsh*tting</title>
       <description>&lt;p&gt;Hallucinations are the single biggest hurdle to trusting AI with high-stakes work in medicine or law. When an AI confidently invents facts, it’s not just unhelpful, it’s dangerous.&lt;/p&gt;
 
 &lt;p&gt;It could even be a brand reputation risk where your AI customer support agent makes up some company policy while talking to customers as &lt;a href=&quot;https://arstechnica.com/ai/2025/04/cursor-ai-support-bot-invents-fake-policy-and-triggers-user-uproar/&quot;&gt;Cursor and Air Canada found out&lt;/a&gt;.&lt;/p&gt;
@@ -80,8 +80,8 @@
 &lt;p&gt;UQ isn’t just about detecting lies; it’s becoming the AI’s guidance system. UQ can be used to help complex reasoning systems by detecting an uncertain step and guiding the AI to backtrack and try a better path. It can also make AI agents more efficient by only calling expensive external tools or consulting a human when the internal confidence is low.&lt;/p&gt;
 </description>
       <pubDate>Tue, 04 Nov 2025 00:00:00 +0530</pubDate>
-      <link>https://blog.ravilazar.com/ai/machine-learning/uncertainty/quantification/How-to-know-when-your-llm-is-bs-ing</link>
-      <guid isPermaLink="true">https://blog.ravilazar.com/ai/machine-learning/uncertainty/quantification/How-to-know-when-your-llm-is-bs-ing</guid>
+      <link>https://blog.ravilazar.com/How-to-know-when-your-llm-is-bs-ing</link>
+      <guid isPermaLink="true">https://blog.ravilazar.com/How-to-know-when-your-llm-is-bs-ing</guid>
     </item>
     
     <item>
