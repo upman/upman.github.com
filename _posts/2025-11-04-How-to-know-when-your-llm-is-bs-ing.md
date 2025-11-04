@@ -3,6 +3,8 @@ layout: post
 title: "Spotting AI Lies: How to Know When Your LLM is BS-ing"
 date: 2025-11-04
 categories: ai machine-learning uncertainty quantification
+image:
+    feature: llm-polygraph.jpg
 ---
 
 Hallucinations are the single biggest hurdle to trusting AI with high-stakes work in medicine or law. When an AI confidently invents facts, it's not just unhelpful, it's dangerous.
@@ -53,7 +55,7 @@ The hidden states or attention weights of an LLM behave differently when an LLM 
 
 ### 4. Supervised Methods: Training a Hallucination Detector [Supervised, White-box]
 
-This is like building a second, specialized AI whose only job is to watch the main AI's internal thoughts and ring an alarm if it looks like it's about to make a mistake.
+This is like building a second, specialized AI whose only job is to watch the main AI's internal thoughts and ring an alarm if it looks like it's about to make a mistake. A kind of a polygraph machine for your LLM.
 
 **The Trade-off:** To train this specialized detector, you first need a massive dataset of the main AI's past mistakes, all neatly labeled by human experts. Creating this labeled "ground truth" data is expensive and time-consuming. However, once trained, these Supervised UQ methods can drastically outperform other methods, when dealing with topics they were trained on. The major drawback is that they generalize poorly to new tasks (e.g., if you train it to find lies in Q&A, it might fail when used for machine translation).
 

@@ -56,7 +56,7 @@
 
 &lt;h3 id=&quot;4-supervised-methods-training-a-hallucination-detector-supervised-white-box&quot;&gt;4. Supervised Methods: Training a Hallucination Detector [Supervised, White-box]&lt;/h3&gt;
 
-&lt;p&gt;This is like building a second, specialized AI whose only job is to watch the main AI’s internal thoughts and ring an alarm if it looks like it’s about to make a mistake.&lt;/p&gt;
+&lt;p&gt;This is like building a second, specialized AI whose only job is to watch the main AI’s internal thoughts and ring an alarm if it looks like it’s about to make a mistake. A kind of a polygraph machine for your LLM.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;The Trade-off:&lt;/strong&gt; To train this specialized detector, you first need a massive dataset of the main AI’s past mistakes, all neatly labeled by human experts. Creating this labeled “ground truth” data is expensive and time-consuming. However, once trained, these Supervised UQ methods can drastically outperform other methods, when dealing with topics they were trained on. The major drawback is that they generalize poorly to new tasks (e.g., if you train it to find lies in Q&amp;amp;A, it might fail when used for machine translation).&lt;/p&gt;
 
