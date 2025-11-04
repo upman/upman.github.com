@@ -64,9 +64,9 @@ This is like building a second, specialized AI whose only job is to watch the ma
 
 These are the simple ways to check confidence. Either you just ask the AI directly how sure it is, or you ask a second AI (a "Judge") to grade the first one's work.
 
-- **Verbalized Uncertainty (Just Ask It):** You prompt the AI to report its confidence (e.g., "tell me your confidence on a scale of 1 to 10"). The AI can sometimes be trained to be surprisingly good at this for advanced models, but it generally relies on the AI's self-awareness and can be prone to overconfidence. If you have a labeled dataset of when an LLM is hallucinating / low confidence, you can also finetune the model to verbalize it's uncertainty in it's responses. This is what openAI did in [this paper](https://arxiv.org/abs/2205.14334).
+**Verbalized Uncertainty (Just Ask It):** You prompt the AI to report its confidence (e.g., "tell me your confidence on a scale of 1 to 10"). The AI can sometimes be trained to be surprisingly good at this for advanced models, but it generally relies on the AI's self-awareness and can be prone to overconfidence. If you have a labeled dataset of when an LLM is hallucinating / low confidence, you can also finetune the model to verbalize it's uncertainty in it's responses. This is what openAI did in [this paper](https://arxiv.org/abs/2205.14334).
 
-- **LLM-as-a-Judge:** Here, instead of asking the same LLM to grade it's results, you use a different LLM model to grade the response, often instructing it to check for factual accuracy. This could be a separate smaller fine tuned LLM or a council of many different LLMs that vote on the outputs confidence level.
+**LLM-as-a-Judge:** Here, instead of asking the same LLM to grade it's results, you use a different LLM model to grade the response, often instructing it to check for factual accuracy. This could be a separate smaller fine tuned LLM or a council of many different LLMs that vote on the outputs confidence level.
 
 ## Why This All Matters
 
