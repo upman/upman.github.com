@@ -21,7 +21,7 @@ When an AI is "uncertain," it can be for two very different reasons. Knowing the
 
 ### Aleatoric Uncertainty (The "World is Messy" Problem)
 
-This uncertainty comes from the question itself being inherently ambiguous, random, or noisy. For example, if you ask the AI to complete "I flipped a coin, it landed on ____," the answer is uncertain because the real world outcome is random. This type of uncertainty cannot be reduced, even if you give the AI more data.
+This uncertainty comes from the question itself being inherently ambiguous, random, or noisy. For example, if you ask the AI to complete "I flipped a coin, it landed on _," the answer is uncertain because the real world outcome is random. This type of uncertainty cannot be reduced, even if you give the AI more data.
 
 ### Epistemic Uncertainty (The "I Haven't Learned This" Problem)
 

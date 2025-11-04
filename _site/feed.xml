@@ -22,7 +22,7 @@
 
 &lt;h3 id=&quot;aleatoric-uncertainty-the-world-is-messy-problem&quot;&gt;Aleatoric Uncertainty (The “World is Messy” Problem)&lt;/h3&gt;
 
-&lt;p&gt;This uncertainty comes from the question itself being inherently ambiguous, random, or noisy. For example, if you ask the AI to complete “I flipped a coin, it landed on &lt;em&gt;__&lt;/em&gt;,” the answer is uncertain because the real world outcome is random. This type of uncertainty cannot be reduced, even if you give the AI more data.&lt;/p&gt;
+&lt;p&gt;This uncertainty comes from the question itself being inherently ambiguous, random, or noisy. For example, if you ask the AI to complete “I flipped a coin, it landed on _,” the answer is uncertain because the real world outcome is random. This type of uncertainty cannot be reduced, even if you give the AI more data.&lt;/p&gt;
 
 &lt;h3 id=&quot;epistemic-uncertainty-the-i-havent-learned-this-problem&quot;&gt;Epistemic Uncertainty (The “I Haven’t Learned This” Problem)&lt;/h3&gt;
 
