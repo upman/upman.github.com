@@ -8,72 +8,77 @@
     
     <item>
       <title>Spotting AI Lies: How to Know When Your LLM is BS-ing</title>
-      <description>&lt;p&gt;We’ve all been there. You ask an AI a question, and it gives you an answer that is incredibly detailed, looks knowledgeable, and… completely wrong.&lt;/p&gt;
-
-&lt;p&gt;Hallucinations are the single biggest hurdle to trusting AI with high-stakes work. In fields like medicine or law, an AI that confidently invents a legal precedent or misreads a medical chart isn’t just unhelpful, it’s dangerous.&lt;/p&gt;
+      <description>&lt;p&gt;Hallucinations are the single biggest hurdle to trusting AI with high-stakes work in medicine or law. When an AI confidently invents facts, it’s not just unhelpful, it’s dangerous.&lt;/p&gt;
 
 &lt;p&gt;It could even be a brand reputation risk where your AI customer support agent makes up some company policy while talking to customers as &lt;a href=&quot;https://arstechnica.com/ai/2025/04/cursor-ai-support-bot-invents-fake-policy-and-triggers-user-uproar/&quot;&gt;Cursor and Air Canada found out&lt;/a&gt;.&lt;/p&gt;
 
-&lt;p&gt;This is why the most effective AI systems are built on a “Human-in-the-Loop” (HITL) model. The AI acts as a brilliant, lightning-fast paralegal or research assistant, but a human expert remains the final authority, reviewing and validating the work. But for this partnership to work, the human expert needs to know where to focus their attention. They need the AI to do something that doesn’t come naturally to it: admit when it’s not sure.&lt;/p&gt;
+&lt;p&gt;This is why the most effective AI systems are built on a “Human-in-the-Loop” (HITL) model. The AI acts as an assistant, but a human expert remains the final authority. For this to work efficiently, the human expert needs to know where to focus their attention. They need the AI to raise it’s hand and say it’s not sure.&lt;/p&gt;
 
-&lt;p&gt;This capability is called &lt;strong&gt;Uncertainty Quantification (UQ)&lt;/strong&gt; where you have an indication when an AI answer can’t be trusted.&lt;/p&gt;
+&lt;p&gt;This capability is called &lt;strong&gt;Uncertainty Quantification (UQ)&lt;/strong&gt;, which gives you an indication when an AI answer can’t be trusted.&lt;/p&gt;
 
-&lt;h2 id=&quot;the-two-types-of-not-sure-in-plain-english&quot;&gt;The Two Types of “Not Sure” (In Plain English)&lt;/h2&gt;
+&lt;h2 id=&quot;the-two-types-of-not-sure&quot;&gt;The Two Types of “Not Sure”&lt;/h2&gt;
 
-&lt;p&gt;When an LLM is “uncertain,” it can be for two very different reasons. Knowing the difference helps us decide how to measure the right kind of uncertainty.&lt;/p&gt;
+&lt;p&gt;When an AI is “uncertain,” it can be for two very different reasons. Knowing the difference helps us measure the right kind of uncertainty.&lt;/p&gt;
 
 &lt;h3 id=&quot;aleatoric-uncertainty-the-world-is-messy-problem&quot;&gt;Aleatoric Uncertainty (The “World is Messy” Problem)&lt;/h3&gt;
 
-&lt;p&gt;This is uncertainty that comes from the world or the answer to your question being uncertain by itself. The world is full of ambiguity, randomness, and noise. Think of sending the following to the LLM. “Complete this sentence: I flipped a coin, it landed on &lt;em&gt;__&lt;/em&gt;”. The word at the end of this sentence is inherently uncertain. Detecting this kind of uncertainty doesn’t mean the model is uncertain.&lt;/p&gt;
+&lt;p&gt;This uncertainty comes from the question itself being inherently ambiguous, random, or noisy. For example, if you ask the AI to complete “I flipped a coin, it landed on &lt;em&gt;__&lt;/em&gt;,” the answer is uncertain because the real world outcome is random. This type of uncertainty cannot be reduced, even if you give the AI more data.&lt;/p&gt;
 
 &lt;h3 id=&quot;epistemic-uncertainty-the-i-havent-learned-this-problem&quot;&gt;Epistemic Uncertainty (The “I Haven’t Learned This” Problem)&lt;/h3&gt;
 
-&lt;p&gt;This is uncertainty because the AI’s “education” is limited. It’s a gap in the model’s training. If you ask an AI trained only on data from 2021 about a legal case from 2024, it will be in “epistemic” uncertainty. This can be fixed by giving the model more or newer data.&lt;/p&gt;
+&lt;p&gt;This is uncertainty because the AI’s “education” is limited or insufficient. It’s a gap in the model’s training or knowledge. If you ask an AI trained only on data up to 2021 about a legal case from 2024, it will be in “epistemic” uncertainty. This type of uncertainty can be reduced by giving the model more or newer data.&lt;/p&gt;
 
 &lt;h2 id=&quot;how-do-you-get-an-ai-to-raise-its-hand&quot;&gt;How Do You Get an AI to “Raise Its Hand”?&lt;/h2&gt;
 
-&lt;p&gt;So, how do we spot these types of uncertainty? We can use a few clever methods to get a “confidence score” from an AI.&lt;/p&gt;
+&lt;p&gt;UQ methods are generally categorized as &lt;strong&gt;Supervised&lt;/strong&gt; (trained on specific mistakes) or &lt;strong&gt;Unsupervised&lt;/strong&gt; (relying on internal logic or output consistency). They also differ based on how much of the AI’s internal processing they can see (&lt;strong&gt;White-box&lt;/strong&gt;) or if they only see the final text (&lt;strong&gt;Black-box&lt;/strong&gt;). Checkout this &lt;a href=&quot;https://sites.google.com/view/acl2025-uncertainty-for-llms/&quot;&gt;ACL tutorial&lt;/a&gt; on this subject if you want to know more details. But I will broadly summarize these methods in plain english here.&lt;/p&gt;
 
-&lt;h3 id=&quot;1-token-level-uncertainty&quot;&gt;1. Token-Level Uncertainty&lt;/h3&gt;
+&lt;h3 id=&quot;1-information-theoretic-methods-watching-the-word-guessing-game-unsupervised-white-box&quot;&gt;1. Information-Theoretic Methods: Watching the Word Guessing Game [Unsupervised, White-box]&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;ELI5 Version:&lt;/strong&gt; The AI writes token-by-token . For every token, it has a list of possible next tokens and a probability for each. We can watch this process.
-Let’s say we ask the LLM “What is the capital of France?”. If it’s 99% sure the next word is “Paris,” it’s confident. But if it’s torn—say, 40% for “Paris” and 35% for “Lyon”, it’s “uncertain”.&lt;/p&gt;
+&lt;p&gt;The AI writes its response token-by-token (word-part by word-part). For every token, it has a list of possible next tokens and a probability for each. Let’s say you ask it “What is the capital of france?”. If the LLM is highly sure (99% for “Paris”), it’s confident. If it’s torn (40% for “Paris” and 35% for “Lyon”), it’s uncertain.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;The Drawback:&lt;/strong&gt; This method is noisy. The AI might just be uncertain about phrasing (e.g., “a big dog” vs. “a large dog”), not the actual fact. It’s also hard to take thousands of tiny word-level “unsure” signals and roll them into one simple “I’m not sure about this whole paragraph” score.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The Drawback:&lt;/strong&gt; This “Token-Level Uncertainty” is noisy. For long paragraphs of output from an LLM, it’s hard to combine the probabilities into one reliable confidence score.&lt;/p&gt;
 
-&lt;h3 id=&quot;2-semantic-uncertainty-the-ask-it-twice-method&quot;&gt;2. Semantic Uncertainty (The “Ask it Twice” Method)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;The Fix (Claim-Level UQ):&lt;/strong&gt; Instead of just getting a score for the whole paragraph (Sequence-level) or every single word (Token-level), advanced systems focus on Claim-level UQ. The output from the LLM is split into separate claims then checks the uncertainty for specific facts or claims within the text. For example, a customer support bot might cite a company policy and some facts about the customer or their transaction and offer a solution. Then each company policy cited is a claim and each of the facts about the customer and their transation is a claim.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;ELI5 Version:&lt;/strong&gt; You ask the AI the same question five times. If you get five different answers (e.g., “Paris,” “The capital is Paris,” “Lyon,” “France’s capital city”), the model’s understanding isn’t stable. This “high variance” in the answers is a big red flag.&lt;/p&gt;
+&lt;h3 id=&quot;2-consistency-methods-the-ask-it-twice-rule-unsupervised-black-box&quot;&gt;2. Consistency Methods: The “Ask It Twice” Rule [Unsupervised, Black-box]&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;The Drawback:&lt;/strong&gt; This is the “ensemble” approach. It’s often effective, but it’s also slow and expensive. You have to run the entire, massive AI model multiple times just to get one answer.&lt;/p&gt;
+&lt;p&gt;You ask the AI the same question multiple times. If you get five different answers, the model’s understanding isn’t stable, and the high variance is a big red flag.&lt;/p&gt;
 
-&lt;h3 id=&quot;3-supervised-probes-the-hallucination-detector&quot;&gt;3. Supervised Probes (The “Hallucination Detector”)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt; This is known as a Consistency-based approach. By checking the semantic similarity (how close the meaning is) or lexical similarity (how close the words are) across different samples, we can gauge reliability.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;ELI5 Version:&lt;/strong&gt; This is like building a second, smaller AI that’s trained to do one thing: watch the “brain” of the main AI as it “thinks” and ring a bell if it looks like it’s about to make a mistake.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;The Best Approach (Hybrid UQ):&lt;/strong&gt; Combining this consistency checking with the word-guessing confidence (Information-Theoretic methods) can give good results.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt; This “probe” is a small model trained on the main AI’s internal calculations (its “hidden states and attention weights”) to predict the likelihood of an error.&lt;/p&gt;
+&lt;h3 id=&quot;3-introspective-methods-checking-the-ais-brain-unsupervised-white-box&quot;&gt;3. Introspective Methods: Checking the AI’s “Brain” [Unsupervised, White-box]&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;The Drawback:&lt;/strong&gt; To train this detector, you first need a massive dataset of the main AI’s past mistakes, all neatly labeled by human experts. Creating this “ground truth” data is a huge, time-consuming, and expensive project. If you have such a dataset, it might even make sense to fine tune your model to just refuse to answer or say it’s uncertain. OpenAI did exactly this in &lt;a href=&quot;https://arxiv.org/pdf/2205.14334&quot;&gt;this paper&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Rather than just looking at the final words or their immediate probability scores, we look inside the model as it “thinks”. We look at what the LLM is focusing on as it generates each word. Checkout this awesome &lt;a href=&quot;https://youtube.com/watch?v=9-Jl0dxWQs8&amp;amp;vl=en&quot;&gt;3blue1brown video&lt;/a&gt; to get an understanding of how an LLM might store and retrieve a fact. This provides a great intuition of what happens inside of an LLM.&lt;/p&gt;
 
-&lt;h3 id=&quot;4-llm-as-a-judge-the-get-a-second-opinion-method&quot;&gt;4. LLM-as-a-Judge (The “Get a Second Opinion” Method)&lt;/h3&gt;
+&lt;p&gt;The hidden states or attention weights of an LLM behave differently when an LLM is unsure. By analyzing these attention patterns, we can come up with an uncertainty score.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;ELI5 Version:&lt;/strong&gt; Imagine you ask one AI a question. To double-check its work, you ask a second, “judge” AI to grade the first AI’s answer. You can even have a whole panel of judge AIs vote on whether the answer is good or not. You can give the judge specific instructions, like “check if the answer is factual” or “make sure the answer is helpful and friendly.”&lt;/p&gt;
+&lt;h3 id=&quot;4-supervised-methods-training-a-hallucination-detector-supervised-white-box&quot;&gt;4. Supervised Methods: Training a Hallucination Detector [Supervised, White-box]&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;The Drawback:&lt;/strong&gt; This can get expensive, as you’re now paying for two (or more) AIs to answer every question. Plus, the “judge” AI isn’t perfect either—it might have its own biases or just get things wrong, so it’s not a foolproof system.&lt;/p&gt;
+&lt;p&gt;This is like building a second, specialized AI whose only job is to watch the main AI’s internal thoughts and ring an alarm if it looks like it’s about to make a mistake.&lt;/p&gt;
 
-&lt;h3 id=&quot;5-direct-confidence-reporting-the-just-ask-it-method&quot;&gt;5. Direct Confidence Reporting (The “Just Ask It” Method)&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;The Trade-off:&lt;/strong&gt; To train this specialized detector, you first need a massive dataset of the main AI’s past mistakes, all neatly labeled by human experts. Creating this labeled “ground truth” data is expensive and time-consuming. However, once trained, these Supervised UQ methods can drastically outperform other methods, when dealing with topics they were trained on. The major drawback is that they generalize poorly to new tasks (e.g., if you train it to find lies in Q&amp;amp;A, it might fail when used for machine translation).&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;ELI5 Version:&lt;/strong&gt; You simply ask the AI to tell you how sure it is. You can add an instruction like, “After you answer, tell me your confidence on a scale of 1 to 10.” Some of the newer, more advanced AIs are actually pretty good at guessing when they might be wrong.&lt;/p&gt;
+&lt;h3 id=&quot;5-reflexive-methods-the-just-ask-it-and-llm-as-a-judge-approaches-unsupervised-black-box&quot;&gt;5. Reflexive Methods: The “Just Ask It” and “LLM-as-a-Judge” Approaches [Unsupervised, Black-box]&lt;/h3&gt;
 
-&lt;p&gt;&lt;strong&gt;The Drawback:&lt;/strong&gt; This relies on the AI’s own self-awareness, which can be a bit of a black box. It might be overconfident, or it might be trained to sound confident no matter what. It’s a simple method, but probably the least reliable.&lt;/p&gt;
+&lt;p&gt;These are the simple ways to check confidence. Either you just ask the AI directly how sure it is, or you ask a second AI (a “Judge”) to grade the first one’s work.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;What it is:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;Verbalized Uncertainty (Just Ask It):&lt;/strong&gt; You prompt the AI to report its confidence (e.g., “tell me your confidence on a scale of 1 to 10”). The AI can sometimes be trained to be surprisingly good at this for advanced models, but it generally relies on the AI’s self-awareness and can be prone to overconfidence. If you have a labeled dataset of when an LLM is hallucinating / low confidence, you can also finetune the model to verbalize it’s uncertainty in it’s responses. This is what openAI did in &lt;a href=&quot;https://arxiv.org/abs/2205.14334&quot;&gt;this paper&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;&lt;strong&gt;LLM-as-a-Judge:&lt;/strong&gt; Here, instead of asking the same LLM to grade it’s results, you use a different LLM model to grade the response, often instructing it to check for factual accuracy. This could be a separate smaller fine tuned LLM or a council of many different LLMs that vote on the outputs confidence level.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;why-this-all-matters&quot;&gt;Why This All Matters&lt;/h2&gt;
 
 &lt;p&gt;An AI that can say “I don’t know” is infinitely more useful than one that confidently fabricates answers.&lt;/p&gt;
 
-&lt;p&gt;Uncertainty Quantification is the technology that makes Human-in-the-Loop systems practical. It’s what tells the human expert, “Pay attention to this part”. It allows us to build systems that automatically route low-confidence answers to a person for mandatory review, while letting high-confidence answers pass through.&lt;/p&gt;
-
-&lt;p&gt;The goal isn’t to build an AI that’s a perfect oracle. The goal is to build an AI that’s a reliable partner.&lt;/p&gt;
+&lt;p&gt;UQ isn’t just about detecting lies; it’s becoming the AI’s guidance system. UQ can be used to help complex reasoning systems by detecting an uncertain step and guiding the AI to backtrack and try a better path. It can also make AI agents more efficient by only calling expensive external tools or consulting a human when the internal confidence is low.&lt;/p&gt;
 </description>
       <pubDate>Tue, 04 Nov 2025 00:00:00 +0530</pubDate>
       <link>https://blog.ravilazar.com/ai/machine-learning/uncertainty/quantification/How-to-know-when-your-llm-is-bs-ing</link>
