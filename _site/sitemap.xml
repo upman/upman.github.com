@@ -6,6 +6,10 @@
 
     
     <url>
+        <loc>http://localhost:4000/ai/machine-learning/uncertainty/quantification/How-to-know-when-your-llm-is-bs-ing</loc>
+    </url>
+    
+    <url>
         <loc>http://localhost:4000/edit-survival</loc>
     </url>
     
