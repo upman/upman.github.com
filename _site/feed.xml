@@ -158,8 +158,8 @@ claude plugin install lua-lsp
 &lt;p&gt;Once the servers are running, you don’t need to do anything differently. Claude picks up the LSP automatically — the next refactor or call-chain trace just works faster.&lt;/p&gt;
 </description>
       <pubDate>Sun, 01 Mar 2026 00:00:00 +0530</pubDate>
-      <link>https://blog.ravilazar.com/Speed-up-Claude-Code-with-LSPs</link>
-      <guid isPermaLink="true">https://blog.ravilazar.com/Speed-up-Claude-Code-with-LSPs</guid>
+      <link>https://blog.ravilazar.com/Ditch-Grep-and-Speed-up-Claude-Code-with-LSPs</link>
+      <guid isPermaLink="true">https://blog.ravilazar.com/Ditch-Grep-and-Speed-up-Claude-Code-with-LSPs</guid>
     </item>
     
     <item>
