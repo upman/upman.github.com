@@ -26,8 +26,12 @@
 
         {{ content }}
 
+      <textarea id="post-markdown" hidden># {{ page.title }}
+
+{{ page.raw_content | escape }}</textarea>
       <a class="share" href="https://twitter.com/intent/tweet?text=&quot;{{ page.title }}&quot;%20{{ site.url }}{{ page.url }}%20via%20&#64;{{ site.owner.twitter }}" data-dnt="true">Share</a>
       <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+      <button class="copy-md" id="copy-md-btn">Copy as Markdown</button>
 
       {% if page.comments %}
       <aside class="disqus">

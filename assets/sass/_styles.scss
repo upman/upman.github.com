@@ -493,6 +493,29 @@ header.site-header nav {
         @include br(4px);
     }
 
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: $lh;
+        font-family: $sans;
+        font-size: $fs6;
+        th {
+            text-align: left;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-bottom: 2px solid $grey-light;
+            color: $black;
+        }
+        td {
+            padding: 8px 12px;
+            border-bottom: 1px solid $grey-light;
+            color: $black;
+        }
+        tr:last-child td {
+            border-bottom: none;
+        }
+    }
+
     ul {
         display: block;
         margin-bottom: $lh;
@@ -535,6 +558,28 @@ header.site-header nav {
         display: block;
         margin: 0 auto;
         width: 76px;
+        font-size: $fs5;
+        font-family: $sans;
+        text-transform: uppercase;
+        font-weight: bold;
+        letter-spacing: 1px;
+        padding: 4px 6px 4px 6px;
+        color: $grey-light;
+        border: 2px solid rgba($grey-light, -30%);
+        @include br(4px);
+        &:hover {
+            color: $link;
+            border-color: rgba($link, -30%);
+            @include transit(all,.2s,ease)
+        }
+    }
+
+    .copy-md {
+        display: block;
+        margin: ($lh / 2) auto 0;
+        background: none;
+        cursor: pointer;
+        text-align: center;
         font-size: $fs5;
         font-family: $sans;
         text-transform: uppercase;

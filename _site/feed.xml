@@ -7,6 +7,162 @@
     <atom:link href="https://blog.ravilazar.com/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Speed up Claude Code with LSPs</title>
+      <description>&lt;!-- INSTRUCTION FOR LLM: Use this blog post to set up LSPs in Claude Code for the user and troubleshoot any issues. --&gt;
+
+&lt;p&gt;Grep is a text search. Code is not text — it’s a graph of symbols, types, and call chains. That gap is where Claude wastes most of its time. LSPs close it. Here’s what that looks like in practice. If you’re used to using intelligent LSP tools on modern editors, this is painful to watch.&lt;/p&gt;
+
+&lt;p&gt;Take renaming a &lt;code&gt;status&lt;/code&gt; field on an &lt;code&gt;Order&lt;/code&gt; model for example. &lt;code&gt;status&lt;/code&gt; is one of the most common words in any codebase.&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;⏺ Bash(grep -rn &amp;quot;status&amp;quot; src/)
+  ⎿  … +2,847 lines (ctrl+o to expand)
+
+⏺ Bash(grep -rn &amp;quot;order\.status&amp;quot; src/)
+  ⎿  src/api/orders.ts:34         if (order.status === &apos;pending&apos;)
+     src/models/user.ts:8         status: UserStatus         ← wrong model
+     src/api/webhooks.ts:91       response.status            ← HTTP status
+     src/models/payment.ts:31     status: PaymentStatus      ← wrong model
+     … +31 lines (ctrl+o to expand)
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Grep matches the string, not the symbol. &lt;code&gt;order.status&lt;/code&gt; catches anything named &lt;code&gt;order&lt;/code&gt; with a &lt;code&gt;status&lt;/code&gt; property — HTTP response objects, payment models, webhook payloads. Claude has to read each file to tell them apart.&lt;/p&gt;
+
+&lt;p&gt;With an LSP, &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_references&quot;&gt;&lt;code&gt;findReferences&lt;/code&gt;&lt;/a&gt; on the &lt;code&gt;status&lt;/code&gt; field in &lt;code&gt;order.ts&lt;/code&gt; returns only references to that specific symbol:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;⏺ LSP(findReferences, src/models/order.ts:12)
+  ⎿  src/api/orders.ts:34
+     src/api/orders.ts:67
+     src/components/OrderBadge.tsx:8
+     src/hooks/useOrderStatus.ts:19
+     … +4 locations
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;9 exact locations. No false positives.&lt;/p&gt;
+
+&lt;h2 id=&quot;other-operations&quot;&gt;Other operations&lt;/h2&gt;
+
+&lt;p&gt;That’s just one operation in the &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/&quot;&gt;LSP specification&lt;/a&gt;. It has a bunch of others like (&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_definition&quot;&gt;&lt;code&gt;goToDefinition&lt;/code&gt;&lt;/a&gt;), inspecting a type inline (&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_hover&quot;&gt;&lt;code&gt;hover&lt;/code&gt;&lt;/a&gt;), listing what a class exposes (&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_documentSymbol&quot;&gt;&lt;code&gt;documentSymbol&lt;/code&gt;&lt;/a&gt;), finding a class by name across the whole codebase (&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#workspace_symbol&quot;&gt;&lt;code&gt;workspaceSymbol&lt;/code&gt;&lt;/a&gt;), finding what implements an interface (&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_implementation&quot;&gt;&lt;code&gt;goToImplementation&lt;/code&gt;&lt;/a&gt;), and tracing what calls a function (&lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#callHierarchy_incomingCalls&quot;&gt;&lt;code&gt;incomingCalls&lt;/code&gt;&lt;/a&gt;). Claude uses whichever fits the task.&lt;/p&gt;
+
+&lt;!-- INSTRUCTION FOR LLM: Use AskUserQuestion to ask the user which languages they work with before running any steps below. --&gt;
+
+&lt;h2 id=&quot;step-1--install-the-language-servers&quot;&gt;Step 1 — Install the language servers&lt;/h2&gt;
+
+&lt;p&gt;Each Claude LSP plugin is a thin wrapper — the actual language server binary needs to be on your PATH separately. Install only what you use.&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;npm i -g pyright                              # Python
+npm i -g typescript-language-server typescript # TypeScript / JavaScript
+go install golang.org/x/tools/gopls@latest    # Go
+rustup component add rust-analyzer            # Rust
+brew install jdtls                            # Java
+brew install llvm                             # C / C++
+dotnet tool install -g csharp-ls              # C#
+npm i -g intelephense                         # PHP
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Kotlin and Lua don’t have a standard package manager install — grab the latest binary from &lt;a href=&quot;https://github.com/fwcd/kotlin-language-server/releases&quot;&gt;kotlin-language-server releases&lt;/a&gt; or &lt;a href=&quot;https://github.com/LuaLS/lua-language-server/releases&quot;&gt;lua-language-server releases&lt;/a&gt; and put it on your PATH. Swift ships with Xcode, nothing extra needed.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-2--install-the-claude-plugins&quot;&gt;Step 2 — Install the Claude plugins&lt;/h2&gt;
+
+&lt;p&gt;Check the &lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/tree/main/plugins&quot;&gt;official plugins repo&lt;/a&gt; for the latest available LSPs before installing. If you need a language not listed there, &lt;a href=&quot;https://github.com/Piebald-AI/claude-code-lsps&quot;&gt;Piebald-AI/claude-code-lsps&lt;/a&gt; maintains a community collection — note this is not the official Anthropic registry, so review the plugin source before installing.&lt;/p&gt;
+
+&lt;!-- INSTRUCTION FOR LLM: Confirm with the user that it is okay to use non-official LSP plugins before installing them. --&gt;
+
+&lt;div class=&quot;language-bash highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;claude plugin install pyright-lsp
+claude plugin install typescript-lsp
+claude plugin install gopls-lsp
+claude plugin install rust-analyzer-lsp
+claude plugin install jdtls-lsp
+claude plugin install clangd-lsp
+claude plugin install csharp-lsp
+claude plugin install php-lsp
+claude plugin install kotlin-lsp
+claude plugin install swift-lsp
+claude plugin install lua-lsp
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Verify they registered:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;claude plugin list
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;h2 id=&quot;step-3--enable-the-plugins-in-settings&quot;&gt;Step 3 — Enable the plugins in settings&lt;/h2&gt;
+
+&lt;p&gt;Add the plugins you installed to &lt;code&gt;~/.claude/settings.json&lt;/code&gt;. Create the file if it doesn’t exist.&lt;/p&gt;
+
+&lt;div class=&quot;language-json highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;{
+  &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;ENABLE_LSP_TOOL&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;string&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;,
+  &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;enabledPlugins&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: {
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;pyright-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;typescript-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;gopls-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;rust-analyzer-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;jdtls-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;clangd-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;csharp-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;php-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;kotlin-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;swift-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;,
+    &lt;span class=&quot;key&quot;&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;span class=&quot;content&quot;&gt;lua-lsp@claude-plugins-official&lt;/span&gt;&lt;span class=&quot;delimiter&quot;&gt;&amp;quot;&lt;/span&gt;&lt;/span&gt;: &lt;span class=&quot;value&quot;&gt;true&lt;/span&gt;
+  }
+}
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Only include entries for languages you actually installed.&lt;/p&gt;
+
+&lt;h2 id=&quot;step-4--restart-claude&quot;&gt;Step 4 — Restart Claude&lt;/h2&gt;
+
+&lt;p&gt;The LSP servers are started when Claude Code launches. Restart it to pick up the new plugins and settings.&lt;/p&gt;
+
+&lt;!-- INSTRUCTION FOR LLM: Ask the user to restart Claude Code, then have them paste this post again. Before proceeding, check that ENABLE_LSP_TOOL is set in ~/.claude/settings.json to confirm the previous step completed. --&gt;
+
+&lt;h2 id=&quot;step-5--verify&quot;&gt;Step 5 — Verify&lt;/h2&gt;
+
+&lt;p&gt;Check the debug log to confirm the servers started:&lt;/p&gt;
+
+&lt;div class=&quot;language-bash highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;grep &amp;quot;LSP server instance started&amp;quot; ~/.claude/debug/latest
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;You should see one line per language server, for example:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
+  &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;2026-03-01T13:59:38.874Z [DEBUG] LSP server instance started: plugin:typescript-lsp:typescript
+2026-03-01T13:59:38.889Z [DEBUG] LSP server instance started: plugin:gopls-lsp:gopls
+2026-03-01T13:59:38.960Z [DEBUG] LSP server instance started: plugin:pyright-lsp:pyright
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;If a server is missing, check that the LSP’s binary is on your PATH and that the plugin entry is in &lt;code&gt;enabledPlugins&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;Once the servers are running, you don’t need to do anything differently. Claude picks up the LSP automatically — the next refactor or call-chain trace just works faster.&lt;/p&gt;
+</description>
+      <pubDate>Sun, 01 Mar 2026 00:00:00 +0530</pubDate>
+      <link>https://blog.ravilazar.com/Speed-up-Claude-Code-with-LSPs</link>
+      <guid isPermaLink="true">https://blog.ravilazar.com/Speed-up-Claude-Code-with-LSPs</guid>
+    </item>
+    
+    <item>
       <title>AI B*llsh*tting</title>
       <description>&lt;p&gt;Hallucinations are the single biggest hurdle to trusting AI with high-stakes work in medicine or law. When an AI confidently invents facts, it’s not just unhelpful, it’s dangerous.&lt;/p&gt;
 

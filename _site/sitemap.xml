@@ -6,6 +6,10 @@
 
     
     <url>
+        <loc>http://localhost:4000/Speed-up-Claude-Code-with-LSPs</loc>
+    </url>
+    
+    <url>
         <loc>http://localhost:4000/How-to-know-when-your-llm-is-bs-ing</loc>
     </url>
     

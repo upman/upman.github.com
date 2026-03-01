@@ -45,3 +45,14 @@ $(function(){
         setTimeout(function(){ t.addClass('slider'); }, (i+1) * 330);
     });
 });
+
+$(document).ready(function() {
+  $('#copy-md-btn').click(function() {
+    var md = document.getElementById('post-markdown').value;
+    var btn = $(this);
+    navigator.clipboard.writeText(md).then(function() {
+      btn.text('Copied!');
+      setTimeout(function() { btn.text('Copy as Markdown'); }, 2000);
+    });
+  });
+});
