@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Speed up Claude Code with LSPs
+title: Ditch grep and Speed up Claude Code with LSPs
 comments: true
 image:
   feature: claude-code.png
