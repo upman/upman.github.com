@@ -78,7 +78,7 @@ This is the gap that humans have to fill right now. Not by writing better prompt
 
 ## How agents writing code will affect software engineering
 
-If the harness is the load-bearing part, then everything that makes harnesses more honest, more precise, or cheaper to run becomes more valuable:
+If the harness is the load-bearing part, then everything that makes harnesses more honest, more precise, or cheaper to run becomes more valuable. Some socio-technical things around software that assumed typing code was the bottleneck will have to change.
 
 **1. Error messages get redesigned.** Tooling output is going to need to get denser. When a human reads a compiler error, a verbose stack trace is annoying but workable. When an agent reads it, every wasted token is noise competing with signal. Error messages were designed for human eyes. They weren't designed to be consumed a thousand times an hour by something with a context window.
 
