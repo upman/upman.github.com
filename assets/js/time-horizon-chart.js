@@ -32,7 +32,7 @@ const NON_FRONTIER_COLOR = '#9e9e9e';
 const OVERLAP_THRESHOLD = LABEL_RADIUS * 1.5;
 
 // Global state variables to persist across resizes
-let isLogScale = window.location.pathname !== '/';
+let isLogScale = false;
 let currentProbability = 'p50';
 
 // Track active timeouts to cancel them if needed

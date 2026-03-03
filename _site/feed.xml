@@ -538,8 +538,8 @@
     &lt;div id=&quot;time-horizon-chart&quot;&gt;&lt;/div&gt;
     &lt;div class=&quot;chart-controls-row&quot;&gt;
         &lt;div class=&quot;toggle-group scale-toggle&quot;&gt;
-            &lt;button id=&quot;linear-scale&quot;&gt;Linear&lt;/button&gt;
-            &lt;button id=&quot;log-scale&quot; class=&quot;active&quot;&gt;Log&lt;/button&gt;
+            &lt;button id=&quot;linear-scale&quot; class=&quot;active&quot;&gt;Linear&lt;/button&gt;
+            &lt;button id=&quot;log-scale&quot;&gt;Log&lt;/button&gt;
         &lt;/div&gt;
         &lt;div class=&quot;toggle-group&quot;&gt;
             &lt;button id=&quot;p50&quot; class=&quot;active&quot;&gt;50% success&lt;/button&gt;
@@ -863,7 +863,7 @@
   &lt;li&gt;Merge on green, repeat&lt;/li&gt;
 &lt;/ol&gt;
 
-&lt;p&gt;The model didn’t need to understand the full Next.js spec from first principles. The test suite &lt;em&gt;was&lt;/em&gt; the spec, and the test output was the grounding signal. A vague goal (“implement Next.js routing”) became something the agent could close on its own.&lt;/p&gt;
+&lt;p&gt;The model didn’t need to understand the full Next.js spec from first principles. The test suite was the spec, and the test output was the grounding signal. A vague goal (“implement Next.js routing”) became something the agent could close on its own.&lt;/p&gt;
 
 &lt;p&gt;One engineer, one week, 94% API coverage of Next.js 16, 4.4x faster builds, 57% smaller bundles, ~$1,100 in API tokens. Already running in production.&lt;/p&gt;
 
@@ -907,7 +907,7 @@
 
 &lt;p&gt;&lt;strong&gt;9. The software engineer role bifurcates.&lt;/strong&gt; The broad middle layer of software development — knowing a few frameworks, stitching together CRUD apps, implementing well-specified features — is exactly what agents are already good at. It’s pattern-matching on heavily-trodden ground, and that’s where most of the training data is. That layer compresses. What remains is work at the poles: going deep when something breaks in ways an agent can’t diagnose, and going high to design the feedback environment the agent runs in. Both require genuine engineering. Depth means dropping below the framework into the system — reading what’s actually happening in memory, network, or kernel when the abstraction fails. Harness design means understanding what makes a feedback loop honest: what signals to wire up, what failure modes to cover, how to prevent the agent from optimizing against the wrong thing, cheating or taking shortcuts. Both are hardcore engineering roles.&lt;/p&gt;
 
-&lt;p&gt;&lt;strong&gt;10. It’s gonna be lots of fun!.&lt;/strong&gt; (I just wanted a round number of bullet points okay?)&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;10. It’s gonna be lots of fun!&lt;/strong&gt; (I just wanted a round number of bullet points okay?)&lt;/p&gt;
 </description>
       <pubDate>Mon, 02 Mar 2026 00:00:00 +0530</pubDate>
       <link>https://blog.ravilazar.com/LLM-Task-Horizons</link>

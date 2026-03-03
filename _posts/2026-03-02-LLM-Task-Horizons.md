@@ -54,7 +54,7 @@ The approach was straightforward in a way that makes you wonder why it isn't the
 3. Agent iterates on the failures, hill-climbing toward passing
 4. Merge on green, repeat
 
-The model didn't need to understand the full Next.js spec from first principles. The test suite *was* the spec, and the test output was the grounding signal. A vague goal ("implement Next.js routing") became something the agent could close on its own.
+The model didn't need to understand the full Next.js spec from first principles. The test suite was the spec, and the test output was the grounding signal. A vague goal ("implement Next.js routing") became something the agent could close on its own.
 
 One engineer, one week, 94% API coverage of Next.js 16, 4.4x faster builds, 57% smaller bundles, ~$1,100 in API tokens. Already running in production.
 
@@ -98,4 +98,4 @@ If the harness is the load-bearing part, then everything that makes harnesses mo
 
 **9. The software engineer role bifurcates.** The broad middle layer of software development — knowing a few frameworks, stitching together CRUD apps, implementing well-specified features — is exactly what agents are already good at. It's pattern-matching on heavily-trodden ground, and that's where most of the training data is. That layer compresses. What remains is work at the poles: going deep when something breaks in ways an agent can't diagnose, and going high to design the feedback environment the agent runs in. Both require genuine engineering. Depth means dropping below the framework into the system — reading what's actually happening in memory, network, or kernel when the abstraction fails. Harness design means understanding what makes a feedback loop honest: what signals to wire up, what failure modes to cover, how to prevent the agent from optimizing against the wrong thing, cheating or taking shortcuts. Both are hardcore engineering roles.
 
-**10. It's gonna be lots of fun!.** (I just wanted a round number of bullet points okay?)
+**10. It's gonna be lots of fun!** (I just wanted a round number of bullet points okay?)
