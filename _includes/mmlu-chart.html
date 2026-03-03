@@ -1,0 +1,265 @@
+<div style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; box-sizing: border-box;">
+  <div id="mmlu-chart" style="overflow-x: auto;"></div>
+</div>
+<p style="font-size: 0.85em; color: #888; margin-top: 0.5rem; text-align: center;">Source: <a href="https://www.kaggle.com/benchmarks/open-benchmarks/mmlu">Kaggle — MMLU Open Benchmark</a></p>
+<div id="mmlu-tooltip" style="position:fixed;background:rgba(0,0,0,0.85);color:white;padding:8px 12px;border-radius:6px;font-size:13px;pointer-events:none;z-index:9999;max-width:220px;line-height:1.5;display:none;"></div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(function () {
+  var DATES = {
+    'Gemini 3 Pro Preview':        '2025-11-18',
+    'GPT-5':                        '2025-08-07',
+    'Claude Opus 4.1':              '2025-08-05',
+    'Claude Opus 4':                '2025-05-14',
+    'Gemini 2.5 Pro Preview':       '2025-06-05',
+    'o3':                           '2025-04-16',
+    'o1':                           '2024-12-17',
+    'Grok 4':                       '2025-07-09',
+    'Claude Sonnet 4':              '2025-05-14',
+    'GPT-4.1':                      '2025-04-14',
+    'DeepSeek-R1':                  '2025-05-28',
+    'Claude 3.7 Sonnet':            '2025-02-19',
+    'Grok 3':                       '2025-02-17',
+    'o4 mini':                      '2025-04-16',
+    'Deepseek V3.1':                '2025-08-21',
+    'DeepSeek-V3':                  '2024-12-26',
+    'Claude 3.5 Sonnet':            '2024-10-22',
+    'Grok 3 Mini':                  '2025-06-10',
+    'GPT-4o':                       '2024-08-06',
+    'Grok 2':                       '2024-12-12',
+    'gpt-oss-120b':                 '2025-08-08',
+    'Gemini 2.0 Flash':             '2025-02-05',
+    'Gemini 1.5 Pro':               '2024-09-24',
+    'o3 mini':                      '2025-01-31',
+    'Mistral Large 2':              '2024-11-01',
+    'o1 mini':                      '2024-09-12',
+    'gpt-oss-20b':                  '2025-08-05',
+    'Gemma 3 27B':                  '2025-03-12',
+    'Gemini 1.5 Flash':             '2024-09-24',
+    'GPT-4o mini':                  '2024-07-18',
+    'Claude 3.5 Haiku':             '2024-10-22',
+    'Granite 4.0 Small':            '2025-10-02',
+    'Mixtral 8x22B':                '2024-04-01',
+    'Gemma 3 12B':                  '2025-03-12',
+    'Gemini 1.5 Flash 8B':          '2024-10-03',
+    'Codestral':                    '2025-01-01',
+    'Qwen 3 235B A22B Thinking':    '2025-07-01',
+    'GPT-3.5 Turbo':                '2023-11-06',
+    'Gemma 3 4B':                   '2025-03-12',
+    'Ministral 3B':                 '2024-10-01',
+    'Ministral 8B':                 '2024-10-01',
+  };
+
+  var ORG_MAP = {
+    'OpenAI':    ['GPT-5','GPT-4.1','GPT-4o','GPT-4o mini','GPT-3.5 Turbo','o1','o1 mini','o3','o3 mini','o4 mini','gpt-oss-20b','gpt-oss-120b'],
+    'Google':    ['Gemini 3 Pro Preview','Gemini 2.5 Pro Preview','Gemini 2.0 Flash','Gemini 1.5 Pro','Gemini 1.5 Flash','Gemini 1.5 Flash 8B','Gemma 3 27B','Gemma 3 12B','Gemma 3 4B'],
+    'Anthropic': ['Claude Opus 4.1','Claude Opus 4','Claude Sonnet 4','Claude 3.7 Sonnet','Claude 3.5 Sonnet','Claude 3.5 Haiku'],
+    'xAI':       ['Grok 4','Grok 3','Grok 3 Mini','Grok 2'],
+    'DeepSeek':  ['DeepSeek-R1','Deepseek V3.1','DeepSeek-V3'],
+    'Mistral':   ['Mistral Large 2','Mixtral 8x22B','Codestral','Ministral 3B','Ministral 8B'],
+    'IBM':       ['Granite 4.0 Small'],
+    'Alibaba':   ['Qwen 3 235B A22B Thinking'],
+  };
+
+  var ORG_COLORS = {
+    'OpenAI':    '#059669',
+    'Google':    '#2563eb',
+    'Anthropic': '#d97706',
+    'xAI':       '#7c3aed',
+    'DeepSeek':  '#dc2626',
+    'Mistral':   '#0891b2',
+    'IBM':       '#6b7280',
+    'Alibaba':   '#b45309',
+  };
+
+  var nameToOrg = {};
+  Object.keys(ORG_MAP).forEach(function(org) {
+    ORG_MAP[org].forEach(function(name) { nameToOrg[name] = org; });
+  });
+
+  function render(raw) {
+    var DATA = raw.map(function(d) {
+      var name = d.header.name;
+      return {
+        rank:  d.header.rank,
+        name:  name,
+        score: Math.round(d.entries[0].value * 1000) / 10,
+        ci:    Math.round(d.entries[0].confidenceInterval * 1000) / 10,
+        date:  DATES[name] ? new Date(DATES[name]) : null,
+        org:   nameToOrg[name] || 'Other',
+      };
+    }).filter(function(d) { return d.date; });
+
+    var el = document.getElementById('mmlu-chart');
+    if (!el) return;
+
+    var containerW = el.getBoundingClientRect().width || 700;
+    var isMobile = containerW < 480;
+
+    var margin = { top: 48, right: 20, bottom: 80, left: 56 };
+    var totalW  = Math.max(containerW, 400);
+    var width   = totalW - margin.left - margin.right;
+    var height  = isMobile ? 260 : 360;
+
+    var svg = d3.select('#mmlu-chart')
+      .append('svg')
+      .attr('width', totalW)
+      .attr('height', height + margin.top + margin.bottom)
+      .style('font-family', 'system-ui, -apple-system, sans-serif')
+      .style('overflow', 'visible');
+
+    var g = svg.append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    var x = d3.scaleTime()
+      .domain([new Date('2023-09-01'), new Date('2026-01-01')])
+      .range([0, width]);
+
+    var y = d3.scaleLinear()
+      .domain([54, 96])
+      .range([height, 0]);
+
+    // Horizontal grid lines
+    [60, 70, 80, 90].forEach(function(v) {
+      g.append('line')
+        .attr('x1', 0).attr('x2', width)
+        .attr('y1', y(v)).attr('y2', y(v))
+        .attr('stroke', '#e8e8e8')
+        .attr('stroke-width', 1);
+    });
+
+    // X axis
+    g.append('g')
+      .attr('transform', 'translate(0,' + height + ')')
+      .call(d3.axisBottom(x)
+        .ticks(isMobile ? 5 : 9)
+        .tickFormat(d3.timeFormat('%b %Y')))
+      .call(function(ax) { ax.select('.domain').attr('stroke', '#ddd'); })
+      .call(function(ax) { ax.selectAll('.tick line').attr('stroke', '#ddd'); })
+      .call(function(ax) {
+        ax.selectAll('.tick text')
+          .attr('fill', '#999')
+          .attr('font-size', isMobile ? '10px' : '11px')
+          .attr('transform', 'rotate(-35)')
+          .attr('text-anchor', 'end')
+          .attr('dx', '-4px')
+          .attr('dy', '4px');
+      });
+
+    // Y axis
+    g.append('g')
+      .call(d3.axisLeft(y)
+        .tickValues([60, 70, 80, 90])
+        .tickFormat(function(d) { return d + '%'; }))
+      .call(function(ax) { ax.select('.domain').remove(); })
+      .call(function(ax) { ax.selectAll('.tick line').remove(); })
+      .call(function(ax) { ax.selectAll('.tick text').attr('fill', '#999').attr('font-size', '11px'); });
+
+    // Error bars (vertical — CI is on accuracy)
+    g.selectAll('.eb')
+      .data(DATA).enter().append('line')
+      .attr('x1', function(d) { return x(d.date); })
+      .attr('x2', function(d) { return x(d.date); })
+      .attr('y1', function(d) { return y(d.score - d.ci); })
+      .attr('y2', function(d) { return y(d.score + d.ci); })
+      .attr('stroke', function(d) { return ORG_COLORS[d.org] || '#999'; })
+      .attr('stroke-width', 1.5)
+      .attr('opacity', 0.3);
+
+    // Error bar caps
+    [-1, 1].forEach(function(dir) {
+      g.selectAll('.ec' + dir)
+        .data(DATA).enter().append('line')
+        .attr('x1', function(d) { return x(d.date) - 3; })
+        .attr('x2', function(d) { return x(d.date) + 3; })
+        .attr('y1', function(d) { return y(d.score + dir * d.ci); })
+        .attr('y2', function(d) { return y(d.score + dir * d.ci); })
+        .attr('stroke', function(d) { return ORG_COLORS[d.org] || '#999'; })
+        .attr('stroke-width', 1.5)
+        .attr('opacity', 0.3);
+    });
+
+    // Dots
+    var tooltip = d3.select('#mmlu-tooltip');
+
+    g.selectAll('.dot')
+      .data(DATA).enter().append('circle')
+      .attr('cx', function(d) { return x(d.date); })
+      .attr('cy', function(d) { return y(d.score); })
+      .attr('r', isMobile ? 4 : 5)
+      .attr('fill', function(d) { return ORG_COLORS[d.org] || '#999'; })
+      .attr('stroke', 'white')
+      .attr('stroke-width', 1.5)
+      .style('cursor', 'pointer')
+      .on('mouseover', function(event, d) {
+        d3.select(this).attr('r', isMobile ? 6 : 7);
+        tooltip
+          .style('display', 'block')
+          .html(
+            '<strong>' + d.name + '</strong><br>' +
+            d.score + '% &plusmn; ' + d.ci + '%<br>' +
+            d3.timeFormat('%b %d, %Y')(d.date)
+          );
+      })
+      .on('mousemove', function(event) {
+        tooltip
+          .style('left', (event.clientX + 14) + 'px')
+          .style('top',  (event.clientY - 36) + 'px');
+      })
+      .on('mouseout', function(event, d) {
+        d3.select(this).attr('r', isMobile ? 4 : 5);
+        tooltip.style('display', 'none');
+      });
+
+    // Title
+    svg.append('text')
+      .attr('x', margin.left + width / 2)
+      .attr('y', 18)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '15px')
+      .attr('font-weight', '600')
+      .attr('fill', '#222')
+      .text('MMLU accuracy over time');
+
+    // Subtitle
+    svg.append('text')
+      .attr('x', margin.left + width / 2)
+      .attr('y', 34)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '12px')
+      .attr('fill', '#999')
+      .text('41 models — hover for details');
+
+    // Legend
+    var orgs = Object.keys(ORG_COLORS);
+    var legendY = height + margin.top + 58;
+    var dotR = 5;
+    var itemW = isMobile ? 72 : 90;
+    var totalLegW = orgs.length * itemW;
+    var legendStartX = margin.left + (width - totalLegW) / 2;
+
+    orgs.forEach(function(org, i) {
+      var lx = legendStartX + i * itemW;
+      svg.append('circle')
+        .attr('cx', lx + dotR)
+        .attr('cy', legendY)
+        .attr('r', dotR)
+        .attr('fill', ORG_COLORS[org])
+        .attr('stroke', 'white')
+        .attr('stroke-width', 1);
+      svg.append('text')
+        .attr('x', lx + dotR * 2 + 4)
+        .attr('y', legendY)
+        .attr('dy', '0.35em')
+        .attr('font-size', isMobile ? '10px' : '11px')
+        .attr('fill', '#555')
+        .text(org);
+    });
+  }
+
+  fetch('/assets/data/mmlu-data.json')
+    .then(function(r) { return r.json(); })
+    .then(render);
+})();
+</script>

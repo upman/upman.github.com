@@ -1,0 +1,261 @@
+<div style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 3rem; padding: 0 1rem; box-sizing: border-box;">
+  <div id="harness-complexity-chart"></div>
+</div>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(function () {
+  var COLS = [
+    'Answer a\nQuestion',
+    'Write a\nfunction',
+    'Train a\nclassifier',
+    'Build a full\nstack web app',
+    'Implement protocol/framework\nfrom multiple RFCs',
+  ];
+
+  var ROWS = [
+    { label: 'Adversarial & Formal\nfeedback',  sublabel: 'Formal proofs,\nfuzzing, pen testing, load testing',        activatesAt: 4, color: '#dc2626' },
+    { label: 'Real world\nfeedback',            sublabel: 'Shadow deploys,\nproduction metrics',                       activatesAt: 4, color: '#7c3aed' },
+    { label: 'Runtime feedback',               sublabel: 'Errors, screenshots,\ntraces, benchmarks',   activatesAt: 3, color: '#0891b2' },
+    { label: 'Semantic feedback',             sublabel: 'Unit tests, integration tests',    activatesAt: 2, color: '#d97706' },
+    { label: 'Generalized syntactic\nfeedback', sublabel: 'Types, compilers',               activatesAt: 2, color: '#2563eb' },
+    { label: 'Localized syntactic\nfeedback',   sublabel: 'Linters, regex',                activatesAt: 1, color: '#059669' },
+  ];
+
+  function render() {
+    var el = document.getElementById('harness-complexity-chart');
+    if (!el) return;
+    el.innerHTML = '';
+
+    var containerW = el.getBoundingClientRect().width || 700;
+    var isMobile   = containerW < 520;
+
+    var labelW = isMobile ? 110 : 210;
+    var margin = { top: 52, right: 16, bottom: 165, left: labelW };
+    var totalW = Math.max(containerW, 400);
+    var width  = totalW - margin.left - margin.right;
+    var rowH   = isMobile ? 54 : 72;
+    var height = ROWS.length * rowH;
+
+    var svg = d3.select('#harness-complexity-chart')
+      .append('svg')
+      .attr('width', totalW)
+      .attr('height', height + margin.top + margin.bottom)
+      .style('font-family', 'system-ui, -apple-system, sans-serif')
+      .style('overflow', 'visible');
+
+    var g = svg.append('g')
+      .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+    var xScale = d3.scalePoint()
+      .domain(COLS)
+      .range([0, width - 80])
+      .padding(0);
+
+    // Alternating row backgrounds
+    ROWS.forEach(function (row, i) {
+      g.append('rect')
+        .attr('x', 0).attr('y', i * rowH)
+        .attr('width', width).attr('height', rowH)
+        .attr('fill', i % 2 === 0 ? '#fafafa' : 'white');
+    });
+
+    // Vertical grid lines at each column
+    COLS.forEach(function (col) {
+      g.append('line')
+        .attr('x1', xScale(col)).attr('x2', xScale(col))
+        .attr('y1', 0).attr('y2', height)
+        .attr('stroke', '#e8e8e8').attr('stroke-width', 1);
+    });
+
+    // Horizontal row borders
+    for (var i = 0; i <= ROWS.length; i++) {
+      g.append('line')
+        .attr('x1', 0).attr('x2', width)
+        .attr('y1', i * rowH).attr('y2', i * rowH)
+        .attr('stroke', '#e8e8e8').attr('stroke-width', 1);
+    }
+
+    // Gradient defs (one per row, in SVG coordinate space)
+    var defs = svg.append('defs');
+    var colStep = xScale(COLS[1]) - xScale(COLS[0]);
+    var hw = colStep * 0.55; // half-width of the sigmoid transition
+
+    function smoothstep(e0, e1, x) {
+      var t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)));
+      return t * t * (3 - 2 * t);
+    }
+
+    // Draw smooth lines
+    ROWS.forEach(function (row, i) {
+      var midY   = i * rowH + rowH / 2;
+      var onY    = midY - rowH * 0.22;
+      var offY   = midY + rowH * 0.22;
+      var actX   = xScale(COLS[row.activatesAt]);
+      var startX = xScale(COLS[0]);
+      var endX   = xScale(COLS[COLS.length - 1]) + 30;
+
+      // Subtle active zone background (gradient fade-in)
+      g.append('rect')
+        .attr('x', Math.max(startX, actX - 2 * hw)).attr('y', i * rowH)
+        .attr('width', endX - Math.max(startX, actX - 2 * hw)).attr('height', rowH)
+        .attr('fill', row.color).attr('opacity', 0.05);
+
+      // Gradient: grey → row color, transition ends at actX
+      var gradId = 'lg-' + i;
+      var gx1 = margin.left + startX;
+      var gx2 = margin.left + endX;
+      var total = gx2 - gx1;
+      var p1 = ((margin.left + Math.max(startX, actX - 2 * hw) - gx1) / total * 100).toFixed(1);
+      var p2 = ((margin.left + actX - gx1) / total * 100).toFixed(1);
+
+      var grad = defs.append('linearGradient')
+        .attr('id', gradId)
+        .attr('gradientUnits', 'userSpaceOnUse')
+        .attr('x1', gx1).attr('y1', 0)
+        .attr('x2', gx2).attr('y2', 0);
+
+      if (row.activatesAt === 0) {
+        grad.append('stop').attr('offset', '0%').attr('stop-color', row.color);
+        grad.append('stop').attr('offset', '100%').attr('stop-color', row.color);
+      } else {
+        grad.append('stop').attr('offset', '0%').attr('stop-color', '#ccc');
+        grad.append('stop').attr('offset', p1 + '%').attr('stop-color', '#ccc');
+        grad.append('stop').attr('offset', p2 + '%').attr('stop-color', row.color);
+        grad.append('stop').attr('offset', '100%').attr('stop-color', row.color);
+      }
+
+      // Smooth sigmoid path
+      var nPoints = 80;
+      var pathData = d3.range(nPoints + 1).map(function (j) {
+        var px = startX + j * (endX - startX) / nPoints;
+        var t  = row.activatesAt === 0
+          ? 1
+          : smoothstep(actX - 2 * hw, actX, px);
+        return [px, offY + t * (onY - offY)];
+      });
+
+      g.append('path')
+        .datum(pathData)
+        .attr('fill', 'none')
+        .attr('stroke', 'url(#' + gradId + ')')
+        .attr('stroke-width', 2.5)
+        .attr('d', d3.line()
+          .x(function (d) { return d[0]; })
+          .y(function (d) { return d[1]; })
+          .curve(d3.curveMonotoneX));
+
+
+      var labelParts = row.label.split('\n');
+      var labelEl = svg.append('text')
+        .attr('text-anchor', 'end')
+        .attr('font-size', isMobile ? '10px' : '12px')
+        .attr('font-weight', '600')
+        .attr('fill', row.color);
+
+      if (labelParts.length === 1) {
+        labelEl.append('tspan')
+          .attr('x', margin.left - 10)
+          .attr('y', margin.top + midY - (isMobile ? 0 : 7))
+          .attr('dy', '0.35em')
+          .text(labelParts[0]);
+      } else {
+        labelEl.append('tspan')
+          .attr('x', margin.left - 10)
+          .attr('y', margin.top + midY - 8)
+          .text(labelParts[0]);
+        labelEl.append('tspan')
+          .attr('x', margin.left - 10)
+          .attr('dy', '1.3em')
+          .text(labelParts[1]);
+      }
+
+      if (!isMobile) {
+        var sublabelParts = row.sublabel.split('\n');
+        var sublabelY = labelParts.length > 1
+          ? margin.top + midY + 18
+          : margin.top + midY + 10;
+        var sublabelEl = svg.append('text')
+          .attr('text-anchor', 'end')
+          .attr('font-size', '10px')
+          .attr('fill', '#aaa');
+        sublabelParts.forEach(function (part, si) {
+          sublabelEl.append('tspan')
+            .attr('x', margin.left - 10)
+            .attr('y', si === 0 ? sublabelY : null)
+            .attr('dy', si === 0 ? '0.35em' : '1.2em')
+            .text(part);
+        });
+      }
+    });
+
+    // X-axis tick labels
+    var xAxisY = height + margin.top;
+    COLS.forEach(function (col) {
+      var tx    = margin.left + xScale(col);
+      var parts = col.split('\n');
+
+      svg.append('line')
+        .attr('x1', tx).attr('x2', tx)
+        .attr('y1', xAxisY).attr('y2', xAxisY + 4)
+        .attr('stroke', '#ddd');
+
+      var textEl = svg.append('text')
+        .attr('text-anchor', 'end')
+        .attr('font-size', isMobile ? '10px' : '12px')
+        .attr('font-weight', '500')
+        .attr('fill', '#555')
+        .attr('transform', 'rotate(-40, ' + tx + ', ' + (xAxisY + 4) + ')');
+
+      textEl.append('tspan')
+        .attr('x', tx).attr('y', xAxisY + 10)
+        .text(parts[0]);
+      if (parts.length > 1) {
+        textEl.append('tspan')
+          .attr('x', tx).attr('dy', '1.2em')
+          .text(parts[1]);
+      }
+    });
+
+    // X-axis baseline
+    g.append('line')
+      .attr('x1', 0).attr('x2', width - 80)
+      .attr('y1', height).attr('y2', height)
+      .attr('stroke', '#ddd');
+
+    // X-axis title
+    svg.append('text')
+      .attr('x', margin.left + (width - 80) / 2)
+      .attr('y', height + margin.top + 150)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '11px')
+      .attr('fill', '#999')
+      .attr('font-style', 'italic')
+      .text('complexity + reliability →');
+
+    // Title
+    svg.append('text')
+      .attr('x', margin.left + width / 2)
+      .attr('y', 18)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '15px').attr('font-weight', '600').attr('fill', '#222')
+      .text('Verification and harness types by task complexity');
+
+    // Subtitle
+    svg.append('text')
+      .attr('x', margin.left + width / 2)
+      .attr('y', 34)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '12px').attr('fill', '#999')
+      .text('Each feedback signal activates at its task complexity tier and stays active');
+  }
+
+  render();
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(render, 150);
+  });
+})();
+</script>

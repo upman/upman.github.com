@@ -1,0 +1,100 @@
+<style>
+    .dot.frontier { fill: #2e7d32; stroke: white; stroke-width: 1.5; }
+    .dot.non-frontier { fill: #9e9e9e; stroke: white; stroke-width: 1.5; }
+    .dot-half-left.frontier { fill: #2e7d32; }
+    .dot-half-right.non-frontier { fill: #9e9e9e; }
+    .split-dot-divider { stroke: white; stroke-width: 1.5; }
+    .model-label-bg { fill: white; }
+    .title-background { fill: white; }
+
+    .tooltip {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        pointer-events: none;
+        z-index: 9999;
+        max-width: 260px;
+        line-height: 1.4;
+    }
+    .tooltip a { color: #90caf9; }
+    .tooltip.has-link { pointer-events: auto; }
+
+    .chart-controls-row {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        padding: 48px 4px 0;
+        flex-wrap: wrap;
+    }
+    .toggle-group {
+        display: flex;
+        border: 1.5px solid #bbb;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .toggle-group-label {
+        font-size: 12px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        align-self: center;
+        margin-right: 6px;
+    }
+    .toggle-group button {
+        background: white;
+        border: none;
+        padding: 8px 18px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        color: #555;
+        transition: background 0.15s, color 0.15s;
+    }
+    .toggle-group button + button {
+        border-left: 1.5px solid #bbb;
+    }
+    .toggle-group button.active {
+        background: #2e7d32;
+        color: white;
+    }
+    .toggle-group button:not(.active):hover {
+        background: #f5f5f5;
+    }
+    .scale-toggle.effect-glow {
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.4);
+        border-radius: 6px;
+    }
+</style>
+
+<div style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; box-sizing: border-box;">
+    <div id="time-horizon-chart"></div>
+    <div class="chart-controls-row">
+        <div class="toggle-group scale-toggle">
+            <button id="linear-scale">Linear</button>
+            <button id="log-scale" class="active">Log</button>
+        </div>
+        <div class="toggle-group">
+            <button id="p50" class="active">50% success</button>
+            <button id="p80">80% success</button>
+        </div>
+    </div>
+</div>
+
+<p style="font-size: 0.85em; color: #888; margin-top: 0.5rem; text-align: center;">Source: <a href="https://metr.org/time-horizons/">METR — AI Time Horizons</a></p>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+    fetch('/assets/data/metr-benchmark-results.json')
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            window.benchmarkData = data;
+            if (typeof window.onBenchmarkDataReady === 'function') {
+                window.onBenchmarkDataReady();
+            }
+        });
+</script>
+<script src="/assets/js/time-horizon-chart.js"></script>

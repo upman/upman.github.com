@@ -6,6 +6,10 @@
 
     
     <url>
+        <loc>http://localhost:4000/LLM-Task-Horizons</loc>
+    </url>
+    
+    <url>
         <loc>http://localhost:4000/Ditch-Grep-and-Speed-up-Claude-Code-with-LSPs</loc>
     </url>
     

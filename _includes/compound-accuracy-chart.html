@@ -1,0 +1,179 @@
+<div style="width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; box-sizing: border-box;">
+  <div id="compound-accuracy-chart"></div>
+</div>
+<p style="font-size: 0.85em; color: #888; margin-top: 0.5rem; text-align: center;">Cumulative probability that every step is correct: p<sup>n</sup></p>
+
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script>
+(function () {
+  var LINES = [
+    { pct: 0.99, label: '99% per step', color: '#059669' },
+    { pct: 0.95, label: '95% per step', color: '#2563eb' },
+    { pct: 0.90, label: '90% per step', color: '#d97706' },
+    { pct: 0.80, label: '80% per step', color: '#dc2626' },
+  ];
+
+  var STEPS = d3.range(1, 31); // 1–30
+
+  var el = document.getElementById('compound-accuracy-chart');
+  if (!el) return;
+
+  var containerW = el.getBoundingClientRect().width || 700;
+  var isMobile = containerW < 480;
+
+  var margin = { top: 48, right: isMobile ? 56 : 120, bottom: 60, left: 52 };
+  var totalW  = Math.max(containerW, 400);
+  var width   = totalW - margin.left - margin.right;
+  var height  = isMobile ? 240 : 320;
+
+  var svg = d3.select('#compound-accuracy-chart')
+    .append('svg')
+    .attr('width', totalW)
+    .attr('height', height + margin.top + margin.bottom)
+    .style('font-family', 'system-ui, -apple-system, sans-serif')
+    .style('overflow', 'visible');
+
+  var g = svg.append('g')
+    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+
+  var x = d3.scaleLinear().domain([1, 30]).range([0, width]);
+  var y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+
+  // Grid lines
+  [0, 20, 40, 60, 80, 100].forEach(function (v) {
+    g.append('line')
+      .attr('x1', 0).attr('x2', width)
+      .attr('y1', y(v)).attr('y2', y(v))
+      .attr('stroke', v === 0 ? '#ccc' : '#e8e8e8')
+      .attr('stroke-width', 1);
+  });
+
+  // Dashed vertical lines at step 10 and step 20
+  [10, 20].forEach(function (step) {
+    g.append('line')
+      .attr('x1', x(step)).attr('x2', x(step))
+      .attr('y1', 0).attr('y2', height)
+      .attr('stroke', '#bbb')
+      .attr('stroke-width', 1)
+      .attr('stroke-dasharray', '4,3');
+
+    g.append('text')
+      .attr('x', x(step))
+      .attr('y', -6)
+      .attr('text-anchor', 'middle')
+      .attr('font-size', '11px')
+      .attr('fill', '#aaa')
+      .text('step ' + step);
+  });
+
+  // X axis
+  g.append('g')
+    .attr('transform', 'translate(0,' + height + ')')
+    .call(d3.axisBottom(x)
+      .tickValues([1, 5, 10, 15, 20, 25, 30])
+      .tickFormat(function (d) { return d; }))
+    .call(function (ax) { ax.select('.domain').attr('stroke', '#ddd'); })
+    .call(function (ax) { ax.selectAll('.tick line').attr('stroke', '#ddd'); })
+    .call(function (ax) {
+      ax.selectAll('.tick text')
+        .attr('fill', '#999')
+        .attr('font-size', '11px');
+    });
+
+  g.append('text')
+    .attr('x', width / 2)
+    .attr('y', height + 44)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '12px')
+    .attr('fill', '#999')
+    .text('sequential steps');
+
+  // Y axis
+  g.append('g')
+    .call(d3.axisLeft(y)
+      .tickValues([0, 20, 40, 60, 80, 100])
+      .tickFormat(function (d) { return d + '%'; }))
+    .call(function (ax) { ax.select('.domain').remove(); })
+    .call(function (ax) { ax.selectAll('.tick line').remove(); })
+    .call(function (ax) {
+      ax.selectAll('.tick text').attr('fill', '#999').attr('font-size', '11px');
+    });
+
+  var line = d3.line()
+    .x(function (d) { return x(d.step); })
+    .y(function (d) { return y(d.value * 100); })
+    .curve(d3.curveCatmullRom.alpha(0.5));
+
+  LINES.forEach(function (series) {
+    var data = STEPS.map(function (s) {
+      return { step: s, value: Math.pow(series.pct, s) };
+    });
+
+    // Line
+    g.append('path')
+      .datum(data)
+      .attr('fill', 'none')
+      .attr('stroke', series.color)
+      .attr('stroke-width', 2)
+      .attr('d', line);
+
+    // Dots at step 10 and step 20
+    [9, 19].forEach(function (idx) {
+      var dp = data[idx];
+      g.append('circle')
+        .attr('cx', x(dp.step))
+        .attr('cy', y(dp.value * 100))
+        .attr('r', 4)
+        .attr('fill', series.color)
+        .attr('stroke', 'white')
+        .attr('stroke-width', 1.5);
+    });
+
+    // Label at right edge (step 30)
+    var d30 = data[data.length - 1];
+    g.append('text')
+      .attr('x', x(30) + 8)
+      .attr('y', y(d30.value * 100))
+      .attr('dy', '0.35em')
+      .attr('font-size', isMobile ? '10px' : '11px')
+      .attr('fill', series.color)
+      .attr('font-weight', '500')
+      .text(series.label);
+  });
+
+  // Callout values at step 10 and step 20
+  [10, 20].forEach(function (step) {
+    var cx = x(step);
+    LINES.forEach(function (series) {
+      var val = Math.pow(series.pct, step) * 100;
+      g.append('text')
+        .attr('x', cx + 7)
+        .attr('y', y(val))
+        .attr('dy', '0.35em')
+        .attr('font-size', '10px')
+        .attr('fill', series.color)
+        .attr('opacity', 0.85)
+        .text(Math.round(val) + '%');
+    });
+  });
+
+  // Title
+  svg.append('text')
+    .attr('x', margin.left + width / 2)
+    .attr('y', 18)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '15px')
+    .attr('font-weight', '600')
+    .attr('fill', '#222')
+    .text('How errors compound across sequential steps');
+
+  // Subtitle
+  svg.append('text')
+    .attr('x', margin.left + width / 2)
+    .attr('y', 34)
+    .attr('text-anchor', 'middle')
+    .attr('font-size', '12px')
+    .attr('fill', '#999')
+    .text('Probability all steps succeed, by per-step accuracy');
+})();
+</script>

@@ -7,10 +7,918 @@
     <atom:link href="https://blog.ravilazar.com/feed.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>LLM Benchmarks Are Flatlined. Task Horizons Are Not.</title>
+      <description>&lt;p&gt;The headline accuracy numbers on standard benchmarks have stagnated. MMLU, TruthfulQA, HellaSwag: the top models have been within a few percentage points of each other for over 2 years, which is an eternity in this field. If you track single-turn question answering, you’d be forgiven for thinking progress has stopped.&lt;/p&gt;
+
+&lt;div style=&quot;width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; box-sizing: border-box;&quot;&gt;
+  &lt;div id=&quot;mmlu-chart&quot; style=&quot;overflow-x: auto;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p style=&quot;font-size: 0.85em; color: #888; margin-top: 0.5rem; text-align: center;&quot;&gt;Source: &lt;a href=&quot;https://www.kaggle.com/benchmarks/open-benchmarks/mmlu&quot;&gt;Kaggle — MMLU Open Benchmark&lt;/a&gt;&lt;/p&gt;
+&lt;div id=&quot;mmlu-tooltip&quot; style=&quot;position:fixed;background:rgba(0,0,0,0.85);color:white;padding:8px 12px;border-radius:6px;font-size:13px;pointer-events:none;z-index:9999;max-width:220px;line-height:1.5;display:none;&quot;&gt;&lt;/div&gt;
+
+&lt;script src=&quot;https://d3js.org/d3.v7.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+(function () {
+  var DATES = {
+    &apos;Gemini 3 Pro Preview&apos;:        &apos;2025-11-18&apos;,
+    &apos;GPT-5&apos;:                        &apos;2025-08-07&apos;,
+    &apos;Claude Opus 4.1&apos;:              &apos;2025-08-05&apos;,
+    &apos;Claude Opus 4&apos;:                &apos;2025-05-14&apos;,
+    &apos;Gemini 2.5 Pro Preview&apos;:       &apos;2025-06-05&apos;,
+    &apos;o3&apos;:                           &apos;2025-04-16&apos;,
+    &apos;o1&apos;:                           &apos;2024-12-17&apos;,
+    &apos;Grok 4&apos;:                       &apos;2025-07-09&apos;,
+    &apos;Claude Sonnet 4&apos;:              &apos;2025-05-14&apos;,
+    &apos;GPT-4.1&apos;:                      &apos;2025-04-14&apos;,
+    &apos;DeepSeek-R1&apos;:                  &apos;2025-05-28&apos;,
+    &apos;Claude 3.7 Sonnet&apos;:            &apos;2025-02-19&apos;,
+    &apos;Grok 3&apos;:                       &apos;2025-02-17&apos;,
+    &apos;o4 mini&apos;:                      &apos;2025-04-16&apos;,
+    &apos;Deepseek V3.1&apos;:                &apos;2025-08-21&apos;,
+    &apos;DeepSeek-V3&apos;:                  &apos;2024-12-26&apos;,
+    &apos;Claude 3.5 Sonnet&apos;:            &apos;2024-10-22&apos;,
+    &apos;Grok 3 Mini&apos;:                  &apos;2025-06-10&apos;,
+    &apos;GPT-4o&apos;:                       &apos;2024-08-06&apos;,
+    &apos;Grok 2&apos;:                       &apos;2024-12-12&apos;,
+    &apos;gpt-oss-120b&apos;:                 &apos;2025-08-08&apos;,
+    &apos;Gemini 2.0 Flash&apos;:             &apos;2025-02-05&apos;,
+    &apos;Gemini 1.5 Pro&apos;:               &apos;2024-09-24&apos;,
+    &apos;o3 mini&apos;:                      &apos;2025-01-31&apos;,
+    &apos;Mistral Large 2&apos;:              &apos;2024-11-01&apos;,
+    &apos;o1 mini&apos;:                      &apos;2024-09-12&apos;,
+    &apos;gpt-oss-20b&apos;:                  &apos;2025-08-05&apos;,
+    &apos;Gemma 3 27B&apos;:                  &apos;2025-03-12&apos;,
+    &apos;Gemini 1.5 Flash&apos;:             &apos;2024-09-24&apos;,
+    &apos;GPT-4o mini&apos;:                  &apos;2024-07-18&apos;,
+    &apos;Claude 3.5 Haiku&apos;:             &apos;2024-10-22&apos;,
+    &apos;Granite 4.0 Small&apos;:            &apos;2025-10-02&apos;,
+    &apos;Mixtral 8x22B&apos;:                &apos;2024-04-01&apos;,
+    &apos;Gemma 3 12B&apos;:                  &apos;2025-03-12&apos;,
+    &apos;Gemini 1.5 Flash 8B&apos;:          &apos;2024-10-03&apos;,
+    &apos;Codestral&apos;:                    &apos;2025-01-01&apos;,
+    &apos;Qwen 3 235B A22B Thinking&apos;:    &apos;2025-07-01&apos;,
+    &apos;GPT-3.5 Turbo&apos;:                &apos;2023-11-06&apos;,
+    &apos;Gemma 3 4B&apos;:                   &apos;2025-03-12&apos;,
+    &apos;Ministral 3B&apos;:                 &apos;2024-10-01&apos;,
+    &apos;Ministral 8B&apos;:                 &apos;2024-10-01&apos;,
+  };
+
+  var ORG_MAP = {
+    &apos;OpenAI&apos;:    [&apos;GPT-5&apos;,&apos;GPT-4.1&apos;,&apos;GPT-4o&apos;,&apos;GPT-4o mini&apos;,&apos;GPT-3.5 Turbo&apos;,&apos;o1&apos;,&apos;o1 mini&apos;,&apos;o3&apos;,&apos;o3 mini&apos;,&apos;o4 mini&apos;,&apos;gpt-oss-20b&apos;,&apos;gpt-oss-120b&apos;],
+    &apos;Google&apos;:    [&apos;Gemini 3 Pro Preview&apos;,&apos;Gemini 2.5 Pro Preview&apos;,&apos;Gemini 2.0 Flash&apos;,&apos;Gemini 1.5 Pro&apos;,&apos;Gemini 1.5 Flash&apos;,&apos;Gemini 1.5 Flash 8B&apos;,&apos;Gemma 3 27B&apos;,&apos;Gemma 3 12B&apos;,&apos;Gemma 3 4B&apos;],
+    &apos;Anthropic&apos;: [&apos;Claude Opus 4.1&apos;,&apos;Claude Opus 4&apos;,&apos;Claude Sonnet 4&apos;,&apos;Claude 3.7 Sonnet&apos;,&apos;Claude 3.5 Sonnet&apos;,&apos;Claude 3.5 Haiku&apos;],
+    &apos;xAI&apos;:       [&apos;Grok 4&apos;,&apos;Grok 3&apos;,&apos;Grok 3 Mini&apos;,&apos;Grok 2&apos;],
+    &apos;DeepSeek&apos;:  [&apos;DeepSeek-R1&apos;,&apos;Deepseek V3.1&apos;,&apos;DeepSeek-V3&apos;],
+    &apos;Mistral&apos;:   [&apos;Mistral Large 2&apos;,&apos;Mixtral 8x22B&apos;,&apos;Codestral&apos;,&apos;Ministral 3B&apos;,&apos;Ministral 8B&apos;],
+    &apos;IBM&apos;:       [&apos;Granite 4.0 Small&apos;],
+    &apos;Alibaba&apos;:   [&apos;Qwen 3 235B A22B Thinking&apos;],
+  };
+
+  var ORG_COLORS = {
+    &apos;OpenAI&apos;:    &apos;#059669&apos;,
+    &apos;Google&apos;:    &apos;#2563eb&apos;,
+    &apos;Anthropic&apos;: &apos;#d97706&apos;,
+    &apos;xAI&apos;:       &apos;#7c3aed&apos;,
+    &apos;DeepSeek&apos;:  &apos;#dc2626&apos;,
+    &apos;Mistral&apos;:   &apos;#0891b2&apos;,
+    &apos;IBM&apos;:       &apos;#6b7280&apos;,
+    &apos;Alibaba&apos;:   &apos;#b45309&apos;,
+  };
+
+  var nameToOrg = {};
+  Object.keys(ORG_MAP).forEach(function(org) {
+    ORG_MAP[org].forEach(function(name) { nameToOrg[name] = org; });
+  });
+
+  function render(raw) {
+    var DATA = raw.map(function(d) {
+      var name = d.header.name;
+      return {
+        rank:  d.header.rank,
+        name:  name,
+        score: Math.round(d.entries[0].value * 1000) / 10,
+        ci:    Math.round(d.entries[0].confidenceInterval * 1000) / 10,
+        date:  DATES[name] ? new Date(DATES[name]) : null,
+        org:   nameToOrg[name] || &apos;Other&apos;,
+      };
+    }).filter(function(d) { return d.date; });
+
+    var el = document.getElementById(&apos;mmlu-chart&apos;);
+    if (!el) return;
+
+    var containerW = el.getBoundingClientRect().width || 700;
+    var isMobile = containerW &lt; 480;
+
+    var margin = { top: 48, right: 20, bottom: 80, left: 56 };
+    var totalW  = Math.max(containerW, 400);
+    var width   = totalW - margin.left - margin.right;
+    var height  = isMobile ? 260 : 360;
+
+    var svg = d3.select(&apos;#mmlu-chart&apos;)
+      .append(&apos;svg&apos;)
+      .attr(&apos;width&apos;, totalW)
+      .attr(&apos;height&apos;, height + margin.top + margin.bottom)
+      .style(&apos;font-family&apos;, &apos;system-ui, -apple-system, sans-serif&apos;)
+      .style(&apos;overflow&apos;, &apos;visible&apos;);
+
+    var g = svg.append(&apos;g&apos;)
+      .attr(&apos;transform&apos;, &apos;translate(&apos; + margin.left + &apos;,&apos; + margin.top + &apos;)&apos;);
+
+    var x = d3.scaleTime()
+      .domain([new Date(&apos;2023-09-01&apos;), new Date(&apos;2026-01-01&apos;)])
+      .range([0, width]);
+
+    var y = d3.scaleLinear()
+      .domain([54, 96])
+      .range([height, 0]);
+
+    // Horizontal grid lines
+    [60, 70, 80, 90].forEach(function(v) {
+      g.append(&apos;line&apos;)
+        .attr(&apos;x1&apos;, 0).attr(&apos;x2&apos;, width)
+        .attr(&apos;y1&apos;, y(v)).attr(&apos;y2&apos;, y(v))
+        .attr(&apos;stroke&apos;, &apos;#e8e8e8&apos;)
+        .attr(&apos;stroke-width&apos;, 1);
+    });
+
+    // X axis
+    g.append(&apos;g&apos;)
+      .attr(&apos;transform&apos;, &apos;translate(0,&apos; + height + &apos;)&apos;)
+      .call(d3.axisBottom(x)
+        .ticks(isMobile ? 5 : 9)
+        .tickFormat(d3.timeFormat(&apos;%b %Y&apos;)))
+      .call(function(ax) { ax.select(&apos;.domain&apos;).attr(&apos;stroke&apos;, &apos;#ddd&apos;); })
+      .call(function(ax) { ax.selectAll(&apos;.tick line&apos;).attr(&apos;stroke&apos;, &apos;#ddd&apos;); })
+      .call(function(ax) {
+        ax.selectAll(&apos;.tick text&apos;)
+          .attr(&apos;fill&apos;, &apos;#999&apos;)
+          .attr(&apos;font-size&apos;, isMobile ? &apos;10px&apos; : &apos;11px&apos;)
+          .attr(&apos;transform&apos;, &apos;rotate(-35)&apos;)
+          .attr(&apos;text-anchor&apos;, &apos;end&apos;)
+          .attr(&apos;dx&apos;, &apos;-4px&apos;)
+          .attr(&apos;dy&apos;, &apos;4px&apos;);
+      });
+
+    // Y axis
+    g.append(&apos;g&apos;)
+      .call(d3.axisLeft(y)
+        .tickValues([60, 70, 80, 90])
+        .tickFormat(function(d) { return d + &apos;%&apos;; }))
+      .call(function(ax) { ax.select(&apos;.domain&apos;).remove(); })
+      .call(function(ax) { ax.selectAll(&apos;.tick line&apos;).remove(); })
+      .call(function(ax) { ax.selectAll(&apos;.tick text&apos;).attr(&apos;fill&apos;, &apos;#999&apos;).attr(&apos;font-size&apos;, &apos;11px&apos;); });
+
+    // Error bars (vertical — CI is on accuracy)
+    g.selectAll(&apos;.eb&apos;)
+      .data(DATA).enter().append(&apos;line&apos;)
+      .attr(&apos;x1&apos;, function(d) { return x(d.date); })
+      .attr(&apos;x2&apos;, function(d) { return x(d.date); })
+      .attr(&apos;y1&apos;, function(d) { return y(d.score - d.ci); })
+      .attr(&apos;y2&apos;, function(d) { return y(d.score + d.ci); })
+      .attr(&apos;stroke&apos;, function(d) { return ORG_COLORS[d.org] || &apos;#999&apos;; })
+      .attr(&apos;stroke-width&apos;, 1.5)
+      .attr(&apos;opacity&apos;, 0.3);
+
+    // Error bar caps
+    [-1, 1].forEach(function(dir) {
+      g.selectAll(&apos;.ec&apos; + dir)
+        .data(DATA).enter().append(&apos;line&apos;)
+        .attr(&apos;x1&apos;, function(d) { return x(d.date) - 3; })
+        .attr(&apos;x2&apos;, function(d) { return x(d.date) + 3; })
+        .attr(&apos;y1&apos;, function(d) { return y(d.score + dir * d.ci); })
+        .attr(&apos;y2&apos;, function(d) { return y(d.score + dir * d.ci); })
+        .attr(&apos;stroke&apos;, function(d) { return ORG_COLORS[d.org] || &apos;#999&apos;; })
+        .attr(&apos;stroke-width&apos;, 1.5)
+        .attr(&apos;opacity&apos;, 0.3);
+    });
+
+    // Dots
+    var tooltip = d3.select(&apos;#mmlu-tooltip&apos;);
+
+    g.selectAll(&apos;.dot&apos;)
+      .data(DATA).enter().append(&apos;circle&apos;)
+      .attr(&apos;cx&apos;, function(d) { return x(d.date); })
+      .attr(&apos;cy&apos;, function(d) { return y(d.score); })
+      .attr(&apos;r&apos;, isMobile ? 4 : 5)
+      .attr(&apos;fill&apos;, function(d) { return ORG_COLORS[d.org] || &apos;#999&apos;; })
+      .attr(&apos;stroke&apos;, &apos;white&apos;)
+      .attr(&apos;stroke-width&apos;, 1.5)
+      .style(&apos;cursor&apos;, &apos;pointer&apos;)
+      .on(&apos;mouseover&apos;, function(event, d) {
+        d3.select(this).attr(&apos;r&apos;, isMobile ? 6 : 7);
+        tooltip
+          .style(&apos;display&apos;, &apos;block&apos;)
+          .html(
+            &apos;&lt;strong&gt;&apos; + d.name + &apos;&lt;/strong&gt;&lt;br&gt;&apos; +
+            d.score + &apos;% &amp;plusmn; &apos; + d.ci + &apos;%&lt;br&gt;&apos; +
+            d3.timeFormat(&apos;%b %d, %Y&apos;)(d.date)
+          );
+      })
+      .on(&apos;mousemove&apos;, function(event) {
+        tooltip
+          .style(&apos;left&apos;, (event.clientX + 14) + &apos;px&apos;)
+          .style(&apos;top&apos;,  (event.clientY - 36) + &apos;px&apos;);
+      })
+      .on(&apos;mouseout&apos;, function(event, d) {
+        d3.select(this).attr(&apos;r&apos;, isMobile ? 4 : 5);
+        tooltip.style(&apos;display&apos;, &apos;none&apos;);
+      });
+
+    // Title
+    svg.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, margin.left + width / 2)
+      .attr(&apos;y&apos;, 18)
+      .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+      .attr(&apos;font-size&apos;, &apos;15px&apos;)
+      .attr(&apos;font-weight&apos;, &apos;600&apos;)
+      .attr(&apos;fill&apos;, &apos;#222&apos;)
+      .text(&apos;MMLU accuracy over time&apos;);
+
+    // Subtitle
+    svg.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, margin.left + width / 2)
+      .attr(&apos;y&apos;, 34)
+      .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+      .attr(&apos;font-size&apos;, &apos;12px&apos;)
+      .attr(&apos;fill&apos;, &apos;#999&apos;)
+      .text(&apos;41 models — hover for details&apos;);
+
+    // Legend
+    var orgs = Object.keys(ORG_COLORS);
+    var legendY = height + margin.top + 58;
+    var dotR = 5;
+    var itemW = isMobile ? 72 : 90;
+    var totalLegW = orgs.length * itemW;
+    var legendStartX = margin.left + (width - totalLegW) / 2;
+
+    orgs.forEach(function(org, i) {
+      var lx = legendStartX + i * itemW;
+      svg.append(&apos;circle&apos;)
+        .attr(&apos;cx&apos;, lx + dotR)
+        .attr(&apos;cy&apos;, legendY)
+        .attr(&apos;r&apos;, dotR)
+        .attr(&apos;fill&apos;, ORG_COLORS[org])
+        .attr(&apos;stroke&apos;, &apos;white&apos;)
+        .attr(&apos;stroke-width&apos;, 1);
+      svg.append(&apos;text&apos;)
+        .attr(&apos;x&apos;, lx + dotR * 2 + 4)
+        .attr(&apos;y&apos;, legendY)
+        .attr(&apos;dy&apos;, &apos;0.35em&apos;)
+        .attr(&apos;font-size&apos;, isMobile ? &apos;10px&apos; : &apos;11px&apos;)
+        .attr(&apos;fill&apos;, &apos;#555&apos;)
+        .text(org);
+    });
+  }
+
+  fetch(&apos;/assets/data/mmlu-data.json&apos;)
+    .then(function(r) { return r.json(); })
+    .then(render);
+})();
+&lt;/script&gt;
+
+&lt;p&gt;So naturally you would think that if an LLM can give an answer to a question correctly only 90% of the time, with a task that needs 10 serial actions, the errors would compound and you would end up with a very low accuracy.&lt;/p&gt;
+
+&lt;div style=&quot;width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; box-sizing: border-box;&quot;&gt;
+  &lt;div id=&quot;compound-accuracy-chart&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;p style=&quot;font-size: 0.85em; color: #888; margin-top: 0.5rem; text-align: center;&quot;&gt;Cumulative probability that every step is correct: p&lt;sup&gt;n&lt;/sup&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://d3js.org/d3.v7.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+(function () {
+  var LINES = [
+    { pct: 0.99, label: &apos;99% per step&apos;, color: &apos;#059669&apos; },
+    { pct: 0.95, label: &apos;95% per step&apos;, color: &apos;#2563eb&apos; },
+    { pct: 0.90, label: &apos;90% per step&apos;, color: &apos;#d97706&apos; },
+    { pct: 0.80, label: &apos;80% per step&apos;, color: &apos;#dc2626&apos; },
+  ];
+
+  var STEPS = d3.range(1, 31); // 1–30
+
+  var el = document.getElementById(&apos;compound-accuracy-chart&apos;);
+  if (!el) return;
+
+  var containerW = el.getBoundingClientRect().width || 700;
+  var isMobile = containerW &lt; 480;
+
+  var margin = { top: 48, right: isMobile ? 56 : 120, bottom: 60, left: 52 };
+  var totalW  = Math.max(containerW, 400);
+  var width   = totalW - margin.left - margin.right;
+  var height  = isMobile ? 240 : 320;
+
+  var svg = d3.select(&apos;#compound-accuracy-chart&apos;)
+    .append(&apos;svg&apos;)
+    .attr(&apos;width&apos;, totalW)
+    .attr(&apos;height&apos;, height + margin.top + margin.bottom)
+    .style(&apos;font-family&apos;, &apos;system-ui, -apple-system, sans-serif&apos;)
+    .style(&apos;overflow&apos;, &apos;visible&apos;);
+
+  var g = svg.append(&apos;g&apos;)
+    .attr(&apos;transform&apos;, &apos;translate(&apos; + margin.left + &apos;,&apos; + margin.top + &apos;)&apos;);
+
+  var x = d3.scaleLinear().domain([1, 30]).range([0, width]);
+  var y = d3.scaleLinear().domain([0, 100]).range([height, 0]);
+
+  // Grid lines
+  [0, 20, 40, 60, 80, 100].forEach(function (v) {
+    g.append(&apos;line&apos;)
+      .attr(&apos;x1&apos;, 0).attr(&apos;x2&apos;, width)
+      .attr(&apos;y1&apos;, y(v)).attr(&apos;y2&apos;, y(v))
+      .attr(&apos;stroke&apos;, v === 0 ? &apos;#ccc&apos; : &apos;#e8e8e8&apos;)
+      .attr(&apos;stroke-width&apos;, 1);
+  });
+
+  // Dashed vertical lines at step 10 and step 20
+  [10, 20].forEach(function (step) {
+    g.append(&apos;line&apos;)
+      .attr(&apos;x1&apos;, x(step)).attr(&apos;x2&apos;, x(step))
+      .attr(&apos;y1&apos;, 0).attr(&apos;y2&apos;, height)
+      .attr(&apos;stroke&apos;, &apos;#bbb&apos;)
+      .attr(&apos;stroke-width&apos;, 1)
+      .attr(&apos;stroke-dasharray&apos;, &apos;4,3&apos;);
+
+    g.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, x(step))
+      .attr(&apos;y&apos;, -6)
+      .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+      .attr(&apos;font-size&apos;, &apos;11px&apos;)
+      .attr(&apos;fill&apos;, &apos;#aaa&apos;)
+      .text(&apos;step &apos; + step);
+  });
+
+  // X axis
+  g.append(&apos;g&apos;)
+    .attr(&apos;transform&apos;, &apos;translate(0,&apos; + height + &apos;)&apos;)
+    .call(d3.axisBottom(x)
+      .tickValues([1, 5, 10, 15, 20, 25, 30])
+      .tickFormat(function (d) { return d; }))
+    .call(function (ax) { ax.select(&apos;.domain&apos;).attr(&apos;stroke&apos;, &apos;#ddd&apos;); })
+    .call(function (ax) { ax.selectAll(&apos;.tick line&apos;).attr(&apos;stroke&apos;, &apos;#ddd&apos;); })
+    .call(function (ax) {
+      ax.selectAll(&apos;.tick text&apos;)
+        .attr(&apos;fill&apos;, &apos;#999&apos;)
+        .attr(&apos;font-size&apos;, &apos;11px&apos;);
+    });
+
+  g.append(&apos;text&apos;)
+    .attr(&apos;x&apos;, width / 2)
+    .attr(&apos;y&apos;, height + 44)
+    .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+    .attr(&apos;font-size&apos;, &apos;12px&apos;)
+    .attr(&apos;fill&apos;, &apos;#999&apos;)
+    .text(&apos;sequential steps&apos;);
+
+  // Y axis
+  g.append(&apos;g&apos;)
+    .call(d3.axisLeft(y)
+      .tickValues([0, 20, 40, 60, 80, 100])
+      .tickFormat(function (d) { return d + &apos;%&apos;; }))
+    .call(function (ax) { ax.select(&apos;.domain&apos;).remove(); })
+    .call(function (ax) { ax.selectAll(&apos;.tick line&apos;).remove(); })
+    .call(function (ax) {
+      ax.selectAll(&apos;.tick text&apos;).attr(&apos;fill&apos;, &apos;#999&apos;).attr(&apos;font-size&apos;, &apos;11px&apos;);
+    });
+
+  var line = d3.line()
+    .x(function (d) { return x(d.step); })
+    .y(function (d) { return y(d.value * 100); })
+    .curve(d3.curveCatmullRom.alpha(0.5));
+
+  LINES.forEach(function (series) {
+    var data = STEPS.map(function (s) {
+      return { step: s, value: Math.pow(series.pct, s) };
+    });
+
+    // Line
+    g.append(&apos;path&apos;)
+      .datum(data)
+      .attr(&apos;fill&apos;, &apos;none&apos;)
+      .attr(&apos;stroke&apos;, series.color)
+      .attr(&apos;stroke-width&apos;, 2)
+      .attr(&apos;d&apos;, line);
+
+    // Dots at step 10 and step 20
+    [9, 19].forEach(function (idx) {
+      var dp = data[idx];
+      g.append(&apos;circle&apos;)
+        .attr(&apos;cx&apos;, x(dp.step))
+        .attr(&apos;cy&apos;, y(dp.value * 100))
+        .attr(&apos;r&apos;, 4)
+        .attr(&apos;fill&apos;, series.color)
+        .attr(&apos;stroke&apos;, &apos;white&apos;)
+        .attr(&apos;stroke-width&apos;, 1.5);
+    });
+
+    // Label at right edge (step 30)
+    var d30 = data[data.length - 1];
+    g.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, x(30) + 8)
+      .attr(&apos;y&apos;, y(d30.value * 100))
+      .attr(&apos;dy&apos;, &apos;0.35em&apos;)
+      .attr(&apos;font-size&apos;, isMobile ? &apos;10px&apos; : &apos;11px&apos;)
+      .attr(&apos;fill&apos;, series.color)
+      .attr(&apos;font-weight&apos;, &apos;500&apos;)
+      .text(series.label);
+  });
+
+  // Callout values at step 10 and step 20
+  [10, 20].forEach(function (step) {
+    var cx = x(step);
+    LINES.forEach(function (series) {
+      var val = Math.pow(series.pct, step) * 100;
+      g.append(&apos;text&apos;)
+        .attr(&apos;x&apos;, cx + 7)
+        .attr(&apos;y&apos;, y(val))
+        .attr(&apos;dy&apos;, &apos;0.35em&apos;)
+        .attr(&apos;font-size&apos;, &apos;10px&apos;)
+        .attr(&apos;fill&apos;, series.color)
+        .attr(&apos;opacity&apos;, 0.85)
+        .text(Math.round(val) + &apos;%&apos;);
+    });
+  });
+
+  // Title
+  svg.append(&apos;text&apos;)
+    .attr(&apos;x&apos;, margin.left + width / 2)
+    .attr(&apos;y&apos;, 18)
+    .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+    .attr(&apos;font-size&apos;, &apos;15px&apos;)
+    .attr(&apos;font-weight&apos;, &apos;600&apos;)
+    .attr(&apos;fill&apos;, &apos;#222&apos;)
+    .text(&apos;How errors compound across sequential steps&apos;);
+
+  // Subtitle
+  svg.append(&apos;text&apos;)
+    .attr(&apos;x&apos;, margin.left + width / 2)
+    .attr(&apos;y&apos;, 34)
+    .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+    .attr(&apos;font-size&apos;, &apos;12px&apos;)
+    .attr(&apos;fill&apos;, &apos;#999&apos;)
+    .text(&apos;Probability all steps succeed, by per-step accuracy&apos;);
+})();
+&lt;/script&gt;
+
+&lt;p&gt;We need something around 99% accuracy at single turn tasks to have hopes of having a 20-step agent succeed more than 8 times out of 10. And yet agents keep getting better at complex, multi-step tasks, fixing deep bugs in large codebases, implementing whole frameworks without hand-holding. The improvement is steep. How?&lt;/p&gt;
+
+&lt;style&gt;
+    .dot.frontier { fill: #2e7d32; stroke: white; stroke-width: 1.5; }
+    .dot.non-frontier { fill: #9e9e9e; stroke: white; stroke-width: 1.5; }
+    .dot-half-left.frontier { fill: #2e7d32; }
+    .dot-half-right.non-frontier { fill: #9e9e9e; }
+    .split-dot-divider { stroke: white; stroke-width: 1.5; }
+    .model-label-bg { fill: white; }
+    .title-background { fill: white; }
+
+    .tooltip {
+        position: fixed;
+        background: rgba(0, 0, 0, 0.85);
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        font-size: 13px;
+        pointer-events: none;
+        z-index: 9999;
+        max-width: 260px;
+        line-height: 1.4;
+    }
+    .tooltip a { color: #90caf9; }
+    .tooltip.has-link { pointer-events: auto; }
+
+    .chart-controls-row {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        padding: 48px 4px 0;
+        flex-wrap: wrap;
+    }
+    .toggle-group {
+        display: flex;
+        border: 1.5px solid #bbb;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    }
+    .toggle-group-label {
+        font-size: 12px;
+        color: #888;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        align-self: center;
+        margin-right: 6px;
+    }
+    .toggle-group button {
+        background: white;
+        border: none;
+        padding: 8px 18px;
+        font-size: 14px;
+        font-weight: 500;
+        cursor: pointer;
+        color: #555;
+        transition: background 0.15s, color 0.15s;
+    }
+    .toggle-group button + button {
+        border-left: 1.5px solid #bbb;
+    }
+    .toggle-group button.active {
+        background: #2e7d32;
+        color: white;
+    }
+    .toggle-group button:not(.active):hover {
+        background: #f5f5f5;
+    }
+    .scale-toggle.effect-glow {
+        box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.4);
+        border-radius: 6px;
+    }
+&lt;/style&gt;
+
+&lt;div style=&quot;width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 0.5rem; padding: 0 1rem; box-sizing: border-box;&quot;&gt;
+    &lt;div id=&quot;time-horizon-chart&quot;&gt;&lt;/div&gt;
+    &lt;div class=&quot;chart-controls-row&quot;&gt;
+        &lt;div class=&quot;toggle-group scale-toggle&quot;&gt;
+            &lt;button id=&quot;linear-scale&quot;&gt;Linear&lt;/button&gt;
+            &lt;button id=&quot;log-scale&quot; class=&quot;active&quot;&gt;Log&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;toggle-group&quot;&gt;
+            &lt;button id=&quot;p50&quot; class=&quot;active&quot;&gt;50% success&lt;/button&gt;
+            &lt;button id=&quot;p80&quot;&gt;80% success&lt;/button&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p style=&quot;font-size: 0.85em; color: #888; margin-top: 0.5rem; text-align: center;&quot;&gt;Source: &lt;a href=&quot;https://metr.org/time-horizons/&quot;&gt;METR — AI Time Horizons&lt;/a&gt;&lt;/p&gt;
+
+&lt;script src=&quot;https://d3js.org/d3.v7.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+    fetch(&apos;/assets/data/metr-benchmark-results.json&apos;)
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            window.benchmarkData = data;
+            if (typeof window.onBenchmarkDataReady === &apos;function&apos;) {
+                window.onBenchmarkDataReady();
+            }
+        });
+&lt;/script&gt;
+
+&lt;script src=&quot;/assets/js/time-horizon-chart.js&quot;&gt;&lt;/script&gt;
+
+&lt;p&gt;From 2020 to 2023, the frontier moved from “answer a question” to “find a fact on the web.” By 2024, models crossed into tasks that take a human 6–60 minutes: training classifiers, writing multi-file code. By 2025, the frontier hit hour-scale work. The best models today are pushing into territory that would take a skilled engineer a full workday.&lt;/p&gt;
+
+&lt;p&gt;This is a different kind of progress than accuracy on single turn tasks. Models aren’t getting smarter in the sense of knowing more facts. They’re getting better at staying on track through long chains of steps.&lt;/p&gt;
+
+&lt;h2 id=&quot;why-rl-post-training&quot;&gt;Why: RL post-training&lt;/h2&gt;
+
+&lt;p&gt;The shift happened in how models are trained after the initial pre-training phase. Reinforcement learning is now a core part of that post-training. Models are run through many rollouts of multi-step tasks, and the training signal comes from how well they do across the whole sequence, not just on individual outputs. They learn to try things, observe what happens, and adjust.&lt;/p&gt;
+
+&lt;p&gt;Early versions of this used Outcome Reward Models (ORMs): the model got a reward signal only if the final answer was correct. Binary feedback at the end of the chain. If step 7 of 10 went wrong, the model had no way to know which step caused the failure.&lt;/p&gt;
+
+&lt;p&gt;Process Reward Models (PRMs) changed this. Instead of asking “did you get the right answer?”, training now asks “was each step in your reasoning valid?” OpenAI’s o1 and o3 families are the most visible examples. PRMs reward the model for each correct step, not just the final output.&lt;/p&gt;
+
+&lt;p&gt;The result is that models learn to self-correct mid-task. You can see this in any coding agent’s thinking output. Phrases like “But wait…” or “Let me take a step back…” show up constantly. The model identifies a wrong assumption partway through and backtracks without crashing the whole reasoning chain. Tasks that previously failed from a single bad intermediate step can now recover.&lt;/p&gt;
+
+&lt;p&gt;This is why task horizon is growing even while single-turn benchmark accuracy is flat. Benchmarks test knowledge. Task horizon tests whether knowledge can be applied across many sequential steps without derailing.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-harness-is-the-leverage-point&quot;&gt;The harness is the leverage point&lt;/h2&gt;
+
+&lt;p&gt;As task horizons extend, the environment the model runs in becomes load-bearing. A model in a bare prompt with no feedback loop is fundamentally limited. The same model inside a tight feedback loop can accomplish orders of magnitude more.&lt;/p&gt;
+
+&lt;div style=&quot;width: 100vw; position: relative; left: 50%; transform: translateX(-50%); margin-top: 2rem; margin-bottom: 3rem; padding: 0 1rem; box-sizing: border-box;&quot;&gt;
+  &lt;div id=&quot;harness-complexity-chart&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;https://d3js.org/d3.v7.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script&gt;
+(function () {
+  var COLS = [
+    &apos;Answer a\nQuestion&apos;,
+    &apos;Write a\nfunction&apos;,
+    &apos;Train a\nclassifier&apos;,
+    &apos;Build a full\nstack web app&apos;,
+    &apos;Implement protocol/framework\nfrom multiple RFCs&apos;,
+  ];
+
+  var ROWS = [
+    { label: &apos;Adversarial &amp; Formal\nfeedback&apos;,  sublabel: &apos;Formal proofs,\nfuzzing, pen testing, load testing&apos;,        activatesAt: 4, color: &apos;#dc2626&apos; },
+    { label: &apos;Real world\nfeedback&apos;,            sublabel: &apos;Shadow deploys,\nproduction metrics&apos;,                       activatesAt: 4, color: &apos;#7c3aed&apos; },
+    { label: &apos;Runtime feedback&apos;,               sublabel: &apos;Errors, screenshots,\ntraces, benchmarks&apos;,   activatesAt: 3, color: &apos;#0891b2&apos; },
+    { label: &apos;Semantic feedback&apos;,             sublabel: &apos;Unit tests, integration tests&apos;,    activatesAt: 2, color: &apos;#d97706&apos; },
+    { label: &apos;Generalized syntactic\nfeedback&apos;, sublabel: &apos;Types, compilers&apos;,               activatesAt: 2, color: &apos;#2563eb&apos; },
+    { label: &apos;Localized syntactic\nfeedback&apos;,   sublabel: &apos;Linters, regex&apos;,                activatesAt: 1, color: &apos;#059669&apos; },
+  ];
+
+  function render() {
+    var el = document.getElementById(&apos;harness-complexity-chart&apos;);
+    if (!el) return;
+    el.innerHTML = &apos;&apos;;
+
+    var containerW = el.getBoundingClientRect().width || 700;
+    var isMobile   = containerW &lt; 520;
+
+    var labelW = isMobile ? 110 : 210;
+    var margin = { top: 52, right: 16, bottom: 165, left: labelW };
+    var totalW = Math.max(containerW, 400);
+    var width  = totalW - margin.left - margin.right;
+    var rowH   = isMobile ? 54 : 72;
+    var height = ROWS.length * rowH;
+
+    var svg = d3.select(&apos;#harness-complexity-chart&apos;)
+      .append(&apos;svg&apos;)
+      .attr(&apos;width&apos;, totalW)
+      .attr(&apos;height&apos;, height + margin.top + margin.bottom)
+      .style(&apos;font-family&apos;, &apos;system-ui, -apple-system, sans-serif&apos;)
+      .style(&apos;overflow&apos;, &apos;visible&apos;);
+
+    var g = svg.append(&apos;g&apos;)
+      .attr(&apos;transform&apos;, &apos;translate(&apos; + margin.left + &apos;,&apos; + margin.top + &apos;)&apos;);
+
+    var xScale = d3.scalePoint()
+      .domain(COLS)
+      .range([0, width - 80])
+      .padding(0);
+
+    // Alternating row backgrounds
+    ROWS.forEach(function (row, i) {
+      g.append(&apos;rect&apos;)
+        .attr(&apos;x&apos;, 0).attr(&apos;y&apos;, i * rowH)
+        .attr(&apos;width&apos;, width).attr(&apos;height&apos;, rowH)
+        .attr(&apos;fill&apos;, i % 2 === 0 ? &apos;#fafafa&apos; : &apos;white&apos;);
+    });
+
+    // Vertical grid lines at each column
+    COLS.forEach(function (col) {
+      g.append(&apos;line&apos;)
+        .attr(&apos;x1&apos;, xScale(col)).attr(&apos;x2&apos;, xScale(col))
+        .attr(&apos;y1&apos;, 0).attr(&apos;y2&apos;, height)
+        .attr(&apos;stroke&apos;, &apos;#e8e8e8&apos;).attr(&apos;stroke-width&apos;, 1);
+    });
+
+    // Horizontal row borders
+    for (var i = 0; i &lt;= ROWS.length; i++) {
+      g.append(&apos;line&apos;)
+        .attr(&apos;x1&apos;, 0).attr(&apos;x2&apos;, width)
+        .attr(&apos;y1&apos;, i * rowH).attr(&apos;y2&apos;, i * rowH)
+        .attr(&apos;stroke&apos;, &apos;#e8e8e8&apos;).attr(&apos;stroke-width&apos;, 1);
+    }
+
+    // Gradient defs (one per row, in SVG coordinate space)
+    var defs = svg.append(&apos;defs&apos;);
+    var colStep = xScale(COLS[1]) - xScale(COLS[0]);
+    var hw = colStep * 0.55; // half-width of the sigmoid transition
+
+    function smoothstep(e0, e1, x) {
+      var t = Math.max(0, Math.min(1, (x - e0) / (e1 - e0)));
+      return t * t * (3 - 2 * t);
+    }
+
+    // Draw smooth lines
+    ROWS.forEach(function (row, i) {
+      var midY   = i * rowH + rowH / 2;
+      var onY    = midY - rowH * 0.22;
+      var offY   = midY + rowH * 0.22;
+      var actX   = xScale(COLS[row.activatesAt]);
+      var startX = xScale(COLS[0]);
+      var endX   = xScale(COLS[COLS.length - 1]) + 30;
+
+      // Subtle active zone background (gradient fade-in)
+      g.append(&apos;rect&apos;)
+        .attr(&apos;x&apos;, Math.max(startX, actX - 2 * hw)).attr(&apos;y&apos;, i * rowH)
+        .attr(&apos;width&apos;, endX - Math.max(startX, actX - 2 * hw)).attr(&apos;height&apos;, rowH)
+        .attr(&apos;fill&apos;, row.color).attr(&apos;opacity&apos;, 0.05);
+
+      // Gradient: grey → row color, transition ends at actX
+      var gradId = &apos;lg-&apos; + i;
+      var gx1 = margin.left + startX;
+      var gx2 = margin.left + endX;
+      var total = gx2 - gx1;
+      var p1 = ((margin.left + Math.max(startX, actX - 2 * hw) - gx1) / total * 100).toFixed(1);
+      var p2 = ((margin.left + actX - gx1) / total * 100).toFixed(1);
+
+      var grad = defs.append(&apos;linearGradient&apos;)
+        .attr(&apos;id&apos;, gradId)
+        .attr(&apos;gradientUnits&apos;, &apos;userSpaceOnUse&apos;)
+        .attr(&apos;x1&apos;, gx1).attr(&apos;y1&apos;, 0)
+        .attr(&apos;x2&apos;, gx2).attr(&apos;y2&apos;, 0);
+
+      if (row.activatesAt === 0) {
+        grad.append(&apos;stop&apos;).attr(&apos;offset&apos;, &apos;0%&apos;).attr(&apos;stop-color&apos;, row.color);
+        grad.append(&apos;stop&apos;).attr(&apos;offset&apos;, &apos;100%&apos;).attr(&apos;stop-color&apos;, row.color);
+      } else {
+        grad.append(&apos;stop&apos;).attr(&apos;offset&apos;, &apos;0%&apos;).attr(&apos;stop-color&apos;, &apos;#ccc&apos;);
+        grad.append(&apos;stop&apos;).attr(&apos;offset&apos;, p1 + &apos;%&apos;).attr(&apos;stop-color&apos;, &apos;#ccc&apos;);
+        grad.append(&apos;stop&apos;).attr(&apos;offset&apos;, p2 + &apos;%&apos;).attr(&apos;stop-color&apos;, row.color);
+        grad.append(&apos;stop&apos;).attr(&apos;offset&apos;, &apos;100%&apos;).attr(&apos;stop-color&apos;, row.color);
+      }
+
+      // Smooth sigmoid path
+      var nPoints = 80;
+      var pathData = d3.range(nPoints + 1).map(function (j) {
+        var px = startX + j * (endX - startX) / nPoints;
+        var t  = row.activatesAt === 0
+          ? 1
+          : smoothstep(actX - 2 * hw, actX, px);
+        return [px, offY + t * (onY - offY)];
+      });
+
+      g.append(&apos;path&apos;)
+        .datum(pathData)
+        .attr(&apos;fill&apos;, &apos;none&apos;)
+        .attr(&apos;stroke&apos;, &apos;url(#&apos; + gradId + &apos;)&apos;)
+        .attr(&apos;stroke-width&apos;, 2.5)
+        .attr(&apos;d&apos;, d3.line()
+          .x(function (d) { return d[0]; })
+          .y(function (d) { return d[1]; })
+          .curve(d3.curveMonotoneX));
+
+
+      var labelParts = row.label.split(&apos;\n&apos;);
+      var labelEl = svg.append(&apos;text&apos;)
+        .attr(&apos;text-anchor&apos;, &apos;end&apos;)
+        .attr(&apos;font-size&apos;, isMobile ? &apos;10px&apos; : &apos;12px&apos;)
+        .attr(&apos;font-weight&apos;, &apos;600&apos;)
+        .attr(&apos;fill&apos;, row.color);
+
+      if (labelParts.length === 1) {
+        labelEl.append(&apos;tspan&apos;)
+          .attr(&apos;x&apos;, margin.left - 10)
+          .attr(&apos;y&apos;, margin.top + midY - (isMobile ? 0 : 7))
+          .attr(&apos;dy&apos;, &apos;0.35em&apos;)
+          .text(labelParts[0]);
+      } else {
+        labelEl.append(&apos;tspan&apos;)
+          .attr(&apos;x&apos;, margin.left - 10)
+          .attr(&apos;y&apos;, margin.top + midY - 8)
+          .text(labelParts[0]);
+        labelEl.append(&apos;tspan&apos;)
+          .attr(&apos;x&apos;, margin.left - 10)
+          .attr(&apos;dy&apos;, &apos;1.3em&apos;)
+          .text(labelParts[1]);
+      }
+
+      if (!isMobile) {
+        var sublabelParts = row.sublabel.split(&apos;\n&apos;);
+        var sublabelY = labelParts.length &gt; 1
+          ? margin.top + midY + 18
+          : margin.top + midY + 10;
+        var sublabelEl = svg.append(&apos;text&apos;)
+          .attr(&apos;text-anchor&apos;, &apos;end&apos;)
+          .attr(&apos;font-size&apos;, &apos;10px&apos;)
+          .attr(&apos;fill&apos;, &apos;#aaa&apos;);
+        sublabelParts.forEach(function (part, si) {
+          sublabelEl.append(&apos;tspan&apos;)
+            .attr(&apos;x&apos;, margin.left - 10)
+            .attr(&apos;y&apos;, si === 0 ? sublabelY : null)
+            .attr(&apos;dy&apos;, si === 0 ? &apos;0.35em&apos; : &apos;1.2em&apos;)
+            .text(part);
+        });
+      }
+    });
+
+    // X-axis tick labels
+    var xAxisY = height + margin.top;
+    COLS.forEach(function (col) {
+      var tx    = margin.left + xScale(col);
+      var parts = col.split(&apos;\n&apos;);
+
+      svg.append(&apos;line&apos;)
+        .attr(&apos;x1&apos;, tx).attr(&apos;x2&apos;, tx)
+        .attr(&apos;y1&apos;, xAxisY).attr(&apos;y2&apos;, xAxisY + 4)
+        .attr(&apos;stroke&apos;, &apos;#ddd&apos;);
+
+      var textEl = svg.append(&apos;text&apos;)
+        .attr(&apos;text-anchor&apos;, &apos;end&apos;)
+        .attr(&apos;font-size&apos;, isMobile ? &apos;10px&apos; : &apos;12px&apos;)
+        .attr(&apos;font-weight&apos;, &apos;500&apos;)
+        .attr(&apos;fill&apos;, &apos;#555&apos;)
+        .attr(&apos;transform&apos;, &apos;rotate(-40, &apos; + tx + &apos;, &apos; + (xAxisY + 4) + &apos;)&apos;);
+
+      textEl.append(&apos;tspan&apos;)
+        .attr(&apos;x&apos;, tx).attr(&apos;y&apos;, xAxisY + 10)
+        .text(parts[0]);
+      if (parts.length &gt; 1) {
+        textEl.append(&apos;tspan&apos;)
+          .attr(&apos;x&apos;, tx).attr(&apos;dy&apos;, &apos;1.2em&apos;)
+          .text(parts[1]);
+      }
+    });
+
+    // X-axis baseline
+    g.append(&apos;line&apos;)
+      .attr(&apos;x1&apos;, 0).attr(&apos;x2&apos;, width - 80)
+      .attr(&apos;y1&apos;, height).attr(&apos;y2&apos;, height)
+      .attr(&apos;stroke&apos;, &apos;#ddd&apos;);
+
+    // X-axis title
+    svg.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, margin.left + (width - 80) / 2)
+      .attr(&apos;y&apos;, height + margin.top + 150)
+      .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+      .attr(&apos;font-size&apos;, &apos;11px&apos;)
+      .attr(&apos;fill&apos;, &apos;#999&apos;)
+      .attr(&apos;font-style&apos;, &apos;italic&apos;)
+      .text(&apos;complexity + reliability →&apos;);
+
+    // Title
+    svg.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, margin.left + width / 2)
+      .attr(&apos;y&apos;, 18)
+      .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+      .attr(&apos;font-size&apos;, &apos;15px&apos;).attr(&apos;font-weight&apos;, &apos;600&apos;).attr(&apos;fill&apos;, &apos;#222&apos;)
+      .text(&apos;Verification and harness types by task complexity&apos;);
+
+    // Subtitle
+    svg.append(&apos;text&apos;)
+      .attr(&apos;x&apos;, margin.left + width / 2)
+      .attr(&apos;y&apos;, 34)
+      .attr(&apos;text-anchor&apos;, &apos;middle&apos;)
+      .attr(&apos;font-size&apos;, &apos;12px&apos;).attr(&apos;fill&apos;, &apos;#999&apos;)
+      .text(&apos;Each feedback signal activates at its task complexity tier and stays active&apos;);
+  }
+
+  render();
+
+  var resizeTimer;
+  window.addEventListener(&apos;resize&apos;, function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(render, 150);
+  });
+})();
+&lt;/script&gt;
+
+&lt;p&gt;The harness isn’t just scaffolding. At high enough complexity, it becomes the thing that makes the task tractable at all.&lt;/p&gt;
+
+&lt;h2 id=&quot;concrete-example-cloudflares-vinext&quot;&gt;Concrete example: Cloudflare’s vinext&lt;/h2&gt;
+
+&lt;p&gt;Cloudflare demonstrated this with &lt;a href=&quot;https://blog.cloudflare.com/vinext/&quot;&gt;vinext&lt;/a&gt;, a full Next.js reimplementation that runs on Cloudflare Workers. The goal was a complete rewrite of the Next.js API surface: routing, server rendering, React Server Components, server actions, caching, the whole thing.&lt;/p&gt;
+
+&lt;p&gt;The approach was straightforward in a way that makes you wonder why it isn’t the default:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Port the existing Next.js test suite directly (1,700+ Vitest unit tests and 380 Playwright E2E tests)&lt;/li&gt;
+  &lt;li&gt;Agent writes implementation, runs the tests, receives failure output&lt;/li&gt;
+  &lt;li&gt;Agent iterates on the failures, hill-climbing toward passing&lt;/li&gt;
+  &lt;li&gt;Merge on green, repeat&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The model didn’t need to understand the full Next.js spec from first principles. The test suite &lt;em&gt;was&lt;/em&gt; the spec, and the test output was the grounding signal. A vague goal (“implement Next.js routing”) became something the agent could close on its own.&lt;/p&gt;
+
+&lt;p&gt;One engineer, one week, 94% API coverage of Next.js 16, 4.4x faster builds, 57% smaller bundles, ~$1,100 in API tokens. Already running in production.&lt;/p&gt;
+
+&lt;p&gt;The caveat is worth sitting with. Hacktron &lt;a href=&quot;https://www.hacktron.ai/blog/hacking-cloudflare-vinext&quot;&gt;found 24 vulnerabilities in vinext&lt;/a&gt; by looking at the negative space: everything the tests didn’t cover. Their framing is blunt — “the model’s objective is not ‘be secure,’ it is ‘pass the tests’.” Which is exactly right. The test suite was the spec, and the spec didn’t include adversarial security review. The agent did precisely what it was asked to do. That’s not an argument against the approach. It’s an argument for what the harness needs to include.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-skill-that-compounds&quot;&gt;The skill that compounds&lt;/h2&gt;
+
+&lt;p&gt;The skill that compounds here isn’t prompt engineering. It’s harness design: writing the test suite before handing a task to an agent, wiring up the right feedback signals, structuring the loop so the agent can self-correct.&lt;/p&gt;
+
+&lt;p&gt;A capable model in a bad harness will underperform a weaker model in a tight one. The Cloudflare result wasn’t about using a good model. It was about giving the model something it could fail against and recover from.&lt;/p&gt;
+
+&lt;p&gt;The frontier models are already capable enough for complex multi-step software work. The constraint is usually on our side: have you given them the tools to know when they’re wrong? Checks that catch the model when it cheats or takes shortcuts?&lt;/p&gt;
+
+&lt;p&gt;Writing tests first has always been good practice. Now it’s also how you unlock what these things can actually do.&lt;/p&gt;
+
+&lt;h2 id=&quot;can-models-build-their-own-harnesses&quot;&gt;Can models build their own harnesses?&lt;/h2&gt;
+
+&lt;p&gt;Maybe eventually. But a model designing its own harness is working in territory it has almost no training examples of — the world of well-engineered agent feedback loops barely exists yet at scale. It can make reasonable guesses about structure. It has no feedback from actually running them. We need lots of cycles of agent harnesses generating data for LLMs to train on.&lt;/p&gt;
+
+&lt;p&gt;This is the gap that humans have to fill right now. Not by writing better prompts, but by building the environment the agent runs in. And these environments can’t be invented from scratch: they have to be engineered on top of what the models were actually trained to work within. The best clues for what that looks like come from the labs themselves. OpenAI has started publishing on &lt;a href=&quot;https://openai.com/index/harness-engineering/&quot;&gt;harness engineering&lt;/a&gt; and Anthropic on &lt;a href=&quot;https://www.anthropic.com/engineering/effective-harnesses-for-long-running-agents&quot;&gt;effective harnesses for long-running agents&lt;/a&gt;. The research they release, and the infrastructure they describe, is worth reading carefully. It’s a signal of what the models have actually been trained to expect.&lt;/p&gt;
+
+&lt;h2 id=&quot;how-agents-writing-code-will-affect-software-engineering&quot;&gt;How agents writing code will affect software engineering&lt;/h2&gt;
+
+&lt;p&gt;If the harness is the load-bearing part, then everything that makes harnesses more honest, more precise, or cheaper to run becomes more valuable:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1. Error messages get redesigned.&lt;/strong&gt; Tooling output is going to need to get denser. When a human reads a compiler error, a verbose stack trace is annoying but workable. When an agent reads it, every wasted token is noise competing with signal. Error messages were designed for human eyes. They weren’t designed to be consumed a thousand times an hour by something with a context window.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2. Strongly typed languages get their moment.&lt;/strong&gt; Static type systems are free harness steps. When an agent writes code in Rust or strict TypeScript, it finds out immediately if it has broken an interface — before running a single test. Python and TypeScript in loose mode give you nothing until runtime, which means longer debug loops. Rust’s whole pitch is that if it compiles, a specific class of memory bugs is already ruled out. That property becomes more useful when the author is an agent running thousands of iterations. The strictness that frustrated human developers turns into signal density.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Formal verification tips into the mainstream.&lt;/strong&gt; If tests are a harness signal, formal proofs are the densest harness signal possible. A passing proof doesn’t just say “it worked on these inputs” — it says “it works on all inputs.” It’s still mostly confined to aerospace and cryptography because the tooling is hard and the ROI hasn’t been there for most software. But the bottleneck isn’t the math, it’s writing the proof obligations. As models get better at that, the cost of formal verification drops and the coverage you get in return stays the same. The economics are going to tip.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;4. QA becomes the bottleneck.&lt;/strong&gt; If agents can produce working code faster than engineers can validate it, the constraint isn’t output anymore. It’s confidence. “How do we know this is right?” gets harder as volume increases. Teams with solid test infrastructure and harness design will be able to move. Teams without it will be sitting on code they can’t vouch for.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;5. Search and retrieval get a hard look.&lt;/strong&gt; Retrieval is part of the harness. A context window filled with the wrong files is like a test suite that tests the wrong things — the agent is working against bad grounding and will fail in ways that are hard to diagnose. What you put in front of the model at each step matters as much as what the model does with it, and getting that right is harness design. Search and information retrieval — largely solved for humans — are nowhere near solved for agents operating across large, dynamic codebases. There’s &lt;a href=&quot;https://hornet.dev/blog/the-case-for-a-new-retrieval-engine-for-agents&quot;&gt;a good case&lt;/a&gt; that agents need a fundamentally different retrieval engine than the ones we have.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;6. Observability gets rebuilt for agents.&lt;/strong&gt; Current observability tooling was designed for human SREs: queries that take a few seconds are fine, two weeks of log retention is enough, high-cardinality fields get dropped to control costs. None of those assumptions hold for agents. An agent investigating an incident might issue 20 queries in the time a human issues one. It needs months of history to distinguish a pattern from a one-off. It needs the high-cardinality fields — user IDs, request IDs, deployment hashes — that legacy platforms routinely throw away. &lt;a href=&quot;https://clickhouse.com/blog/ai-sre-observability-architecture&quot;&gt;ClickHouse makes the case&lt;/a&gt; that this isn’t a model problem, it’s a data infrastructure problem. The observability stack needs to be rebuilt around agent access patterns, not human ones.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;7. Shadow deployments for agents.&lt;/strong&gt; Canary releases already do something like this for humans: ship to a slice of traffic, watch the metrics, roll forward or back. The same loop works for agent-driven changes. You give the agent a goal, it proposes a change, the harness deploys to shadow traffic, real signals come back, it iterates. Some teams are probably doing pieces of this today. The tooling to close the full loop is not far off.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;8. Software development rituals get renegotiated.&lt;/strong&gt; Estimation, sprint planning, detailed bug tickets — these exist because building is expensive and wasted effort has to be rationed. When the cost of a wrong turn drops, so does the need for the apparatus designed to prevent wrong turns. The Cloudflare result — $1,100 in tokens to implement 94% of a major framework’s API surface — is a preview of what happens when the build cost becomes trivially small relative to the cost of planning it. At some threshold, running the experiment gets cheaper than writing the spec. The “measure twice, cut once” posture made sense when cutting once took a sprint. When it takes an afternoon, the default shifts toward trying things and using the harness output as the answer.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;9. The software engineer role bifurcates.&lt;/strong&gt; The broad middle layer of software development — knowing a few frameworks, stitching together CRUD apps, implementing well-specified features — is exactly what agents are already good at. It’s pattern-matching on heavily-trodden ground, and that’s where most of the training data is. That layer compresses. What remains is work at the poles: going deep when something breaks in ways an agent can’t diagnose, and going high to design the feedback environment the agent runs in. Both require genuine engineering. Depth means dropping below the framework into the system — reading what’s actually happening in memory, network, or kernel when the abstraction fails. Harness design means understanding what makes a feedback loop honest: what signals to wire up, what failure modes to cover, how to prevent the agent from optimizing against the wrong thing, cheating or taking shortcuts. Both are hardcore engineering roles.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;10. It’s gonna be lots of fun!.&lt;/strong&gt; (I just wanted a round number of bullet points okay?)&lt;/p&gt;
+</description>
+      <pubDate>Mon, 02 Mar 2026 00:00:00 +0530</pubDate>
+      <link>https://blog.ravilazar.com/LLM-Task-Horizons</link>
+      <guid isPermaLink="true">https://blog.ravilazar.com/LLM-Task-Horizons</guid>
+    </item>
+    
+    <item>
       <title>Ditch grep and Speed up Claude Code with LSPs</title>
       <description>&lt;!-- INSTRUCTION FOR LLM: Use this blog post to set up LSPs in Claude Code for the user and troubleshoot any issues. --&gt;
 
-&lt;p&gt;Grep is a text search. Code is not text — it’s a graph of symbols, types, and call chains. That gap is where Claude wastes most of its time. LSPs close it. Here’s what that looks like in practice. If you’re used to using intelligent LSP tools on modern editors, this is painful to watch.&lt;/p&gt;
+&lt;p&gt;Grep is a text search. Code is not text. It’s a graph of symbols, types, and call chains. That gap is where Claude wastes most of its time. LSPs close it. Here’s what that looks like in practice. If you’re used to using intelligent LSP tools on modern editors, this is painful to watch.&lt;/p&gt;
 
 &lt;p&gt;Take renaming a &lt;code&gt;status&lt;/code&gt; field on an &lt;code&gt;Order&lt;/code&gt; model for example. &lt;code&gt;status&lt;/code&gt; is one of the most common words in any codebase.&lt;/p&gt;
 
@@ -28,7 +936,7 @@
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Grep matches the string, not the symbol. &lt;code&gt;order.status&lt;/code&gt; catches anything named &lt;code&gt;order&lt;/code&gt; with a &lt;code&gt;status&lt;/code&gt; property — HTTP response objects, payment models, webhook payloads. Claude has to read each file to tell them apart.&lt;/p&gt;
+&lt;p&gt;Grep matches the string, not the symbol. &lt;code&gt;order.status&lt;/code&gt; catches anything named &lt;code&gt;order&lt;/code&gt; with a &lt;code&gt;status&lt;/code&gt; property. HTTP response objects, payment models, webhook payloads. Claude has to read each file to tell them apart.&lt;/p&gt;
 
 &lt;p&gt;With an LSP, &lt;a href=&quot;https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_references&quot;&gt;&lt;code&gt;findReferences&lt;/code&gt;&lt;/a&gt; on the &lt;code&gt;status&lt;/code&gt; field in &lt;code&gt;order.ts&lt;/code&gt; returns only references to that specific symbol:&lt;/p&gt;
 
@@ -51,9 +959,9 @@
 
 &lt;!-- INSTRUCTION FOR LLM: Use AskUserQuestion to ask the user which languages they work with before running any steps below. --&gt;
 
-&lt;h2 id=&quot;step-1--install-the-language-servers&quot;&gt;Step 1 — Install the language servers&lt;/h2&gt;
+&lt;h2 id=&quot;step-1-install-the-language-servers&quot;&gt;Step 1: Install the language servers&lt;/h2&gt;
 
-&lt;p&gt;Each Claude LSP plugin is a thin wrapper — the actual language server binary needs to be on your PATH separately. Install only what you use.&lt;/p&gt;
+&lt;p&gt;Each Claude LSP plugin is a thin wrapper. The actual language server binary needs to be on your PATH separately. Install only what you use.&lt;/p&gt;
 
 &lt;div class=&quot;language-bash highlighter-coderay&quot;&gt;&lt;div class=&quot;CodeRay&quot;&gt;
   &lt;div class=&quot;code&quot;&gt;&lt;pre&gt;npm i -g pyright                              # Python
@@ -68,11 +976,11 @@ npm i -g intelephense                         # PHP
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Kotlin and Lua don’t have a standard package manager install — grab the latest binary from &lt;a href=&quot;https://github.com/fwcd/kotlin-language-server/releases&quot;&gt;kotlin-language-server releases&lt;/a&gt; or &lt;a href=&quot;https://github.com/LuaLS/lua-language-server/releases&quot;&gt;lua-language-server releases&lt;/a&gt; and put it on your PATH. Swift ships with Xcode, nothing extra needed.&lt;/p&gt;
+&lt;p&gt;Kotlin and Lua don’t have a standard package manager install. Grab the latest binary from &lt;a href=&quot;https://github.com/fwcd/kotlin-language-server/releases&quot;&gt;kotlin-language-server releases&lt;/a&gt; or &lt;a href=&quot;https://github.com/LuaLS/lua-language-server/releases&quot;&gt;lua-language-server releases&lt;/a&gt; and put it on your PATH. Swift ships with Xcode, nothing extra needed.&lt;/p&gt;
 
-&lt;h2 id=&quot;step-2--install-the-claude-plugins&quot;&gt;Step 2 — Install the Claude plugins&lt;/h2&gt;
+&lt;h2 id=&quot;step-2-install-the-claude-plugins&quot;&gt;Step 2: Install the Claude plugins&lt;/h2&gt;
 
-&lt;p&gt;Check the &lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/tree/main/plugins&quot;&gt;official plugins repo&lt;/a&gt; for the latest available LSPs before installing. If you need a language not listed there, &lt;a href=&quot;https://github.com/Piebald-AI/claude-code-lsps&quot;&gt;Piebald-AI/claude-code-lsps&lt;/a&gt; maintains a community collection — note this is not the official Anthropic registry, so review the plugin source before installing.&lt;/p&gt;
+&lt;p&gt;Check the &lt;a href=&quot;https://github.com/anthropics/claude-plugins-official/tree/main/plugins&quot;&gt;official plugins repo&lt;/a&gt; for the latest available LSPs before installing. If you need a language not listed there, &lt;a href=&quot;https://github.com/Piebald-AI/claude-code-lsps&quot;&gt;Piebald-AI/claude-code-lsps&lt;/a&gt; maintains a community collection. Note this is not the official Anthropic registry, so review the plugin source before installing.&lt;/p&gt;
 
 &lt;!-- INSTRUCTION FOR LLM: Confirm with the user that it is okay to use non-official LSP plugins before installing them. --&gt;
 
@@ -100,7 +1008,7 @@ claude plugin install lua-lsp
 &lt;/div&gt;
 &lt;/div&gt;
 
-&lt;h2 id=&quot;step-3--enable-the-plugins-in-settings&quot;&gt;Step 3 — Enable the plugins in settings&lt;/h2&gt;
+&lt;h2 id=&quot;step-3-enable-the-plugins-in-settings&quot;&gt;Step 3: Enable the plugins in settings&lt;/h2&gt;
 
 &lt;p&gt;Add the plugins you installed to &lt;code&gt;~/.claude/settings.json&lt;/code&gt;. Create the file if it doesn’t exist.&lt;/p&gt;
 
@@ -127,13 +1035,13 @@ claude plugin install lua-lsp
 
 &lt;p&gt;Only include entries for languages you actually installed.&lt;/p&gt;
 
-&lt;h2 id=&quot;step-4--restart-claude&quot;&gt;Step 4 — Restart Claude&lt;/h2&gt;
+&lt;h2 id=&quot;step-4-restart-claude&quot;&gt;Step 4: Restart Claude&lt;/h2&gt;
 
 &lt;p&gt;The LSP servers are started when Claude Code launches. Restart it to pick up the new plugins and settings.&lt;/p&gt;
 
 &lt;!-- INSTRUCTION FOR LLM: Ask the user to restart Claude Code, then have them paste this post again. Before proceeding, check that ENABLE_LSP_TOOL is set in ~/.claude/settings.json to confirm the previous step completed. --&gt;
 
-&lt;h2 id=&quot;step-5--verify&quot;&gt;Step 5 — Verify&lt;/h2&gt;
+&lt;h2 id=&quot;step-5-verify&quot;&gt;Step 5: Verify&lt;/h2&gt;
 
 &lt;p&gt;Check the debug log to confirm the servers started:&lt;/p&gt;
 
@@ -155,7 +1063,7 @@ claude plugin install lua-lsp
 
 &lt;p&gt;If a server is missing, check that the LSP’s binary is on your PATH and that the plugin entry is in &lt;code&gt;enabledPlugins&lt;/code&gt;.&lt;/p&gt;
 
-&lt;p&gt;Once the servers are running, you don’t need to do anything differently. Claude picks up the LSP automatically — the next refactor or call-chain trace just works faster.&lt;/p&gt;
+&lt;p&gt;Once the servers are running, you don’t need to do anything differently. Claude picks up the LSP automatically. The next refactor or call-chain trace just works faster.&lt;/p&gt;
 </description>
       <pubDate>Sun, 01 Mar 2026 00:00:00 +0530</pubDate>
       <link>https://blog.ravilazar.com/Ditch-Grep-and-Speed-up-Claude-Code-with-LSPs</link>

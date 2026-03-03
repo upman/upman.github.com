@@ -1,0 +1,2253 @@
+[
+  {
+    "id": 79,
+    "header": {
+      "id": 79,
+      "name": "Gemini 3 Pro Preview",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 1,
+      "medal": "gold",
+      "modelVersion": {
+        "id": 79,
+        "benchmarkModelId": 75,
+        "slug": "gemini-3-pro-preview",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://blog.google/products-and-platforms/products/gemini/gemini-3/",
+        "modelProxySlug": "google/gemini-3-pro-preview",
+        "displayName": "Gemini 3 Pro Preview",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemini 3 Pro Preview",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 79,
+        "value": 0.9386127332,
+        "confidenceInterval": 0.003970232828,
+        "isBestScore": true,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9386127332,
+            "confidenceInterval": 0.003970232828
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemini 3 Pro Preview"
+      }
+    ]
+  },
+  {
+    "id": 64,
+    "header": {
+      "id": 64,
+      "name": "GPT-5",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 2,
+      "medal": "silver",
+      "modelVersion": {
+        "id": 64,
+        "benchmarkModelId": 59,
+        "slug": "gpt-5-2025-08-07",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://platform.openai.com/docs/models/gpt-5",
+        "knowledgeCutoff": "2024-09-30T22:00:00.000Z",
+        "modelProxySlug": "openai/gpt-5-2025-08-07",
+        "displayName": "GPT-5",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "GPT-5",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 64,
+        "value": 0.934767127189859,
+        "confidenceInterval": 0.0040843088437848,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.934767127189859,
+            "confidenceInterval": 0.0040843088437848
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "GPT-5"
+      }
+    ]
+  },
+  {
+    "id": 68,
+    "header": {
+      "id": 68,
+      "name": "Claude Opus 4.1",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 3,
+      "medal": "bronze",
+      "modelVersion": {
+        "id": 68,
+        "benchmarkModelId": 63,
+        "slug": "claude-opus-4-1-20250805",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.anthropic.com/news/claude-opus-4-1",
+        "knowledgeCutoff": "2025-03-05T05:00:00.000Z",
+        "modelProxySlug": "anthropic/claude-opus-4-1@20250805",
+        "displayName": "Claude Opus 4.1",
+        "organization": {
+          "name": "Anthropic",
+          "id": 5088,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5088/thumbnail.jpg?t=2025-02-25-19-08-55",
+          "slug": "anthropic"
+        },
+        "name": "Claude Opus 4.1",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 68,
+        "value": 0.9339225889229452,
+        "confidenceInterval": 0.0041107085168204,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9339225889229452,
+            "confidenceInterval": 0.0041107085168204
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Claude Opus 4.1"
+      }
+    ]
+  },
+  {
+    "id": 43,
+    "header": {
+      "id": 43,
+      "name": "Claude Opus 4",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 4,
+      "modelVersion": {
+        "id": 43,
+        "benchmarkModelId": 43,
+        "slug": "claude-opus-4-20250514",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.anthropic.com/news/claude-4",
+        "knowledgeCutoff": "2025-03-01T05:00:00.000Z",
+        "modelProxySlug": "anthropic/claude-opus-4@20250514",
+        "displayName": "Claude Opus 4",
+        "organization": {
+          "name": "Anthropic",
+          "id": 5088,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5088/thumbnail.jpg?t=2025-02-25-19-08-55",
+          "slug": "anthropic"
+        },
+        "name": "Claude Opus 4",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 43,
+        "value": 0.928286568864834,
+        "confidenceInterval": 0.004267513375697,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.928286568864834,
+            "confidenceInterval": 0.004267513375697
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Claude Opus 4"
+      }
+    ]
+  },
+  {
+    "id": 47,
+    "header": {
+      "id": 47,
+      "name": "Gemini 2.5 Pro Preview",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 5,
+      "modelVersion": {
+        "id": 47,
+        "benchmarkModelId": 7,
+        "slug": "gemini-2.5-pro-preview-06-05",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://www.kaggle.com/models/google/gemini-2.5-pro-api",
+        "knowledgeCutoff": "2025-01-01T00:00:00.000Z",
+        "displayName": "Gemini 2.5 Pro Preview",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemini 2.5 Pro Preview",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 47,
+        "value": 0.9235863837060247,
+        "confidenceInterval": 0.0043939766436499,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9235863837060247,
+            "confidenceInterval": 0.0043939766436499
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemini 2.5 Pro Preview"
+      }
+    ]
+  },
+  {
+    "id": 32,
+    "header": {
+      "id": 32,
+      "name": "o3",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 6,
+      "modelVersion": {
+        "id": 32,
+        "benchmarkModelId": 32,
+        "slug": "o3-2025-04-16",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://platform.openai.com/docs/models/o3",
+        "knowledgeCutoff": "2024-05-31T04:00:00.000Z",
+        "modelProxySlug": "openai/o3-2025-04-16",
+        "displayName": "o3",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "o3",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 32,
+        "value": 0.9227318045862412,
+        "confidenceInterval": 0.004416433916643,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9227318045862412,
+            "confidenceInterval": 0.004416433916643
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "o3"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "header": {
+      "id": 11,
+      "name": "o1",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 7,
+      "modelVersion": {
+        "id": 11,
+        "benchmarkModelId": 11,
+        "slug": "o1-2024-12-17",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://platform.openai.com/docs/models/o1",
+        "knowledgeCutoff": "2023-09-30T04:00:00.000Z",
+        "displayName": "o1",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "o1",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 11,
+        "value": 0.91917105825381,
+        "confidenceInterval": 0.0045083250775284,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.91917105825381,
+            "confidenceInterval": 0.0045083250775284
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "o1"
+      }
+    ]
+  },
+  {
+    "id": 57,
+    "header": {
+      "id": 57,
+      "name": "Grok 4",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 8,
+      "modelVersion": {
+        "id": 57,
+        "benchmarkModelId": 55,
+        "slug": "grok-4-0709",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://x.ai/news/grok-4",
+        "knowledgeCutoff": "2024-11-01T06:00:00.000Z",
+        "modelProxySlug": "xai/grok-4-0709",
+        "displayName": "Grok 4",
+        "organization": {
+          "name": "xAI",
+          "id": 3986,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3986/thumbnail.png?t=2025-02-25-17-16-11",
+          "slug": "xai"
+        },
+        "name": "Grok 4",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 57,
+        "value": 0.9164648910411622,
+        "confidenceInterval": 0.004576421786847,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9164648910411622,
+            "confidenceInterval": 0.004576421786847
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Grok 4"
+      }
+    ]
+  },
+  {
+    "id": 44,
+    "header": {
+      "id": 44,
+      "name": "Claude Sonnet 4",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 9,
+      "modelVersion": {
+        "id": 44,
+        "benchmarkModelId": 44,
+        "slug": "claude-sonnet-4-20250514",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.anthropic.com/news/claude-4",
+        "knowledgeCutoff": "2025-03-01T05:00:00.000Z",
+        "modelProxySlug": "anthropic/claude-sonnet-4@20250514",
+        "displayName": "Claude Sonnet 4",
+        "organization": {
+          "name": "Anthropic",
+          "id": 5088,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5088/thumbnail.jpg?t=2025-02-25-19-08-55",
+          "slug": "anthropic"
+        },
+        "name": "Claude Sonnet 4",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 44,
+        "value": 0.9139011536818116,
+        "confidenceInterval": 0.004639614377026,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9139011536818116,
+            "confidenceInterval": 0.004639614377026
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Claude Sonnet 4"
+      }
+    ]
+  },
+  {
+    "id": 33,
+    "header": {
+      "id": 33,
+      "name": "GPT-4.1",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 10,
+      "modelVersion": {
+        "id": 33,
+        "benchmarkModelId": 33,
+        "slug": "gpt-4.1-2025-04-14",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://platform.openai.com/docs/models/gpt-4.1",
+        "knowledgeCutoff": "2024-05-31T04:00:00.000Z",
+        "modelProxySlug": "openai/gpt-4.1-2025-04-14",
+        "displayName": "GPT-4.1",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "GPT-4.1",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 33,
+        "value": 0.9031476997578692,
+        "confidenceInterval": 0.004891791821091,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9031476997578692,
+            "confidenceInterval": 0.004891791821091
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "GPT-4.1"
+      }
+    ]
+  },
+  {
+    "id": 48,
+    "header": {
+      "id": 48,
+      "name": "DeepSeek-R1",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 11,
+      "modelVersion": {
+        "id": 48,
+        "benchmarkModelId": 26,
+        "slug": "deepseek-r1-0528",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://api-docs.deepseek.com/news/news250528",
+        "knowledgeCutoff": "2025-01-01T00:00:00.000Z",
+        "modelProxySlug": "deepseek-ai/deepseek-r1-0528",
+        "displayName": "DeepSeek-R1",
+        "organization": {
+          "name": "DeepSeek",
+          "id": 4582,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/4582/thumbnail.png",
+          "slug": "deepseek-ai"
+        },
+        "name": "DeepSeek-R1",
+        "license": {
+          "id": 48,
+          "name": "DeepSeek License Agreement",
+          "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 48,
+        "value": 0.9031476997578692,
+        "confidenceInterval": 0.004891791821091,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9031476997578692,
+            "confidenceInterval": 0.004891791821091
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "DeepSeek-R1"
+      }
+    ]
+  },
+  {
+    "id": 16,
+    "header": {
+      "id": 16,
+      "name": "Claude 3.7 Sonnet",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 12,
+      "modelVersion": {
+        "id": 16,
+        "benchmarkModelId": 16,
+        "slug": "claude-3-7-sonnet-20250219",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://www.anthropic.com/news/claude-3-7-sonnet",
+        "knowledgeCutoff": "2024-11-01T04:00:00.000Z",
+        "displayName": "Claude 3.7 Sonnet",
+        "organization": {
+          "name": "Anthropic",
+          "id": 5088,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5088/thumbnail.jpg?t=2025-02-25-19-08-55",
+          "slug": "anthropic"
+        },
+        "name": "Claude 3.7 Sonnet",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 16,
+        "value": 0.901652186298248,
+        "confidenceInterval": 0.0049253316769007,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.901652186298248,
+            "confidenceInterval": 0.0049253316769007
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Claude 3.7 Sonnet"
+      }
+    ]
+  },
+  {
+    "id": 45,
+    "header": {
+      "id": 45,
+      "name": "Grok 3",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 13,
+      "modelVersion": {
+        "id": 45,
+        "benchmarkModelId": 45,
+        "slug": "grok-3",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://x.ai/api",
+        "knowledgeCutoff": "2024-11-17T05:00:00.000Z",
+        "displayName": "Grok 3",
+        "organization": {
+          "name": "xAI",
+          "id": 3986,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3986/thumbnail.png?t=2025-02-25-17-16-11",
+          "slug": "xai"
+        },
+        "name": "Grok 3",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 45,
+        "value": 0.9010824668850592,
+        "confidenceInterval": 0.0049380162510049,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9010824668850592,
+            "confidenceInterval": 0.0049380162510049
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Grok 3"
+      }
+    ]
+  },
+  {
+    "id": 31,
+    "header": {
+      "id": 31,
+      "name": "o4 mini",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 14,
+      "modelVersion": {
+        "id": 31,
+        "benchmarkModelId": 31,
+        "slug": "o4-mini-2025-04-16",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://platform.openai.com/docs/models/o4-mini",
+        "knowledgeCutoff": "2024-05-31T04:00:00.000Z",
+        "modelProxySlug": "openai/o4-mini-2025-04-16",
+        "displayName": "o4 mini",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "o4 mini",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 31,
+        "value": 0.9004415325452215,
+        "confidenceInterval": 0.0049522261290203,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.9004415325452215,
+            "confidenceInterval": 0.0049522261290203
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "o4 mini"
+      }
+    ]
+  },
+  {
+    "id": 70,
+    "header": {
+      "id": 70,
+      "name": "Deepseek V3.1",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 15,
+      "modelVersion": {
+        "id": 70,
+        "benchmarkModelId": 65,
+        "slug": "deepseek-v3.1",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://api-docs.deepseek.com/news/news250821",
+        "knowledgeCutoff": "2025-07-01T04:00:00.000Z",
+        "modelProxySlug": "deepseek-ai/deepseek-v3.1",
+        "displayName": "",
+        "organization": {
+          "name": "DeepSeek",
+          "id": 4582,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/4582/thumbnail.png",
+          "slug": "deepseek-ai"
+        },
+        "name": "Deepseek V3.1",
+        "license": {
+          "id": 48,
+          "name": "DeepSeek License Agreement",
+          "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 70,
+        "value": 0.896168636946304,
+        "confidenceInterval": 0.005045366912495712,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.896168636946304,
+            "confidenceInterval": 0.005045366912495712
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Deepseek V3.1"
+      }
+    ]
+  },
+  {
+    "id": 25,
+    "header": {
+      "id": 25,
+      "name": "DeepSeek-V3",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 16,
+      "modelVersion": {
+        "id": 25,
+        "benchmarkModelId": 25,
+        "slug": "deepseek-v3",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://www.kaggle.com/models/deepseek-ai/deepseek-v3",
+        "knowledgeCutoff": "2024-06-01T04:00:00.000Z",
+        "displayName": "DeepSeek-V3",
+        "organization": {
+          "name": "DeepSeek",
+          "id": 4582,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/4582/thumbnail.png",
+          "slug": "deepseek-ai"
+        },
+        "name": "DeepSeek-V3",
+        "license": {
+          "id": 48,
+          "name": "DeepSeek License Agreement",
+          "url": "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/LICENSE-MODEL",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 25,
+        "value": 0.8951004130465746,
+        "confidenceInterval": 0.0050682306914378,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8951004130465746,
+            "confidenceInterval": 0.0050682306914378
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "DeepSeek-V3"
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "header": {
+      "id": 1,
+      "name": "Claude 3.5 Sonnet",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 17,
+      "modelVersion": {
+        "id": 1,
+        "benchmarkModelId": 1,
+        "slug": "claude-3-5-sonnet-20241022",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.anthropic.com/claude/sonnet",
+        "knowledgeCutoff": "2024-04-01T00:00:00.000Z",
+        "modelProxySlug": "anthropic/claude-3-5-sonnet-v2@20241022",
+        "displayName": "Claude 3.5 Sonnet",
+        "organization": {
+          "name": "Anthropic",
+          "id": 5088,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5088/thumbnail.jpg?t=2025-02-25-19-08-55",
+          "slug": "anthropic"
+        },
+        "name": "Claude 3.5 Sonnet",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 1,
+        "value": 0.8948155533399801,
+        "confidenceInterval": 0.0050742999103361,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8948155533399801,
+            "confidenceInterval": 0.0050742999103361
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Claude 3.5 Sonnet"
+      }
+    ]
+  },
+  {
+    "id": 46,
+    "header": {
+      "id": 46,
+      "name": "Grok 3 Mini",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 18,
+      "modelVersion": {
+        "id": 46,
+        "benchmarkModelId": 46,
+        "slug": "grok-3-mini",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://x.ai/api",
+        "knowledgeCutoff": "2024-11-17T05:00:00.000Z",
+        "displayName": "Grok 3 Mini",
+        "organization": {
+          "name": "xAI",
+          "id": 3986,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3986/thumbnail.png?t=2025-02-25-17-16-11",
+          "slug": "xai"
+        },
+        "name": "Grok 3 Mini",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 46,
+        "value": 0.8916108816407919,
+        "confidenceInterval": 0.0051417875531432,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8916108816407919,
+            "confidenceInterval": 0.0051417875531432
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Grok 3 Mini"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "header": {
+      "id": 3,
+      "name": "GPT-4o",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 19,
+      "modelVersion": {
+        "id": 3,
+        "benchmarkModelId": 3,
+        "slug": "gpt-4o-2024-08-06",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://help.openai.com/en/articles/9624314-model-release-notes",
+        "knowledgeCutoff": "2023-10-01T00:00:00.000Z",
+        "modelProxySlug": "openai/gpt-4o-2024-08-06",
+        "displayName": "GPT-4o",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "GPT-4o",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 3,
+        "value": 0.8808574277168495,
+        "confidenceInterval": 0.0053582121301719,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8808574277168495,
+            "confidenceInterval": 0.0053582121301719
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "GPT-4o"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "header": {
+      "id": 8,
+      "name": "Grok 2",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 20,
+      "modelVersion": {
+        "id": 8,
+        "benchmarkModelId": 8,
+        "slug": "grok-2-1212",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://x.ai/news/grok-1212",
+        "knowledgeCutoff": "2024-07-17T04:00:00.000Z",
+        "displayName": "Grok 2",
+        "organization": {
+          "name": "xAI",
+          "id": 3986,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3986/thumbnail.png?t=2025-02-25-17-16-11",
+          "slug": "xai"
+        },
+        "name": "Grok 2",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 8,
+        "value": 0.8800740635237145,
+        "confidenceInterval": 0.0053734074979701,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8800740635237145,
+            "confidenceInterval": 0.0053734074979701
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Grok 2"
+      }
+    ]
+  },
+  {
+    "id": 65,
+    "header": {
+      "id": 65,
+      "name": "gpt-oss-120b",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 21,
+      "modelVersion": {
+        "id": 65,
+        "benchmarkModelId": 60,
+        "slug": "gpt-oss-120b",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://openai.com/index/introducing-gpt-oss/",
+        "modelProxySlug": "openai/gpt-oss-120b",
+        "displayName": "GPT OSS 120b",
+        "description": "state-of-the-art open-weight language models that deliver strong real-world performance at low cost.",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "gpt-oss-120b",
+        "license": {
+          "id": 30,
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 65,
+        "value": 0.8772966813844182,
+        "confidenceInterval": 0.0054266898890181,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8772966813844182,
+            "confidenceInterval": 0.0054266898890181
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "gpt-oss-120b"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "header": {
+      "id": 6,
+      "name": "Gemini 2.0 Flash",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 22,
+      "modelVersion": {
+        "id": 6,
+        "benchmarkModelId": 6,
+        "slug": "gemini-2.0-flash-001",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.kaggle.com/models/google/gemini-2.0-flash-api",
+        "knowledgeCutoff": "2024-06-01T04:00:00.000Z",
+        "modelProxySlug": "google/gemini-2.0-flash",
+        "displayName": "Gemini 2.0 Flash",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemini 2.0 Flash",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 6,
+        "value": 0.876940606751175,
+        "confidenceInterval": 0.0054334550887876,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.876940606751175,
+            "confidenceInterval": 0.0054334550887876
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemini 2.0 Flash"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "header": {
+      "id": 2,
+      "name": "Gemini 1.5 Pro",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 23,
+      "modelVersion": {
+        "id": 2,
+        "benchmarkModelId": 2,
+        "slug": "gemini-1.5-pro-002",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://www.kaggle.com/models/google/gemini-1.5-pro-api",
+        "knowledgeCutoff": "2023-11-01T00:00:00.000Z",
+        "modelProxySlug": "",
+        "displayName": "Gemini 1.5 Pro",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemini 1.5 Pro",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 2,
+        "value": 0.868964534966529,
+        "confidenceInterval": 0.005581218945844,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.868964534966529,
+            "confidenceInterval": 0.005581218945844
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemini 1.5 Pro"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "header": {
+      "id": 9,
+      "name": "o3 mini",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 24,
+      "modelVersion": {
+        "id": 9,
+        "benchmarkModelId": 9,
+        "slug": "o3-mini-2025-01-31",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://platform.openai.com/docs/models/o3-mini",
+        "knowledgeCutoff": "2023-09-30T04:00:00.000Z",
+        "displayName": "o3 mini",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "o3 mini",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 9,
+        "value": 0.8587808004557755,
+        "confidenceInterval": 0.0057599888489916,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8587808004557755,
+            "confidenceInterval": 0.0057599888489916
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "o3 mini"
+      }
+    ]
+  },
+  {
+    "id": 19,
+    "header": {
+      "id": 19,
+      "name": "Mistral Large 2",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 25,
+      "modelVersion": {
+        "id": 19,
+        "benchmarkModelId": 19,
+        "slug": "mistral-large-2411",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://mistral.ai/news/mistral-large-2407",
+        "knowledgeCutoff": "2024-10-01T04:00:00.000Z",
+        "displayName": "Mistral Large 2",
+        "organization": {
+          "name": "Mistral AI",
+          "id": 3875,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3875/thumbnail.jpg",
+          "slug": "mistral-ai"
+        },
+        "name": "Mistral Large 2",
+        "license": {
+          "id": 49,
+          "name": "Mistral AI Research License",
+          "url": "https://mistral.ai/static/licenses/MRL-0.1.md",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 19,
+        "value": 0.8513032331576699,
+        "confidenceInterval": 0.0058847295842037,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8513032331576699,
+            "confidenceInterval": 0.0058847295842037
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Mistral Large 2"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "header": {
+      "id": 10,
+      "name": "o1 mini",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 26,
+      "modelVersion": {
+        "id": 10,
+        "benchmarkModelId": 10,
+        "slug": "o1-mini-2024-09-12",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://platform.openai.com/docs/models/o1-mini",
+        "knowledgeCutoff": "2023-09-30T04:00:00.000Z",
+        "displayName": "o1 mini",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "o1 mini",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 10,
+        "value": 0.8396239851872953,
+        "confidenceInterval": 0.0060693996264437,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8396239851872953,
+            "confidenceInterval": 0.0060693996264437
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "o1 mini"
+      }
+    ]
+  },
+  {
+    "id": 66,
+    "header": {
+      "id": 66,
+      "name": "gpt-oss-20b",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 27,
+      "modelVersion": {
+        "id": 66,
+        "benchmarkModelId": 61,
+        "slug": "gpt-oss-20b",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://platform.openai.com/docs/models/gpt-oss-20b",
+        "knowledgeCutoff": "2024-06-01T04:00:00.000Z",
+        "modelProxySlug": "openai/gpt-oss-20b",
+        "displayName": "",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "gpt-oss-20b",
+        "license": {
+          "id": 30,
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 66,
+        "value": 0.8221051132317334,
+        "confidenceInterval": 0.0063252692066554,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8221051132317334,
+            "confidenceInterval": 0.0063252692066554
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "gpt-oss-20b"
+      }
+    ]
+  },
+  {
+    "id": 28,
+    "header": {
+      "id": 28,
+      "name": "Gemma 3 27B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 28,
+      "modelVersion": {
+        "id": 28,
+        "benchmarkModelId": 28,
+        "slug": "gemma-3-27b-it",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.kaggle.com/models/google/gemma-3/transformers/gemma-3-27b-it",
+        "modelProxySlug": "google/gemma-3-27b",
+        "displayName": "Gemma 3 27B",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemma 3 27B",
+        "license": {
+          "id": 34,
+          "name": "Gemma",
+          "url": "",
+          "agreementRequired": true,
+          "currentRevisionNumber": 3
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 28,
+        "value": 0.8151260504201681,
+        "confidenceInterval": 0.0064207217971951,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8151260504201681,
+            "confidenceInterval": 0.0064207217971951
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemma 3 27B"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "header": {
+      "id": 4,
+      "name": "Gemini 1.5 Flash",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 29,
+      "modelVersion": {
+        "id": 4,
+        "benchmarkModelId": 4,
+        "slug": "gemini-1.5-flash-002",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://www.kaggle.com/models/google/gemini-1.5-flash-api",
+        "knowledgeCutoff": "2023-11-01T04:00:00.000Z",
+        "modelProxySlug": "",
+        "displayName": "Gemini 1.5 Flash",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemini 1.5 Flash",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 4,
+        "value": 0.81398661159379,
+        "confidenceInterval": 0.0064359748669395,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.81398661159379,
+            "confidenceInterval": 0.0064359748669395
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemini 1.5 Flash"
+      }
+    ]
+  },
+  {
+    "id": 13,
+    "header": {
+      "id": 13,
+      "name": "GPT-4o mini",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 30,
+      "modelVersion": {
+        "id": 13,
+        "benchmarkModelId": 13,
+        "slug": "gpt-4o-mini-2024-07-18",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://platform.openai.com/docs/models/gpt-4o-mini",
+        "knowledgeCutoff": "2023-09-30T04:00:00.000Z",
+        "displayName": "GPT-4o mini",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "GPT-4o mini",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 13,
+        "value": 0.8137729668138441,
+        "confidenceInterval": 0.0064388246537501,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8137729668138441,
+            "confidenceInterval": 0.0064388246537501
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "GPT-4o mini"
+      }
+    ]
+  },
+  {
+    "id": 15,
+    "header": {
+      "id": 15,
+      "name": "Claude 3.5 Haiku",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 31,
+      "modelVersion": {
+        "id": 15,
+        "benchmarkModelId": 15,
+        "slug": "claude-3-5-haiku-20241022",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.anthropic.com/news/3-5-models-and-computer-use",
+        "knowledgeCutoff": "2024-04-01T04:00:00.000Z",
+        "modelProxySlug": "anthropic/claude-3-5-haiku@20241022",
+        "displayName": "Claude 3.5 Haiku",
+        "organization": {
+          "name": "Anthropic",
+          "id": 5088,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5088/thumbnail.jpg?t=2025-02-25-19-08-55",
+          "slug": "anthropic"
+        },
+        "name": "Claude 3.5 Haiku",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 15,
+        "value": 0.8097849309215212,
+        "confidenceInterval": 0.0064914379740427,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.8097849309215212,
+            "confidenceInterval": 0.0064914379740427
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Claude 3.5 Haiku"
+      }
+    ]
+  },
+  {
+    "id": 74,
+    "header": {
+      "id": 74,
+      "name": "Granite 4.0 Small",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 32,
+      "modelVersion": {
+        "id": 74,
+        "benchmarkModelId": 70,
+        "slug": "granite-4.0-h-small",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.kaggle.com/models/ibm-research/granite-4.0",
+        "modelProxySlug": "ibm/granite-4.0-h-small",
+        "displayName": "Granite 4.0 Small",
+        "organization": {
+          "name": "IBM Research",
+          "id": 5164,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5164/thumbnail.png?t=2026-01-30-17-48-24",
+          "slug": "ibm-research"
+        },
+        "name": "Granite 4.0 Small",
+        "license": {
+          "id": 30,
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 74,
+        "value": 0.7771921076999786,
+        "confidenceInterval": 0.0068835025882132,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.7771921076999786,
+            "confidenceInterval": 0.0068835025882132
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Granite 4.0 Small"
+      }
+    ]
+  },
+  {
+    "id": 21,
+    "header": {
+      "id": 21,
+      "name": "Mixtral 8x22B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 33,
+      "modelVersion": {
+        "id": 21,
+        "benchmarkModelId": 21,
+        "slug": "open-mixtral-8x22b-2404",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://mistral.ai/news/mixtral-8x22b",
+        "displayName": "Mixtral 8x22B",
+        "organization": {
+          "name": "Mistral AI",
+          "id": 3875,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3875/thumbnail.jpg",
+          "slug": "mistral-ai"
+        },
+        "name": "Mixtral 8x22B",
+        "license": {
+          "id": 30,
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 21,
+        "value": 0.7748896168636946,
+        "confidenceInterval": 0.0069079834916554,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.7748896168636946,
+            "confidenceInterval": 0.0069079834916554
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Mixtral 8x22B"
+      }
+    ]
+  },
+  {
+    "id": 29,
+    "header": {
+      "id": 29,
+      "name": "Gemma 3 12B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 34,
+      "modelVersion": {
+        "id": 29,
+        "benchmarkModelId": 29,
+        "slug": "gemma-3-12b-it",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.kaggle.com/models/google/gemma-3/transformers/gemma-3-12b-it",
+        "modelProxySlug": "google/gemma-3-12b",
+        "displayName": "Gemma 3 12B",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemma 3 12B",
+        "license": {
+          "id": 34,
+          "name": "Gemma",
+          "url": "",
+          "agreementRequired": true,
+          "currentRevisionNumber": 3
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 29,
+        "value": 0.7712576556046147,
+        "confidenceInterval": 0.0069471493362301,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.7712576556046147,
+            "confidenceInterval": 0.0069471493362301
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemma 3 12B"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "header": {
+      "id": 5,
+      "name": "Gemini 1.5 Flash 8B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 35,
+      "modelVersion": {
+        "id": 5,
+        "benchmarkModelId": 5,
+        "slug": "gemini-1.5-flash-8b-001",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://www.kaggle.com/models/google/gemini-1.5-flash-8b-api",
+        "knowledgeCutoff": "2024-08-01T04:00:00.000Z",
+        "displayName": "Gemini 1.5 Flash 8B",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemini 1.5 Flash 8B",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 5,
+        "value": 0.750106822389973,
+        "confidenceInterval": 0.0071609784070421,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.750106822389973,
+            "confidenceInterval": 0.0071609784070421
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemini 1.5 Flash 8B"
+      }
+    ]
+  },
+  {
+    "id": 20,
+    "header": {
+      "id": 20,
+      "name": "Codestral",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 36,
+      "modelVersion": {
+        "id": 20,
+        "benchmarkModelId": 20,
+        "slug": "codestral-2501",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://mistral.ai/news/codestral-2501",
+        "displayName": "Codestral",
+        "organization": {
+          "name": "Mistral AI",
+          "id": 3875,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3875/thumbnail.jpg",
+          "slug": "mistral-ai"
+        },
+        "name": "Codestral",
+        "license": {
+          "id": 49,
+          "name": "Mistral AI Research License",
+          "url": "https://mistral.ai/static/licenses/MRL-0.1.md",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 20,
+        "value": 0.6759008688221051,
+        "confidenceInterval": 0.00774130257301,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.6759008688221051,
+            "confidenceInterval": 0.00774130257301
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Codestral"
+      }
+    ]
+  },
+  {
+    "id": 58,
+    "header": {
+      "id": 58,
+      "name": "Qwen 3 235B A22B Thinking",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 37,
+      "modelVersion": {
+        "id": 58,
+        "benchmarkModelId": 56,
+        "slug": "qwen3-235b-a22b-thinking-2507",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://github.com/QwenLM/Qwen3",
+        "modelProxySlug": "",
+        "displayName": "Qwen 3 235B A22B Thinking",
+        "organization": {
+          "name": "QwenLM",
+          "id": 3878,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3878/thumbnail.jpg",
+          "slug": "qwen-lm"
+        },
+        "name": "Qwen 3 235B A22B Thinking",
+        "license": {
+          "id": 30,
+          "name": "Apache 2.0",
+          "url": "https://www.apache.org/licenses/LICENSE-2.0",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 58,
+        "value": 0.66735507762427,
+        "confidenceInterval": 0.0077929616772905,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.66735507762427,
+            "confidenceInterval": 0.0077929616772905
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Qwen 3 235B A22B Thinking"
+      }
+    ]
+  },
+  {
+    "id": 14,
+    "header": {
+      "id": 14,
+      "name": "GPT-3.5 Turbo",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 38,
+      "modelVersion": {
+        "id": 14,
+        "benchmarkModelId": 14,
+        "slug": "gpt-3.5-turbo-1106",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://platform.openai.com/docs/models/gpt-3.5-turbo",
+        "knowledgeCutoff": "2021-08-31T04:00:00.000Z",
+        "displayName": "GPT-3.5 Turbo",
+        "organization": {
+          "name": "OpenAI",
+          "id": 5089,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/5089/thumbnail.png?t=2025-08-14-19-21-59",
+          "slug": "openai"
+        },
+        "name": "GPT-3.5 Turbo",
+        "license": {
+          "id": 50,
+          "name": "Proprietary",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 14,
+        "value": 0.6640079760717846,
+        "confidenceInterval": 0.0078124048088173,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.6640079760717846,
+            "confidenceInterval": 0.0078124048088173
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "GPT-3.5 Turbo"
+      }
+    ]
+  },
+  {
+    "id": 27,
+    "header": {
+      "id": 27,
+      "name": "Gemma 3 4B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 39,
+      "modelVersion": {
+        "id": 27,
+        "benchmarkModelId": 27,
+        "slug": "gemma-3-4b-it",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": true,
+        "externalUrl": "https://www.kaggle.com/models/google/gemma-3/transformers/gemma-3-4b-it",
+        "modelProxySlug": "google/gemma-3-4b",
+        "displayName": "Gemma 3 4B",
+        "organization": {
+          "name": "Google",
+          "id": 855,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/855/thumbnail.png",
+          "slug": "google"
+        },
+        "name": "Gemma 3 4B",
+        "license": {
+          "id": 34,
+          "name": "Gemma",
+          "url": "",
+          "agreementRequired": true,
+          "currentRevisionNumber": 3
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 27,
+        "value": 0.6274747187010398,
+        "confidenceInterval": 0.0079966778131517,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.6274747187010398,
+            "confidenceInterval": 0.0079966778131517
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Gemma 3 4B"
+      }
+    ]
+  },
+  {
+    "id": 17,
+    "header": {
+      "id": 17,
+      "name": "Ministral 3B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 40,
+      "modelVersion": {
+        "id": 17,
+        "benchmarkModelId": 17,
+        "slug": "ministral-3b-2410",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://mistral.ai/news/ministraux",
+        "knowledgeCutoff": "2024-09-01T04:00:00.000Z",
+        "displayName": "Ministral 3B",
+        "organization": {
+          "name": "Mistral AI",
+          "id": 3875,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3875/thumbnail.jpg",
+          "slug": "mistral-ai"
+        },
+        "name": "Ministral 3B",
+        "license": {
+          "id": 49,
+          "name": "Mistral AI Research License",
+          "url": "https://mistral.ai/static/licenses/MRL-0.1.md",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 17,
+        "value": 0.5760575416607321,
+        "confidenceInterval": 0.0081737245277542,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.5760575416607321,
+            "confidenceInterval": 0.0081737245277542
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Ministral 3B"
+      }
+    ]
+  },
+  {
+    "id": 18,
+    "header": {
+      "id": 18,
+      "name": "Ministral 8B",
+      "type": "principal",
+      "hasRank": true,
+      "rank": 41,
+      "modelVersion": {
+        "id": 18,
+        "benchmarkModelId": 18,
+        "slug": "ministral-8b-2410",
+        "isDefault": true,
+        "published": true,
+        "allowModelProxy": false,
+        "externalUrl": "https://mistral.ai/news/ministraux",
+        "knowledgeCutoff": "2024-09-01T04:00:00.000Z",
+        "displayName": "Ministral 8B",
+        "organization": {
+          "name": "Mistral AI",
+          "id": 3875,
+          "thumbnailImageUrl": "https://storage.googleapis.com/kaggle-organizations/3875/thumbnail.jpg",
+          "slug": "mistral-ai"
+        },
+        "name": "Ministral 8B",
+        "license": {
+          "id": 49,
+          "name": "Mistral AI Research License",
+          "url": "https://mistral.ai/static/licenses/MRL-0.1.md",
+          "agreementRequired": false
+        }
+      },
+      "isNew": false
+    },
+    "entries": [
+      {
+        "taskVersionId": 21,
+        "modelVersionId": 18,
+        "value": 0.5727816550348953,
+        "confidenceInterval": 0.0081818799564311,
+        "isBestScore": false,
+        "state": "unspecified",
+        "result": {
+          "numericResult": {
+            "value": 0.5727816550348953,
+            "confidenceInterval": 0.0081818799564311
+          },
+          "type": "unspecified",
+          "assertionStatuses": []
+        },
+        "taskVersionName": "Score",
+        "modelVersionName": "Ministral 8B"
+      }
+    ]
+  }
+]

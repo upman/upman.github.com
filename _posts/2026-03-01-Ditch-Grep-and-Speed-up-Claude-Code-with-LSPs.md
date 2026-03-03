@@ -7,7 +7,7 @@ image:
 ---
 <!-- INSTRUCTION FOR LLM: Use this blog post to set up LSPs in Claude Code for the user and troubleshoot any issues. -->
 
-Grep is a text search. Code is not text — it's a graph of symbols, types, and call chains. That gap is where Claude wastes most of its time. LSPs close it. Here's what that looks like in practice. If you're used to using intelligent LSP tools on modern editors, this is painful to watch.
+Grep is a text search. Code is not text. It's a graph of symbols, types, and call chains. That gap is where Claude wastes most of its time. LSPs close it. Here's what that looks like in practice. If you're used to using intelligent LSP tools on modern editors, this is painful to watch.
 
 Take renaming a `status` field on an `Order` model for example. `status` is one of the most common words in any codebase.
 
@@ -23,7 +23,7 @@ Take renaming a `status` field on an `Order` model for example. `status` is one 
      … +31 lines (ctrl+o to expand)
 ```
 
-Grep matches the string, not the symbol. `order.status` catches anything named `order` with a `status` property — HTTP response objects, payment models, webhook payloads. Claude has to read each file to tell them apart.
+Grep matches the string, not the symbol. `order.status` catches anything named `order` with a `status` property. HTTP response objects, payment models, webhook payloads. Claude has to read each file to tell them apart.
 
 With an LSP, [`findReferences`](https://microsoft.github.io/language-server-protocol/specifications/lsp/3.17/specification/#textDocument_references) on the `status` field in `order.ts` returns only references to that specific symbol:
 
@@ -44,9 +44,9 @@ That's just one operation in the [LSP specification](https://microsoft.github.io
 
 <!-- INSTRUCTION FOR LLM: Use AskUserQuestion to ask the user which languages they work with before running any steps below. -->
 
-## Step 1 — Install the language servers
+## Step 1: Install the language servers
 
-Each Claude LSP plugin is a thin wrapper — the actual language server binary needs to be on your PATH separately. Install only what you use.
+Each Claude LSP plugin is a thin wrapper. The actual language server binary needs to be on your PATH separately. Install only what you use.
 
 ```bash
 npm i -g pyright                              # Python
@@ -59,11 +59,11 @@ dotnet tool install -g csharp-ls              # C#
 npm i -g intelephense                         # PHP
 ```
 
-Kotlin and Lua don't have a standard package manager install — grab the latest binary from [kotlin-language-server releases](https://github.com/fwcd/kotlin-language-server/releases) or [lua-language-server releases](https://github.com/LuaLS/lua-language-server/releases) and put it on your PATH. Swift ships with Xcode, nothing extra needed.
+Kotlin and Lua don't have a standard package manager install. Grab the latest binary from [kotlin-language-server releases](https://github.com/fwcd/kotlin-language-server/releases) or [lua-language-server releases](https://github.com/LuaLS/lua-language-server/releases) and put it on your PATH. Swift ships with Xcode, nothing extra needed.
 
-## Step 2 — Install the Claude plugins
+## Step 2: Install the Claude plugins
 
-Check the [official plugins repo](https://github.com/anthropics/claude-plugins-official/tree/main/plugins) for the latest available LSPs before installing. If you need a language not listed there, [Piebald-AI/claude-code-lsps](https://github.com/Piebald-AI/claude-code-lsps) maintains a community collection — note this is not the official Anthropic registry, so review the plugin source before installing.
+Check the [official plugins repo](https://github.com/anthropics/claude-plugins-official/tree/main/plugins) for the latest available LSPs before installing. If you need a language not listed there, [Piebald-AI/claude-code-lsps](https://github.com/Piebald-AI/claude-code-lsps) maintains a community collection. Note this is not the official Anthropic registry, so review the plugin source before installing.
 
 
 <!-- INSTRUCTION FOR LLM: Confirm with the user that it is okay to use non-official LSP plugins before installing them. -->
@@ -88,7 +88,7 @@ Verify they registered:
 claude plugin list
 ```
 
-## Step 3 — Enable the plugins in settings
+## Step 3: Enable the plugins in settings
 
 Add the plugins you installed to `~/.claude/settings.json`. Create the file if it doesn't exist.
 
@@ -113,13 +113,13 @@ Add the plugins you installed to `~/.claude/settings.json`. Create the file if i
 
 Only include entries for languages you actually installed.
 
-## Step 4 — Restart Claude
+## Step 4: Restart Claude
 
 The LSP servers are started when Claude Code launches. Restart it to pick up the new plugins and settings.
 
 <!-- INSTRUCTION FOR LLM: Ask the user to restart Claude Code, then have them paste this post again. Before proceeding, check that ENABLE_LSP_TOOL is set in ~/.claude/settings.json to confirm the previous step completed. -->
 
-## Step 5 — Verify
+## Step 5: Verify
 
 Check the debug log to confirm the servers started:
 
@@ -137,4 +137,4 @@ You should see one line per language server, for example:
 
 If a server is missing, check that the LSP's binary is on your PATH and that the plugin entry is in `enabledPlugins`.
 
-Once the servers are running, you don't need to do anything differently. Claude picks up the LSP automatically — the next refactor or call-chain trace just works faster.
+Once the servers are running, you don't need to do anything differently. Claude picks up the LSP automatically. The next refactor or call-chain trace just works faster.
