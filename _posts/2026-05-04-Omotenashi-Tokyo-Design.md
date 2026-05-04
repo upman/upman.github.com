@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Omotenashi — A Week of Noticing in Tokyo
+title: Omotenashi, A Week of Noticing in Tokyo
 comments: true
 image:
   feature: shimbashi-station-code.jpeg
@@ -8,17 +8,17 @@ image:
 
 I spent a week in Tokyo for the ClickHouse offsite and I couldn't stop noticing the small design choices that made life better everywhere I went.
 
-Japan has a concept called *omotenashi* — roughly "anticipatory hospitality." Not reacting to what people need. Anticipating it. The goal is to eliminate friction before anyone notices it exists.
+Japan has a concept called *omotenashi*, roughly "anticipatory hospitality." Not reacting to what people need. Anticipating it. The goal is to eliminate friction before anyone notices it exists.
 
 It's engineered into everything.
 
 A few things I noticed:
 
-- Two handrails at different heights — one for adults, one for kids.
+- Two handrails at different heights, one for adults, one for kids.
 - Under-table baskets/boxes at cafes. Your bag never touches the floor, nobody trips.
 - Coffee stirrers with a notch that clips onto the lid. Stays put while you drink.
 - Tablets with real-time voice translation in taxis.
-- Pedestrian crossings with distinct audio cues per direction — a cuckoo for North-South, a chirp for East-West. The sound alternates sides to create a directional path. Brilliant wayfinding for the visually impaired, invisible to everyone else.
+- Pedestrian crossings with distinct audio cues per direction: a cuckoo for North-South, a chirp for East-West. The sound alternates sides to create a directional path. Brilliant wayfinding for the visually impaired, invisible to everyone else.
 - Pedestrian traffic lights with progress bars. Removes that low-grade anxiety of guessing when the light is about to flip.
 
 ![Pedestrian crossing in Tokyo](/images/pedestrian-crossing.jpg)
@@ -34,7 +34,7 @@ A few things I noticed:
 
 ![Umbrella locks with bilingual lock/unlock instructions](/images/umbrella-locks.jpg)
 
-- Metro station codes like G08 — Line G, 8th stop. You don't need to know the name Shimbashi or speak the language. You just follow the number.
+- Metro station codes like G08, meaning Line G, 8th stop. You don't need to know the name Shimbashi or speak the language. You just follow the number.
 
 ![Shimbashi station signage showing the G08 station code](/images/shimbashi-station-code.jpeg)
 
