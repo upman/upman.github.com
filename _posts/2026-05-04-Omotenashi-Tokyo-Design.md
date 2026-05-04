@@ -43,7 +43,7 @@ A few things I noticed:
 
 None of this is high technology. Someone watched how people actually move through spaces, and quietly removed the friction. I love little details like this that make people's lives a little bit easier.
 
-It's not just culture though. Japan's government has actually operationalized good design by establishing the G-Mark. It recognizes good design with an ISO certification style stamp that well-designed products get to brand and promote themselves with. The brand carries a lot of weight since 80% of consumers in Japan recognize this symbol.
+It's not just culture though. Japan's government has actually operationalized good design by establishing the [G-Mark](https://www.g-mark.org/en/learn/what-is-gda). It recognizes good design with an ISO certification style stamp that well-designed products get to brand and promote themselves with. The brand carries a lot of weight since 80% of consumers in Japan recognize this symbol.
 
 ![The G-Mark logo](/images/g-mark-logo.png)
 
