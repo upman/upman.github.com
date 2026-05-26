@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 760" role="img" aria-label="A visual flow of LLM inference from prompt to generated tokens">
+  <defs>
+    <pattern id="grid" width="42" height="42" patternUnits="userSpaceOnUse">
+      <path d="M 42 0 L 0 0 0 42" fill="none" stroke="#d9d3c3" stroke-width="1"/>
+    </pattern>
+    <linearGradient id="ink" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1f2be0"/>
+      <stop offset="1" stop-color="#00a889"/>
+    </linearGradient>
+  </defs>
+  <rect width="1400" height="760" fill="#f0ebde"/>
+  <rect width="1400" height="760" fill="url(#grid)"/>
+  <g fill="none" stroke="#1f2be0" stroke-width="4">
+    <path d="M90 90H1310M90 670H1310"/>
+  </g>
+  <text x="94" y="180" fill="#1f2be0" font-family="Arial, sans-serif" font-size="28" letter-spacing="3">PREFILL -> KV CACHE -> DECODE -> BATCH</text>
+  <g font-family="Arial, sans-serif" font-size="24" font-weight="700">
+    <rect x="110" y="325" width="190" height="92" rx="10" fill="#ffffff" stroke="#1f2be0" stroke-width="4"/>
+    <text x="145" y="380" fill="#1f2be0">Prompt</text>
+    <path d="M320 371H430" stroke="#1f2be0" stroke-width="5"/>
+    <path d="M430 371l-18-14v28z" fill="#1f2be0"/>
+    <rect x="455" y="325" width="190" height="92" rx="10" fill="#ffffff" stroke="#1f2be0" stroke-width="4"/>
+    <text x="492" y="380" fill="#1f2be0">Prefill</text>
+    <path d="M665 371H775" stroke="#1f2be0" stroke-width="5"/>
+    <path d="M775 371l-18-14v28z" fill="#1f2be0"/>
+    <rect x="800" y="300" width="210" height="142" rx="10" fill="#ffffff" stroke="#1f2be0" stroke-width="4"/>
+    <text x="836" y="357" fill="#1f2be0">KV cache</text>
+    <g fill="url(#ink)">
+      <rect x="835" y="385" width="28" height="28"/>
+      <rect x="874" y="385" width="28" height="28"/>
+      <rect x="913" y="385" width="28" height="28"/>
+      <rect x="952" y="385" width="28" height="28"/>
+    </g>
+    <path d="M1030 371H1140" stroke="#1f2be0" stroke-width="5"/>
+    <path d="M1140 371l-18-14v28z" fill="#1f2be0"/>
+    <rect x="1165" y="325" width="150" height="92" rx="10" fill="#ffffff" stroke="#1f2be0" stroke-width="4"/>
+    <text x="1199" y="380" fill="#1f2be0">Decode</text>
+  </g>
+  <g fill="#1f2be0" font-family="Arial, sans-serif" font-size="22">
+    <text x="124" y="505">many prompt tokens</text>
+    <text x="477" y="505">parallel read</text>
+    <text x="817" y="505">saved attention state</text>
+    <text x="1149" y="505">one token at a time</text>
+  </g>
+</svg>
