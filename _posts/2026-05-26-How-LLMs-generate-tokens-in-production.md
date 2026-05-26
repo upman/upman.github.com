@@ -492,7 +492,7 @@ image:
 }
 </style>
 
-I came across this [post](https://introl.com/blog/mixture-of-experts-moe-infrastructure-scaling-sparse-models-guide) on operating Mixture-of-Experts (MoE) models work in production. To make sense of it, I had to back up and understand the serving loop underneath: prefill, decode, KV cache, batching, and routing. The llm serving engines like vllm and sglang.  So I'm writing up my current understanding with some visuals of how I understand it.
+I came across this [guide on operating Mixture-of-Experts (MoE) models in production](https://introl.com/blog/mixture-of-experts-moe-infrastructure-scaling-sparse-models-guide). To make sense of it, I had to back up and understand the serving loop underneath: prefill, decode, KV cache, batching, and routing; the things that serving engines like vLLM and SGLang manage. So I'm writing up my current understanding with some visuals of how I understand it.
 
 Classical ML inference like linear regression, SVMs or CNNs has a tidy shape. An image classifier gets one image and returns one label. A reranker gets a fixed list and returns scores. The input and output sizes are usually known before the request starts.
 
@@ -767,7 +767,7 @@ The model has not changed. The math inside a token step has not changed. But the
 
 Normal decode asks the big model to choose one token, append it, then choose the next token. That choice is serial because token 4 depends on token 3, token 3 depends on token 2, and so on.
 
-Verification is easier because the candidate tokens are already known. If a smaller or cheaper draft path proposes four tokens, the target model can treat them like a short extension of the prompt. It reuses the KV cache for the existing prefix, runs a prefill-like pass over the draft chunk, computes the target model's next-token scores at each proposed position in parallel, and checks how many proposed tokens it can accept from left to right.
+Verification is easier because the candidate tokens are already known. If a smaller or cheaper draft path proposes four tokens, the target model can treat them like a short extension of the prompt. It reuses the KV cache for the existing prefix, runs a prefill-like pass over the draft chunk, computes logits at each draft position in parallel, and checks how many proposed tokens it can accept from left to right.
 
 The target model still does work for each proposed token. The win is that it avoids four separate serial decode steps. Instead of "generate token 1, then token 2, then token 3, then token 4," verification asks "given these four proposed tokens, which prefix of them would the target model have accepted?" The draft chunk is known, so the target can process it as one block.
 
@@ -816,6 +816,7 @@ next_token, draft_tokens, draft_dists = model.propose_multiple(prefix)
 candidate = [next_token] + draft_tokens
 
 # One verification pass over the proposed block.
+# In MTP, the same model verifies its own built-in draft.
 logits = model.forward_with_cache(prefix_kv_cache, candidate)
 target_dists = softmax(logits)
 
