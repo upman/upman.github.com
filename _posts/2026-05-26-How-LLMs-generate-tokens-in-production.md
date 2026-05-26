@@ -492,6 +492,8 @@ image:
 }
 </style>
 
+I started with a narrower question: how do Mixture-of-Experts models work in production? This [MoE infrastructure guide](https://introl.com/blog/mixture-of-experts-moe-infrastructure-scaling-sparse-models-guide) is a useful companion for that question. To make sense of it, I had to back up and understand the serving loop underneath: prefill, decode, KV cache, batching, and routing.
+
 Most ML inference has a tidy shape. An image classifier gets one image and returns one label. A reranker gets a fixed list and returns scores. The input and output sizes are usually known before the request starts.
 
 LLM inference is different because both sides are variable length.
