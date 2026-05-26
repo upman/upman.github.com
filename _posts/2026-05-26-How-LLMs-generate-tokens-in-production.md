@@ -492,9 +492,9 @@ image:
 }
 </style>
 
-I started with a narrower question: how do Mixture-of-Experts models work in production? This [MoE infrastructure guide](https://introl.com/blog/mixture-of-experts-moe-infrastructure-scaling-sparse-models-guide) is a useful companion for that question. To make sense of it, I had to back up and understand the serving loop underneath: prefill, decode, KV cache, batching, and routing.
+I came across this [post](https://introl.com/blog/mixture-of-experts-moe-infrastructure-scaling-sparse-models-guide) on operating Mixture-of-Experts (MoE) models work in production. To make sense of it, I had to back up and understand the serving loop underneath: prefill, decode, KV cache, batching, and routing. The llm serving engines like vllm and sglang.  So I'm writing up my current understanding with some visuals of how I understand it.
 
-Most ML inference has a tidy shape. An image classifier gets one image and returns one label. A reranker gets a fixed list and returns scores. The input and output sizes are usually known before the request starts.
+Classical ML inference like linear regression, SVMs or CNNs has a tidy shape. An image classifier gets one image and returns one label. A reranker gets a fixed list and returns scores. The input and output sizes are usually known before the request starts.
 
 LLM inference is different because both sides are variable length.
 
