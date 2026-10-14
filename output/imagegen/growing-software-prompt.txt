@@ -1,0 +1,8 @@
+Use case: illustration-story
+Asset type: wide header illustration for a personal engineering blog post titled Growing your own software.
+Primary request: A very low-key hand-drawn bonsai tree suggesting software growing to fit its environment.
+Subject: One small, slightly crooked bonsai in a simple shallow pot. A few fine exposed roots curl around a tiny, unbranded computer chip beside the pot. The branches look mostly organic, with just a few subtle right-angle turns and tiny circuit-like nodes. Sparse little leaves.
+Style/medium: A casual observational sketch made by hand in graphite pencil and thin, imperfect ink, with a very faint muted green pencil wash on a few leaves. Understated, intimate, thoughtful, a little whimsical. Visible loose sketch lines, not a polished vector illustration.
+Scene/backdrop: Warm off-white unruled sketchbook paper with very subtle paper grain.
+Composition/framing: Wide landscape 3:2 canvas. The entire pot, chip, and tree form a small vignette in the central third of the canvas, with generous untouched paper on all sides. Keep the full subject within the middle 55 percent of the image height so a wide banner crop remains legible.
+Constraints: No text, no lettering, no labels, no logos, no watermark. No neon, no glow, no elaborate futuristic circuitry, no photorealism, no glossy 3D effects, no charts, no decorative border. Keep it quiet and simple.
